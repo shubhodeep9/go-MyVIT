@@ -1,14 +1,13 @@
 package main
 
 import (
-	"github.com/headzoo/surf"
-	"github.com/headzoo/surf/jar"
-	"github.com/headzoo/surf/browser"
-	"github.com/headzoo/surf/agent"
-	"go-MyVIT/api/login"
 	"fmt"
+	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf"
+	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/agent"
+	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
+	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/jar"
+	"go-MyVIT/api/login"
 )
-
 
 /*
 Developer Note:
@@ -26,14 +25,14 @@ func main() {
 		fmt.Println(err)
 	}
 	/*
-	@TODO retrieve details from GET URL
+		@TODO retrieve details from GET URL
 	*/
 	var (
-		regno string
+		regno    string
 		password string
-		)
+	)
 	fmt.Println("Enter")
-	fmt.Scanf("%s %s",&regno,&password)
-	login.NewLogin(bow,regno,password)
+	fmt.Scanf("%s %s", &regno, &password)
+	login.NewLogin(bow, regno, password)
 	bow.Open("https://academics.vit.ac.in/student/home.asp")
 }
