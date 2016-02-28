@@ -29,12 +29,17 @@ type Login struct {
 	Cookies  []*http.Cookie
 }
 
+type Response struct {
+	Regno  string
+	Status int
+}
+
 /*
 Creates a new StudLogin object and Starts logging in
 @return Login struct
 @param Registration_Number Password
 */
-func NewLogin(bow *browser.Browser, reg, pass string) {
+func NewLogin(bow *browser.Browser, reg, pass string) *Response {
 	newLogin := &Login{
 		regno:    reg,
 		password: pass,
@@ -44,10 +49,11 @@ func NewLogin(bow *browser.Browser, reg, pass string) {
 	go newLogin.DoLogin(status)
 	success := <-status
 	if success == 1 {
-		fmt.Println("Success")
 		bow.SetSiteCookies(newLogin.GetCookies())
-	} else {
-		fmt.Println("Try again")
+	}
+	return &Response{
+		Regno:  reg,
+		Status: success,
 	}
 }
 
@@ -59,8 +65,9 @@ login.py:
 	@returns ASPSESSIONIDQAWCRCSR to cookie.txt
 */
 func (l *Login) DoLogin(status chan int) {
-	exec.Command("python", "login/login.py", l.regno, l.password).Output()
-	dat, _ := ioutil.ReadFile("login/cookie.txt")
+	s, _ := exec.Command("python", "api/login/login.py", l.regno, l.password).Output()
+	fmt.Println(s)
+	dat, _ := ioutil.ReadFile("api/login/cookie.txt")
 	if strings.Contains(string(dat), "14BCS0002") {
 		index := strings.Index(string(dat), "ASPSESSIONIDQAWCRCSR") + 21
 		l.Session = string(dat)[index : index+24]
