@@ -12,7 +12,7 @@ br.set_handle_robots(False)
 br.set_handle_equiv(True)
 br.set_handle_redirect(True)
 br.set_handle_referer(True)
-cj = cookielib.MozillaCookieJar('api/login/cookie.txt')
+cj = cookielib.MozillaCookieJar('api/login/'+regno+'.txt')
 br.set_cookiejar(cj)
 response = br.open("https://academics.vit.ac.in/student/stud_login.asp")
 

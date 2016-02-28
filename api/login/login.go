@@ -1,7 +1,6 @@
 package login
 
 import (
-	"fmt"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"io/ioutil"
 	"net/http"
@@ -30,9 +29,11 @@ type Login struct {
 }
 
 type Response struct {
-	Regno  string
-	Status int
+	Regno  string `json:"regno"`
+	Status int 	`json:"status"`
 }
+
+var Sessionname string
 
 /*
 Creates a new StudLogin object and Starts logging in
@@ -65,11 +66,13 @@ login.py:
 	@returns ASPSESSIONIDQAWCRCSR to cookie.txt
 */
 func (l *Login) DoLogin(status chan int) {
-	s, _ := exec.Command("python", "api/login/login.py", l.regno, l.password).Output()
-	fmt.Println(s)
-	dat, _ := ioutil.ReadFile("api/login/cookie.txt")
+	exec.Command("python", "api/login/login.py", l.regno, l.password).Output()
+	//fmt.Println(s)
+	dat, _ := ioutil.ReadFile("api/login/"+l.regno+".txt")
+	exec.Command("rm","api/login/"+l.regno+".txt").Output()
 	if strings.Contains(string(dat), "14BCS0002") {
-		index := strings.Index(string(dat), "ASPSESSIONIDQAWCRCSR") + 21
+		index := strings.Index(string(dat), "ASPSESSION") + 21
+		Sessionname = string(dat)[index-21:index-1]
 		l.Session = string(dat)[index : index+24]
 		l.setSession()
 		status <- 1
@@ -84,7 +87,7 @@ Implements *http.Cookie struct
 */
 func (l *Login) setSession() {
 	session := &http.Cookie{
-		Name:   "ASPSESSIONIDQAWCRCSR",
+		Name:   Sessionname,
 		Value:  l.Session,
 		Path:   "/",
 		Domain: "academics.vit.ac.in",
