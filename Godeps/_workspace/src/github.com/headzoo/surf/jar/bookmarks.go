@@ -2,8 +2,8 @@ package jar
 
 import (
 	"encoding/json"
-	"go-MyVIT/Godeps/_workspace/src/github.com/headzoo/surf/errors"
-	"go-MyVIT/Godeps/_workspace/src/github.com/headzoo/surf/util"
+	"github.com/headzoo/surf/errors"
+	"github.com/headzoo/surf/util"
 	"io/ioutil"
 	"os"
 )

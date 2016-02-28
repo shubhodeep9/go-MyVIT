@@ -26,7 +26,7 @@ import (
 	"sync"
 	"time"
 
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego/context"
+	"github.com/astaxie/beego/context"
 )
 
 var errNotStaticRequest = errors.New("request not a static file request")

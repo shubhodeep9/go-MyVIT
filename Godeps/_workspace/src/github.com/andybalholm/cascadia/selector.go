@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"go-MyVIT/Godeps/_workspace/src/golang.org/x/net/html"
+	"golang.org/x/net/html"
 )
 
 // the Selector type, and functions for creating them

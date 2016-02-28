@@ -6,7 +6,7 @@ import (
 	"runtime"
 	"strings"
 
-	"go-MyVIT/Godeps/_workspace/src/github.com/smartystreets/goconvey/convey/gotest"
+	"github.com/smartystreets/goconvey/convey/gotest"
 )
 
 ////////////////// ScopeReport ////////////////////

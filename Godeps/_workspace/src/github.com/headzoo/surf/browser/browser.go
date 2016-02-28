@@ -3,9 +3,9 @@ package browser
 import (
 	"bytes"
 	"fmt"
-	"go-MyVIT/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
-	"go-MyVIT/Godeps/_workspace/src/github.com/headzoo/surf/errors"
-	"go-MyVIT/Godeps/_workspace/src/github.com/headzoo/surf/jar"
+	"github.com/PuerkitoBio/goquery"
+	"github.com/headzoo/surf/errors"
+	"github.com/headzoo/surf/jar"
 	"io"
 	"io/ioutil"
 	"mime/multipart"

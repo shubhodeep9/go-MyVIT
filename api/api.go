@@ -1,9 +1,9 @@
 package api
 
 import (
-	"go-MyVIT/Godeps/_workspace/src/github.com/headzoo/surf"
-	"go-MyVIT/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"go-MyVIT/Godeps/_workspace/src/github.com/headzoo/surf/jar"
+	"github.com/headzoo/surf"
+	"github.com/headzoo/surf/browser"
+	"github.com/headzoo/surf/jar"
 	"go-MyVIT/api/login"
 )
 

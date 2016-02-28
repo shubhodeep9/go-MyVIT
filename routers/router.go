@@ -10,7 +10,7 @@ package routers
 import (
 	"go-MyVIT/controllers"
 
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego"
+	"github.com/astaxie/beego"
 )
 
 func init() {

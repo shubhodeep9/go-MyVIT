@@ -2,9 +2,9 @@
 package surf
 
 import (
-	"go-MyVIT/Godeps/_workspace/src/github.com/headzoo/surf/agent"
-	"go-MyVIT/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"go-MyVIT/Godeps/_workspace/src/github.com/headzoo/surf/jar"
+	"github.com/headzoo/surf/agent"
+	"github.com/headzoo/surf/browser"
+	"github.com/headzoo/surf/jar"
 )
 
 var (

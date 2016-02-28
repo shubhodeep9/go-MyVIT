@@ -23,8 +23,8 @@ import (
 	"path"
 	"time"
 
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego/grace"
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego/utils"
+	"github.com/astaxie/beego/grace"
+	"github.com/astaxie/beego/utils"
 )
 
 var (

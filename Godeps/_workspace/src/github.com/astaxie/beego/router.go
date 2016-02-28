@@ -27,9 +27,9 @@ import (
 	"sync"
 	"time"
 
-	beecontext "go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego/context"
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego/toolbox"
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego/utils"
+	beecontext "github.com/astaxie/beego/context"
+	"github.com/astaxie/beego/toolbox"
+	"github.com/astaxie/beego/utils"
 )
 
 // default filter execution points

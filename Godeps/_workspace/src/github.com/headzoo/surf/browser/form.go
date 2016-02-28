@@ -1,8 +1,8 @@
 package browser
 
 import (
-	"go-MyVIT/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
-	"go-MyVIT/Godeps/_workspace/src/github.com/headzoo/surf/errors"
+	"github.com/PuerkitoBio/goquery"
+	"github.com/headzoo/surf/errors"
 	"net/url"
 	"strings"
 )

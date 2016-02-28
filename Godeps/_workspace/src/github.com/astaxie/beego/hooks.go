@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego/session"
+	"github.com/astaxie/beego/session"
 )
 
 //

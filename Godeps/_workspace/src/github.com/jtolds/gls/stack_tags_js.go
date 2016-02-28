@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"go-MyVIT/Godeps/_workspace/src/github.com/gopherjs/gopherjs/js"
+	"github.com/gopherjs/gopherjs/js"
 )
 
 var stackRE = regexp.MustCompile("\\s+at (\\S*) \\([^:]+:(\\d+):(\\d+)")

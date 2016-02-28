@@ -35,7 +35,7 @@ import (
 	"strings"
 	"time"
 
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego/utils"
+	"github.com/astaxie/beego/utils"
 )
 
 // NewContext return the Context with Input and Output

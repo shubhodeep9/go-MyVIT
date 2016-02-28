@@ -8,8 +8,8 @@ import (
 	"runtime"
 	"testing"
 
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego"
-	. "go-MyVIT/Godeps/_workspace/src/github.com/smartystreets/goconvey/convey"
+	"github.com/astaxie/beego"
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func init() {

@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego"
+	"github.com/astaxie/beego"
 	"go-MyVIT/api"
 )
 

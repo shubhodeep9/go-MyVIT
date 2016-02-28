@@ -1,7 +1,7 @@
 package convey
 
 import (
-	"go-MyVIT/Godeps/_workspace/src/github.com/smartystreets/goconvey/convey/reporting"
+	"github.com/smartystreets/goconvey/convey/reporting"
 )
 
 type nilReporter struct{}

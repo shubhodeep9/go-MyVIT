@@ -20,9 +20,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego/config"
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego/session"
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego/utils"
+	"github.com/astaxie/beego/config"
+	"github.com/astaxie/beego/session"
+	"github.com/astaxie/beego/utils"
 )
 
 // Config is the main struct for BConfig

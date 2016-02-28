@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"go-MyVIT/models"
 
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego"
+	"github.com/astaxie/beego"
 )
 
 // Operations about object

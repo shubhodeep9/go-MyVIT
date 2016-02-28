@@ -17,7 +17,7 @@ package beego
 import (
 	"strings"
 
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego/logs"
+	"github.com/astaxie/beego/logs"
 )
 
 // Log levels to control the logging output.

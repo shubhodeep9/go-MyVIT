@@ -3,7 +3,7 @@ package goquery
 import (
 	"bytes"
 
-	"go-MyVIT/Godeps/_workspace/src/golang.org/x/net/html"
+	"golang.org/x/net/html"
 )
 
 var nodeNames = []string{

@@ -2,7 +2,7 @@ package login
 
 import (
 	"fmt"
-	"go-MyVIT/Godeps/_workspace/src/github.com/headzoo/surf/browser"
+	"github.com/headzoo/surf/browser"
 	"io/ioutil"
 	"net/http"
 	"os/exec"

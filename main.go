@@ -4,7 +4,7 @@ import (
 	_ "go-MyVIT/docs"
 	_ "go-MyVIT/routers"
 
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego"
+	"github.com/astaxie/beego"
 )
 
 func main() {

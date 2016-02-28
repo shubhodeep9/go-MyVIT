@@ -15,7 +15,7 @@
 package beego
 
 import (
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego/context"
+	"github.com/astaxie/beego/context"
 )
 
 // GlobalDocAPI store the swagger api documents

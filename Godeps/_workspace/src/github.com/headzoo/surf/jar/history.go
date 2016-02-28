@@ -1,7 +1,7 @@
 package jar
 
 import (
-	"go-MyVIT/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
+	"github.com/PuerkitoBio/goquery"
 	"net/http"
 )
 

@@ -27,8 +27,8 @@ import (
 	"strconv"
 	"strings"
 
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego/context"
-	"go-MyVIT/Godeps/_workspace/src/github.com/astaxie/beego/session"
+	"github.com/astaxie/beego/context"
+	"github.com/astaxie/beego/session"
 )
 
 //commonly used mime-types
