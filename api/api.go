@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf"
-	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/agent"
-	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/jar"
+	"go-MyVIT/Godeps/_workspace/src/github.com/headzoo/surf"
+	"go-MyVIT/Godeps/_workspace/src/github.com/headzoo/surf/agent"
+	"go-MyVIT/Godeps/_workspace/src/github.com/headzoo/surf/browser"
+	"go-MyVIT/Godeps/_workspace/src/github.com/headzoo/surf/jar"
 	"go-MyVIT/api/login"
 )
 
