@@ -5,6 +5,8 @@ import (
 	"os/exec"
 	"io/ioutil"
 	"strings"
+	"github.com/headzoo/surf/browser"
+	"fmt"
 )
 /*
 Interface definition for StudentLogin,
@@ -27,16 +29,24 @@ type Login struct {
 }
 
 /*
-Creates a new StudLogin object
+Creates a new StudLogin object and Starts logging in
 @return Login struct
 @param Registration_Number Password
 */
-func NewLogin(reg string, pass string) *Login {
-	
-	return &Login{
+func NewLogin(bow *browser.Browser,reg,pass string) {
+	newLogin := &Login{
 		regno: reg,
 		password: pass,
 		Session: "",
+	}
+	status := make(chan int)
+	go newLogin.DoLogin(status)
+	success := <-status
+	if success==1 {
+		fmt.Println("Success")
+		bow.SetSiteCookies(newLogin.GetCookies())
+	} else {
+		fmt.Println("Try again")
 	}
 }
 

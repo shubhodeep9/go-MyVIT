@@ -15,20 +15,6 @@ Developer Note:
 Main package for now => api package for implementation
 */
 
-func logsIn(bow *browser.Browser,regno,password string) {
-	newLogin := login.NewLogin(regno,password)
-	status := make(chan int)
-	go newLogin.DoLogin(status)
-	success := <-status
-	if success==1 {
-		fmt.Println("Success")
-	} else {
-		fmt.Println("Try again")
-		logsIn(bow,regno,password)
-	}
-	bow.SetSiteCookies(newLogin.GetCookies())
-}
-
 func main() {
 	bow := surf.NewBrowser()
 	bow.SetUserAgent(agent.Chrome())
@@ -42,9 +28,12 @@ func main() {
 	/*
 	@TODO retrieve details from GET URL
 	*/
-	regno := ""
-	password := ""
-	logsIn(bow,regno,password)
+	var (
+		regno string
+		password string
+		)
+	fmt.Println("Enter")
+	fmt.Scanf("%s %s",&regno,&password)
+	login.NewLogin(bow,regno,password)
 	bow.Open("https://academics.vit.ac.in/student/home.asp")
-	fmt.Println(bow.Url())
 }
