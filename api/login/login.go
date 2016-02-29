@@ -80,7 +80,7 @@ func (l *Login) DoLogin(status chan int) {
 		index := strings.Index(dat, "ASPSESSION") + 21
 		Sessionname = dat[index-21:index-1]
 		l.Session = dat[index : index+24]
-		l.setSession()
+		go l.setSession()
 	} else {
 		status <- 0
 	}
