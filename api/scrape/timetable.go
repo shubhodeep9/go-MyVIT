@@ -5,6 +5,7 @@ import (
 	"strings"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/login"
+	"fmt"
 )
 
 type Timetable struct {
@@ -35,7 +36,7 @@ func ShowTimetable(bow *browser.Browser,regno, password string) *Timetable {
 	reg_table := tables.Eq(1)
 	conts := make(map[string]Contents)
 	reg_table.Find("tr").Each(func(i int, s *goquery.Selection){
-		if i>0 && i<11 {
+		if i>0 && i<reg_table.Find("tr").Length()-1 {
 			code := s.Find("td").Eq(3).Text()
 			if code == "Embedded Lab" {
 				code = s.Find("td").Eq(1).Text()+"_L"
@@ -73,3 +74,4 @@ func ShowTimetable(bow *browser.Browser,regno, password string) *Timetable {
 		Time_table: conts,
 	}
 }
+
