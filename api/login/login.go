@@ -69,8 +69,8 @@ func (l *Login) DoLogin(status chan int) {
 	exec.Command("python", "api/login/login.py", l.regno, l.password).Output()
 	//fmt.Println(s)
 	dat, _ := ioutil.ReadFile("api/login/"+l.regno+".txt")
-	exec.Command("rm","api/login/"+l.regno+".txt").Output()
-	if strings.Contains(string(dat), "14BCS0002") {
+	go exec.Command("rm","api/login/"+l.regno+".txt").Output()
+	if strings.Contains(string(dat), l.regno) {
 		index := strings.Index(string(dat), "ASPSESSION") + 21
 		Sessionname = string(dat)[index-21:index-1]
 		l.Session = string(dat)[index : index+24]
