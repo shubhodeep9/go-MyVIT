@@ -70,18 +70,17 @@ func (l *Login) DoLogin(status chan int) {
 	go func(l *Login){
 	out, _ := exec.Command("python", "api/login/login.py", l.regno, l.password).Output()
 	ch <- string(out)
-	go exec.Command("rm","api/login/"+l.regno+".txt").Output()
 	
 }(l)
 	//fmt.Println(s)
 	dat := <- ch
 	
 	if strings.Contains(dat, l.regno) {
+		status <- 1
 		index := strings.Index(dat, "ASPSESSION") + 21
 		Sessionname = dat[index-21:index-1]
 		l.Session = dat[index : index+24]
 		l.setSession()
-		status <- 1
 	} else {
 		status <- 0
 	}

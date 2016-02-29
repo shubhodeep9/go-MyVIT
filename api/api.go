@@ -28,3 +28,4 @@ func TimeTable(regno, password string) *scrape.Timetable {
 	return scrape.ShowTimetable(bow,regno,password)
 }
 
+
