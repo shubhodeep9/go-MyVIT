@@ -12,7 +12,7 @@ br.set_handle_robots(False)
 br.set_handle_equiv(True)
 br.set_handle_redirect(True)
 br.set_handle_referer(True)
-cj = cookielib.MozillaCookieJar('api/login/'+regno+'.txt')
+cj = cookielib.MozillaCookieJar()
 br.set_cookiejar(cj)
 response = br.open("https://academics.vit.ac.in/student/stud_login.asp")
 
@@ -33,4 +33,4 @@ br["vrfcd"] = str(captcha)
 
 br.method = "POST"
 response = br.submit()
-cj.save(ignore_discard=True)
+print cj

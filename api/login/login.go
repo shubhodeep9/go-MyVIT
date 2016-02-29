@@ -2,7 +2,7 @@ package login
 
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"io/ioutil"
+	
 	"net/http"
 	"os/exec"
 	"strings"
@@ -66,14 +66,20 @@ login.py:
 	@returns ASPSESSIONIDQAWCRCSR to cookie.txt
 */
 func (l *Login) DoLogin(status chan int) {
-	exec.Command("python", "api/login/login.py", l.regno, l.password).Output()
-	//fmt.Println(s)
-	dat, _ := ioutil.ReadFile("api/login/"+l.regno+".txt")
+	ch := make(chan string)
+	go func(l *Login){
+	out, _ := exec.Command("python", "api/login/login.py", l.regno, l.password).Output()
+	ch <- string(out)
+	go exec.Command("rm","api/login/"+l.regno+".txt").Output()
 	
-	if strings.Contains(string(dat), l.regno) {
-		index := strings.Index(string(dat), "ASPSESSION") + 21
-		Sessionname = string(dat)[index-21:index-1]
-		l.Session = string(dat)[index : index+24]
+}(l)
+	//fmt.Println(s)
+	dat := <- ch
+	
+	if strings.Contains(dat, l.regno) {
+		index := strings.Index(dat, "ASPSESSION") + 21
+		Sessionname = dat[index-21:index-1]
+		l.Session = dat[index : index+24]
 		l.setSession()
 		status <- 1
 	} else {
