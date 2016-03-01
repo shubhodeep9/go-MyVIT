@@ -45,21 +45,25 @@ func DoLogin(bow *browser.Browser, reg, pass string,status chan int) {
 	bow.Open("https://academics.vit.ac.in/student/captcha.asp")
 	out,_ :=os.Create("api/login/captcha_student.bmp")
 	bow.Download(out)
-	out1, _ := exec.Command("python","api/login/parse.py").Output()
-	capt := string(out1)[:len(out1)-1]
-	v:= url.Values{}
-	v.Set("regno",reg)
-	v.Add("passwd",pass)
-	v.Add("vrfcd",capt)
-	v.Add("message","")
-	bow.PostForm("https://academics.vit.ac.in/student/stud_login_submit.asp",v)
-	stud_home := "/student/stud_home.asp"
-	home := "/student/home.asp"
-	u := bow.Url().EscapedPath()
-	if u == stud_home || u == home {
-		status <-1
-	} else {
+	out1, err := exec.Command("python","api/login/parse.py").Output()
+	if err != nil {
 		status <- 0
+	} else {
+		capt := string(out1)[:len(out1)-1]
+		v:= url.Values{}
+		v.Set("regno",reg)
+		v.Add("passwd",pass)
+		v.Add("vrfcd",capt)
+		v.Add("message","")
+		bow.PostForm("https://academics.vit.ac.in/student/stud_login_submit.asp",v)
+		stud_home := "/student/stud_home.asp"
+		home := "/student/home.asp"
+		u := bow.Url().EscapedPath()
+		if u == stud_home || u == home {
+			status <-1
+		} else {
+			status <- 0
+		}
 	}
 }
 
