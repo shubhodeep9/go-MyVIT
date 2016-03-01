@@ -2,31 +2,15 @@ package login
 
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	
-	"net/http"
+	"net/url"
+	"os"
 	"os/exec"
-	"strings"
-)
-
-/*
-Interface definition for StudentLogin,
-*/
-type StudLogin interface {
-	DoLogin(status chan int)
-	setSession()
-	GetCookies() []*http.Cookie
-}
+	)
 
 /*
 Type structure of Login
 @param Registration_no Password Session(ASPSESSIONIDQAWCRCSR) Cookies(@keys ASPSESSIONIDQAWCRCSR logstudregno )
 */
-type Login struct {
-	regno    string
-	password string
-	Session  string
-	Cookies  []*http.Cookie
-}
 
 type Response struct {
 	Regno  string `json:"regno"`
@@ -41,17 +25,9 @@ Creates a new StudLogin object and Starts logging in
 @param Registration_Number Password
 */
 func NewLogin(bow *browser.Browser, reg, pass string) *Response {
-	newLogin := &Login{
-		regno:    reg,
-		password: pass,
-		Session:  "",
-	}
 	status := make(chan int)
-	go newLogin.DoLogin(status)
+	go DoLogin(bow,reg,pass,status)
 	success := <-status
-	if success == 1 {
-		bow.SetSiteCookies(newLogin.GetCookies())
-	}
 	return &Response{
 		Regno:  reg,
 		Status: success,
@@ -65,48 +41,25 @@ login.py:
 	@param regno password
 	@returns ASPSESSIONIDQAWCRCSR to cookie.txt
 */
-func (l *Login) DoLogin(status chan int) {
-	ch := make(chan string)
-	go func(l *Login){
-	out, _ := exec.Command("python", "api/login/login.py", l.regno, l.password).Output()
-	ch <- string(out)
-	
-}(l)
-	//fmt.Println(s)
-	dat := <- ch
-	
-	if strings.Contains(dat, l.regno) {
-		status <- 1
-		index := strings.Index(dat, "ASPSESSION") + 21
-		Sessionname = dat[index-21:index-1]
-		l.Session = dat[index : index+24]
-		go l.setSession()
+func DoLogin(bow *browser.Browser, reg, pass string,status chan int) {
+	bow.Open("https://academics.vit.ac.in/student/captcha.asp")
+	out,_ :=os.Create("api/login/captcha_student.bmp")
+	bow.Download(out)
+	out1, _ := exec.Command("python","api/login/parse.py").Output()
+	capt := string(out1)[:len(out1)-1]
+	v:= url.Values{}
+	v.Set("regno",reg)
+	v.Add("passwd",pass)
+	v.Add("vrfcd",capt)
+	v.Add("message","")
+	bow.PostForm("https://academics.vit.ac.in/student/stud_login_submit.asp",v)
+	stud_home := "/student/stud_home.asp"
+	home := "/student/home.asp"
+	u := bow.Url().EscapedPath()
+	if u == stud_home || u == home {
+		status <-1
 	} else {
 		status <- 0
 	}
 }
 
-/*
-Sets ASPSESSIONIDQAWCRCSR logstudregno as cookies in http.CookieJar
-Implements *http.Cookie struct
-*/
-func (l *Login) setSession() {
-	session := &http.Cookie{
-		Name:   Sessionname,
-		Value:  l.Session,
-		Path:   "/",
-		Domain: "academics.vit.ac.in",
-	}
-	logregno := &http.Cookie{
-		Name:   "logstudregno",
-		Value:  l.regno,
-		Path:   "/student",
-		Domain: "academics.vit.ac.in",
-	}
-	l.Cookies = append(l.Cookies, session)
-	l.Cookies = append(l.Cookies, logregno)
-}
-
-func (l *Login) GetCookies() []*http.Cookie {
-	return l.Cookies
-}

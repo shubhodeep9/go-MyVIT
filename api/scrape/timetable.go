@@ -5,7 +5,6 @@ import (
 	"strings"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/login"
-	"sync"
 )
 
 type Timetable struct {
@@ -37,12 +36,10 @@ func ShowTimetable(bow *browser.Browser,regno, password string) *Timetable {
 	conts := make(map[string]Contents)
 	tr := reg_table.Find("tr")
 	tr_len := tr.Length()
-	var wg sync.WaitGroup
-	wg.Add(tr_len-3)
+	ch := make(chan int)
 	tr.Each(func(i int, s *goquery.Selection){
 		if i>0 && i<tr_len-2 {
 			go func(conts map[string]Contents,s *goquery.Selection){
-				defer wg.Done()
 				td := s.Find("td")
 				code := td.Eq(3).Text()
 				if code == "Embedded Lab" {
@@ -74,13 +71,17 @@ func ShowTimetable(bow *browser.Browser,regno, password string) *Timetable {
 						Venue:td.Eq(10).Text(),
 					}
 				}
+				ch <- 1
 			}(conts,s)
-			
+			<-ch
 		}
 	})
-	wg.Wait()
+	status := "Success" 
+	if len(conts)==0 {
+		status = "Failure"
+	}
 	return &Timetable{
-		Status: "Success",
+		Status: status,
 		Time_table: conts,
 	}
 }
