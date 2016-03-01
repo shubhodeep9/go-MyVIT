@@ -6,6 +6,13 @@ import (
 
 func init() {
 
+	beego.GlobalControllerRouter["go-MyVIT/controllers:AdvisorController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:AdvisorController"],
+		beego.ControllerComments{
+			"Get",
+			`/`,
+			[]string{"get"},
+			nil})
+
 	beego.GlobalControllerRouter["go-MyVIT/controllers:LoginController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:LoginController"],
 		beego.ControllerComments{
 			"Get",

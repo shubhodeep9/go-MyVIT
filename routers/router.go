@@ -25,6 +25,11 @@ func init() {
 				&controllers.TimetableController{},
 			),
 		),
+		beego.NSNamespace("/facadvdet",
+			beego.NSInclude(
+				&controllers.AdvisorController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }

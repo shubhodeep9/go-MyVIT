@@ -18,4 +18,10 @@ func TimeTable(regno, password string) *scrape.Timetable {
 	return scrape.ShowTimetable(bow,regno,password)
 }
 
+//Executable script to show Faculty Advisor details
+func Advisor(regno, password string) *scrape.Advisor{
+	bow := surf.NewBrowser()
+	return scrape.FacultyAdvisor(bow,regno,password)
+}
+
 
