@@ -1,3 +1,14 @@
+/*
+@Author Shubhodeep Mukherjee
+@Organization Google Developers Group VIT Vellore
+	Isn't Go sexy?
+	I know right!!
+	Just like Shubhodeep
+	I mean, have you seen the guy? xP
+	#GDGSwag
+*/
+
+
 package scrape
 
 import (
@@ -13,7 +24,12 @@ type Advisor struct {
 	Details map[string]string `json:"faculty_det"`
 }
 
-
+/*
+Function to fetch faculty advisor details,
+Calls NewLogin to login to academics,
+@param bow(surf Browser) registration_no password
+@return Advisor struct
+*/
 func FacultyAdvisor(bow *browser.Browser,regno, password string) *Advisor{
 	response := login.NewLogin(bow,regno,password)
 	status := "Success"

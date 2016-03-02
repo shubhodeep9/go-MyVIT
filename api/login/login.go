@@ -1,3 +1,14 @@
+/*
+@Author Shubhodeep Mukherjee
+@Organization Google Developers Group VIT Vellore
+	Isn't Go sexy?
+	I know right!!
+	Just like Shubhodeep
+	I mean, have you seen the guy? xP
+	#GDGSwag
+*/
+
+
 package login
 
 import (
@@ -7,10 +18,7 @@ import (
 	"os/exec"
 	)
 
-/*
-Type structure of Login
-@param Registration_no Password Session(ASPSESSIONIDQAWCRCSR) Cookies(@keys ASPSESSIONIDQAWCRCSR logstudregno )
-*/
+
 
 type Response struct {
 	Regno  string `json:"regno"`
@@ -21,7 +29,7 @@ var Sessionname string
 
 /*
 Creates a new StudLogin object and Starts logging in
-@return Login struct
+@return Response struct
 @param Registration_Number Password
 */
 func NewLogin(bow *browser.Browser, reg, pass string) *Response {
@@ -35,11 +43,10 @@ func NewLogin(bow *browser.Browser, reg, pass string) *Response {
 }
 
 /*
-Executes the login.py script to create a session,
-login.py:
-	@Libraries: Mechanize BeautifulSoup
-	@param regno password
-	@returns ASPSESSIONIDQAWCRCSR to cookie.txt
+Parses the captcha using parse.py and creates a session,
+Using that session user is logged in.
+@param bow(surf Browser) registration_no password status(channel for goroutine)
+@return void
 */
 func DoLogin(bow *browser.Browser, reg, pass string,status chan int) {
 	bow.Open("https://academics.vit.ac.in/student/captcha.asp")

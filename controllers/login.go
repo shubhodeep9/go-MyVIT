@@ -1,3 +1,14 @@
+/*
+@Author Shubhodeep Mukherjee
+@Organization Google Developers Group VIT Vellore
+	Isn't Go sexy?
+	I know right!!
+	Just like Shubhodeep
+	I mean, have you seen the guy? xP
+	#GDGSwag
+*/
+
+
 package controllers
 
 import (

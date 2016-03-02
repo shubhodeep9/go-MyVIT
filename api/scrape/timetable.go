@@ -1,3 +1,15 @@
+/*
+@Author Shubhodeep Mukherjee
+@Organization Google Developers Group VIT Vellore
+	Isn't Go sexy?
+	I know right!!
+	Just like Shubhodeep
+	I mean, have you seen the guy? xP
+	#GDGSwag
+*/
+
+
+
 package scrape
 
 import (
@@ -26,6 +38,12 @@ type Contents struct {
 	Venue string `json:"venue"`
 }
 
+/*
+Function to show Timetable,
+Calls NewLogin to login to academics,
+@param bow (surf Browser) registration_no password
+@return Timtable struct
+*/
 func ShowTimetable(bow *browser.Browser,regno, password string) *Timetable {
 	response := login.NewLogin(bow,regno,password)
 	conts := make(map[string]Contents)
