@@ -20,41 +20,6 @@ func init() {
 			[]string{"get"},
 			nil})
 
-	beego.GlobalControllerRouter["go-MyVIT/controllers:ObjectController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:ObjectController"],
-		beego.ControllerComments{
-			"Post",
-			`/`,
-			[]string{"post"},
-			nil})
-
-	beego.GlobalControllerRouter["go-MyVIT/controllers:ObjectController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:ObjectController"],
-		beego.ControllerComments{
-			"Get",
-			`/:objectId`,
-			[]string{"get"},
-			nil})
-
-	beego.GlobalControllerRouter["go-MyVIT/controllers:ObjectController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:ObjectController"],
-		beego.ControllerComments{
-			"GetAll",
-			`/`,
-			[]string{"get"},
-			nil})
-
-	beego.GlobalControllerRouter["go-MyVIT/controllers:ObjectController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:ObjectController"],
-		beego.ControllerComments{
-			"Put",
-			`/:objectId`,
-			[]string{"put"},
-			nil})
-
-	beego.GlobalControllerRouter["go-MyVIT/controllers:ObjectController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:ObjectController"],
-		beego.ControllerComments{
-			"Delete",
-			`/:objectId`,
-			[]string{"delete"},
-			nil})
-
 	beego.GlobalControllerRouter["go-MyVIT/controllers:TimetableController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:TimetableController"],
 		beego.ControllerComments{
 			"Get",
