@@ -32,9 +32,9 @@ Creates a new StudLogin object and Starts logging in
 @return Response struct
 @param Registration_Number Password
 */
-func NewLogin(bow *browser.Browser, reg, pass string) *Response {
+func NewLogin(bow *browser.Browser, reg, pass, baseuri string) *Response {
 	status := make(chan int)
-	go DoLogin(bow,reg,pass,status)
+	go DoLogin(bow,reg,pass,status, baseuri)
 	success := <-status
 	return &Response{
 		Regno:  reg,
@@ -48,8 +48,8 @@ Using that session user is logged in.
 @param bow(surf Browser) registration_no password status(channel for goroutine)
 @return void
 */
-func DoLogin(bow *browser.Browser, reg, pass string,status chan int) {
-	bow.Open("https://academics.vit.ac.in/student/captcha.asp")
+func DoLogin(bow *browser.Browser, reg, pass string,status chan int, baseuri string) {
+	bow.Open(baseuri+"/student/captcha.asp")
 	out,_ :=os.Create("api/login/captcha_student.bmp")
 	bow.Download(out)
 	out1, err := exec.Command("python","api/login/parse.py").Output()
@@ -62,7 +62,7 @@ func DoLogin(bow *browser.Browser, reg, pass string,status chan int) {
 		v.Add("passwd",pass)
 		v.Add("vrfcd",capt)
 		v.Add("message","")
-		bow.PostForm("https://academics.vit.ac.in/student/stud_login_submit.asp",v)
+		bow.PostForm(baseuri+"/student/stud_login_submit.asp",v)
 		stud_home := "/student/stud_home.asp"
 		home := "/student/home.asp"
 		u := bow.Url().EscapedPath()

@@ -18,21 +18,21 @@ import (
 )
 
 //Executable script to Login
-func LogIn(regno, password string) *login.Response {
+func LogIn(regno, password, baseuri string) *login.Response {
 	bow := surf.NewBrowser()
-	return login.NewLogin(bow, regno, password)
+	return login.NewLogin(bow, regno, password, baseuri)
 }
 
 //Executable script to show timetable
-func TimeTable(regno, password string) *scrape.Timetable {
+func TimeTable(regno, password, baseuri string) *scrape.Timetable {
 	bow := surf.NewBrowser()
-	return scrape.ShowTimetable(bow,regno,password)
+	return scrape.ShowTimetable(bow,regno,password, baseuri)
 }
 
 //Executable script to show Faculty Advisor details
-func Advisor(regno, password string) *scrape.Advisor{
+func Advisor(regno, password, baseuri string) *scrape.Advisor{
 	bow := surf.NewBrowser()
-	return scrape.FacultyAdvisor(bow,regno,password)
+	return scrape.FacultyAdvisor(bow,regno,password, baseuri)
 }
 
 

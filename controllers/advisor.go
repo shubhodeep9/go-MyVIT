@@ -29,8 +29,15 @@ type AdvisorController struct {
 func (o *AdvisorController) Get() {
 	regNo := o.Input().Get("regNo")
 	psswd := o.Input().Get("psswd")
+	campus := o.Ctx.Input.Param(":campus")
+	var baseuri string
+	if campus == "vellore" {
+		baseuri = "https://academics.vit.ac.in"
+	} else {
+		baseuri = "https://academicscc.vit.ac.in"
+	}
 	if regNo != "" && psswd != "" {
-		resp := api.Advisor(regNo, psswd)
+		resp := api.Advisor(regNo, psswd, baseuri)
 		o.Data["json"] = resp
 	}
 	o.ServeJSON()

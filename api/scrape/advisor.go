@@ -30,17 +30,17 @@ Calls NewLogin to login to academics,
 @param bow(surf Browser) registration_no password
 @return Advisor struct
 */
-func FacultyAdvisor(bow *browser.Browser,regno, password string) *Advisor{
-	response := login.NewLogin(bow,regno,password)
+func FacultyAdvisor(bow *browser.Browser,regno, password, baseuri string) *Advisor{
+	response := login.NewLogin(bow,regno,password,baseuri)
 	status := "Success"
 	dets := make(map[string]string)
 	if response.Status == 0 {
 		status = "Failure"
 	} else {
 		var wg sync.WaitGroup
-		bow.Open("https://academics.vit.ac.in/student/faculty_advisor_view.asp")
+		bow.Open(baseuri+"/student/faculty_advisor_view.asp")
 		//Reload
-		bow.Open("https://academics.vit.ac.in/student/faculty_advisor_view.asp")
+		bow.Open(baseuri+"/student/faculty_advisor_view.asp")
 		table := bow.Find("table").Eq(1)
 		rows := table.Find("tr").Length()
 		table.Find("tr").Each(func(i int, s *goquery.Selection){

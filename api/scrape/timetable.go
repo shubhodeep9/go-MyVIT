@@ -44,16 +44,16 @@ Calls NewLogin to login to academics,
 @param bow (surf Browser) registration_no password
 @return Timtable struct
 */
-func ShowTimetable(bow *browser.Browser,regno, password string) *Timetable {
-	response := login.NewLogin(bow,regno,password)
+func ShowTimetable(bow *browser.Browser,regno, password, baseuri string) *Timetable {
+	response := login.NewLogin(bow,regno,password,baseuri)
 	conts := make(map[string]Contents)
 	status := "Success" 
 	if response.Status != 1 {
 		status = "Failure"
 	} else {
-		bow.Open("https://academics.vit.ac.in/student/timetable_ws.asp")
+		bow.Open(baseuri+"/student/timetable_ws.asp")
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
-		bow.Open("https://academics.vit.ac.in/student/timetable_ws.asp")
+		bow.Open(baseuri+"/student/timetable_ws.asp")
 		tables := bow.Find("table")
 		reg_table := tables.Eq(1)
 		
