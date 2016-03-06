@@ -32,6 +32,12 @@ func init() {
 				&controllers.AdvisorController{},
 			),
 		),
+		beego.NSNamespace("/attendance",
+			beego.NSInclude(
+				// controllers/attendance.go
+				&controllers.AttendanceController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }

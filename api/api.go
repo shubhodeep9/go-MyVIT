@@ -35,4 +35,10 @@ func Advisor(regno, password, baseuri string) *scrape.Advisor{
 	return scrape.FacultyAdvisor(bow,regno,password, baseuri)
 }
 
+//Executable script to show Attendance
+func Attendance(regno, password, baseuri string) *scrape.Attendance{
+	bow := surf.NewBrowser()
+	return scrape.ShowAttendance(bow,regno,password,baseuri)
+}
+
 
