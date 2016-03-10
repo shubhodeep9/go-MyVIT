@@ -73,12 +73,12 @@ func ExmSchedule(bow *browser.Browser,regno, password, baseuri string) *ExamSche
 					}
 					if(td.length() !=1){
 					dets[head] = Contents {
-						Course_Title: td.Eq(2).Text()
-						Slot : td.Eq(4).Text()
-						Date : td.Eq(5).Text()
-						Day : td.Eq(6).Text()
-						Session : td.Eq(7).Text()
-						Time : td.Eq(8).Text()
+						Course_Title: td.Eq(2).Text(),
+						Slot : td.Eq(4).Text(),
+						Date : td.Eq(5).Text(),
+						Day : td.Eq(6).Text(),
+						Session : td.Eq(7).Text(),
+						Time : td.Eq(8).Text(),
 					}
 
 				}
