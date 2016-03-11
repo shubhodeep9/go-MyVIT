@@ -40,5 +40,9 @@ func Attendance(regno, password, baseuri string) *scrape.Attendance{
 	bow := surf.NewBrowser()
 	return scrape.ShowAttendance(bow,regno,password,baseuri)
 }
+func Schedule(regno, password, baseuri string) *scrape.ExamSchedule{
+	bow := surf.NewBrowser()
+	return scrape.ExmSchedule(bow,regno,password,baseuri)
+}
 
 
