@@ -1,7 +1,11 @@
 /*
 @Author Ujjwal Ayyangar
 @Organization Google Developers Group VIT Vellore
-	still learning
+	VCC!
+
+
+
+
 */
 
 
@@ -18,9 +22,9 @@ import (
 
 type ExamSchedule struct {
 	Status string `json:"status"`
-	Cat1 Contents `json:"cat1"`
-	Cat2 Contents `json:"cat2"`
-	TermEnd Contents `json:"termend"`
+	Cat1 Contents2 `json:"cat1"`
+	Cat2 Contents2 `json:"cat2"`
+	TermEnd Contents2 `json:"termend"`
 	}//Eschedule map[string]Contents `json:"eSchedule"`
 //}
 
@@ -88,5 +92,5 @@ func ExmSchedule(bow *browser.Browser,regno, password, baseuri string) *ExamSche
 		}
 
 	}
-	return &ExamSchedule{Status: status,Cat1: dets["CAT-I"],Cat2: dets["CAT-II",TermEnd: dets["FAT"]}
+	return &ExamSchedule{Status: status,Cat1: dets["CAT-I"],Cat2: dets["CAT-II"],TermEnd: dets["FAT"]}
 }
