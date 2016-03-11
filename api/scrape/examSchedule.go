@@ -92,5 +92,5 @@ func ExmSchedule(bow *browser.Browser,regno, password, baseuri string) *ExamSche
 		}
 
 	}
-	return &ExamSchedule{Status: status,Cat1: dets["CAT-I"],Cat2: dets["CAT-II"],TermEnd: dets["FAT"]}
+	return &ExamSchedule{Status: status,Cat1: dets[list[0]],Cat2: dets[list[1]],TermEnd: dets[list[2]]}
 }
