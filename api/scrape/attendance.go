@@ -6,8 +6,8 @@ import (
 	"go-MyVIT/api/login"
 	"time"
 	"strconv"
-	"fmt"
 	"net/url"
+	"sync"
 )
 
 type Attendance struct {
@@ -18,20 +18,45 @@ type Attendance struct {
 type Subject struct {
 	Percentage string `json:"attendance_percentage"`
 	Classes string `json:"attended_classes"`
+	Details []DetsBranch `json:"details"`
 	Date string `json:"registration_date"`
 	TotalClass string `json:"total_classes"`
 }
 
-func getDetails(classnbr, baseuri string,bow *browser.Browser){
+type DetsBranch struct {
+	ClassUnits string `json:"class_units"`
+	Date string `json:"date"`
+	Reason string `json:"reason"`
+	Slot string `json:"slot"`
+	Status string `json:"status"`
+}
+
+func getDetails(classnbr string,bow *browser.Browser) []DetsBranch{
 	year, month, day := time.Now().Date()
 	v := url.Values{}
-	v.Set("semcode","WINSEM2016")
+	v.Set("semcode","WINSEM2015-16")
 	v.Add("classnbr",classnbr)
 	v.Add("from_date","04-Jan-2016")
 	v.Add("to_date",strconv.Itoa(day)+"-"+month.String()[:3]+"-"+strconv.Itoa(year))
-	fmt.Println(v)
-	bow.PostForm(baseuri+"/student/attn_report_details.asp",v)
-	fmt.Println(bow.Url())
+	bow.PostForm("https://academics.vit.ac.in/student/attn_report_details.asp",v)
+	table := bow.Find("table").Eq(2)
+	tr := table.Find("tr")
+	var detsbranchlis []DetsBranch
+	var detsbranch DetsBranch
+	tr.Each(func(i int,s *goquery.Selection){
+		if i>1 {
+			td := s.Find("td")
+			detsbranch = DetsBranch{
+				ClassUnits: td.Eq(4).Text(),
+				Date: td.Eq(1).Text(),
+				Reason: td.Eq(5).Text(),
+				Slot: td.Eq(2).Text(),
+				Status: td.Eq(3).Text(),
+			}
+			detsbranchlis = append(detsbranchlis,detsbranch)
+		}
+	})
+	return detsbranchlis
 }
 
 func ShowAttendance(bow *browser.Browser,regno, password, baseuri string) *Attendance{
@@ -47,28 +72,26 @@ func ShowAttendance(bow *browser.Browser,regno, password, baseuri string) *Atten
 		bow.Open(baseuri+"/student/attn_report.asp?sem=WS&fmdt=04-Jan-2016&todt="+strconv.Itoa(day)+"-"+month.String()[:3]+"-"+strconv.Itoa(year))
 		table := bow.Find("table").Eq(3)
 		tr := table.Find("tr")
-		
+		var wg sync.WaitGroup
 		tr.Each(func(i int, s *goquery.Selection){
-			if i==1 {
-				td := s.Find("td")
-				dets[td.Eq(1).Text()] = Subject{
-					Percentage: td.Eq(8).Text(),
-					Classes: td.Eq(6).Text(),
-					Date: td.Eq(5).Text(),
-					TotalClass: td.Eq(7).Text(),
-				}
-				classnbr, _ := s.Find("input[name=classnbr]").Attr("value")
-				fmt.Println(classnbr)
-				v := url.Values{}
-	v.Set("semcode","WINSEM2016")
-	v.Add("classnbr",classnbr)
-	v.Add("from_date","04-Jan-2016")
-	v.Add("to_date",strconv.Itoa(day)+"-"+month.String()[:3]+"-"+strconv.Itoa(year))
-	fmt.Println(v)
-	bow.PostForm(baseuri+"/student/attn_report_details.asp",v)
-	fmt.Println(bow.Url())
+			if i>0 {
+				wg.Add(1)
+				go func() {
+					defer wg.Done()
+					td := s.Find("td")
+					classnbr, _ := s.Find("input[name=classnbr]").Attr("value")
+					dets[td.Eq(1).Text()] = Subject{
+						Percentage: td.Eq(8).Text(),
+						Classes: td.Eq(6).Text(),
+						Details: getDetails(classnbr,bow),
+						Date: td.Eq(5).Text(),
+						TotalClass: td.Eq(7).Text(),
+					}
+				}()
+				
 			}
 		})
+		wg.Wait()
 	}
 	return &Attendance{
 		AttendanceDet: dets,
