@@ -47,3 +47,4 @@ func Schedule(regno, password, baseuri string) *scrape.ExamSchedule{
 
 
 
+
