@@ -1,3 +1,13 @@
+/*
+@Author Shubhodeep Mukherjee
+@Organization Google Developers Group VIT Vellore
+	Isn't Go sexy?
+	I know right!!
+	Just like Shubhodeep
+	I mean, have you seen the guy? xP
+	#GDGSwag
+*/
+
 package scrape
 
 import (
@@ -9,8 +19,11 @@ import (
 	"net/url"
 	"sync"
 )
-
+/*
+Attendance structure json
+*/
 type Attendance struct {
+	Average_Attendance string `json:"average_attendace"`
 	AttendanceDet map[string]Subject `json:"attendance_det"`
 	Status string `json:"status"`
 }
@@ -31,14 +44,19 @@ type DetsBranch struct {
 	Status string `json:"status"`
 }
 
-func getDetails(classnbr string,bow *browser.Browser) []DetsBranch{
+/*
+Function to get Course daily attendance,
+@param classnbr baseuri bow (surf Browser)
+@return List of DetsBranch struct
+*/
+func getDetails(classnbr, baseuri string,bow *browser.Browser) []DetsBranch{
 	year, month, day := time.Now().Date()
 	v := url.Values{}
 	v.Set("semcode","WINSEM2015-16")
 	v.Add("classnbr",classnbr)
 	v.Add("from_date","04-Jan-2016")
 	v.Add("to_date",strconv.Itoa(day)+"-"+month.String()[:3]+"-"+strconv.Itoa(year))
-	bow.PostForm("https://academics.vit.ac.in/student/attn_report_details.asp",v)
+	bow.PostForm(baseuri+"/student/attn_report_details.asp",v)
 	table := bow.Find("table").Eq(2)
 	tr := table.Find("tr")
 	var detsbranchlis []DetsBranch
@@ -59,8 +77,15 @@ func getDetails(classnbr string,bow *browser.Browser) []DetsBranch{
 	return detsbranchlis
 }
 
+/*
+Function to show Attendance,
+Calls NewLogin to login to academics,
+@param bow (surf Browser) registration_no password
+@return Attendance struct
+*/
 func ShowAttendance(bow *browser.Browser,regno, password, baseuri string) *Attendance{
 	response := login.NewLogin(bow,regno,password,baseuri)
+	avg := 0
 	status := "Success" 
 	dets := make(map[string]Subject)
 	if response.Status != 1 {
@@ -83,17 +108,21 @@ func ShowAttendance(bow *browser.Browser,regno, password, baseuri string) *Atten
 					dets[td.Eq(1).Text()] = Subject{
 						Percentage: td.Eq(8).Text(),
 						Classes: td.Eq(6).Text(),
-						Details: getDetails(classnbr,bow),
+						Details: getDetails(classnbr,baseuri,bow),
 						Date: td.Eq(5).Text(),
 						TotalClass: td.Eq(7).Text(),
 					}
+					perc,_ := strconv.Atoi(td.Eq(8).Text()[:len(td.Eq(8).Text())-1])
+					avg = avg + perc
 				}()
 				
 			}
 		})
 		wg.Wait()
+		avg = avg/(tr.Length()-1)
 	}
 	return &Attendance{
+		Average_Attendance: strconv.Itoa(avg)+"%",
 		AttendanceDet: dets,
 		Status: status,
 	}
