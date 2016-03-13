@@ -50,9 +50,10 @@ Using that session user is logged in.
 */
 func DoLogin(bow *browser.Browser, reg, pass string,status chan int, baseuri string) {
 	bow.Open(baseuri+"/student/captcha.asp")
-	out,_ :=os.Create("api/login/captcha_student.bmp")
+	out,_ :=os.Create("api/login/"+reg+".bmp")
 	bow.Download(out)
-	out1, err := exec.Command("python","api/login/parse.py").Output()
+	out1, err := exec.Command("python","api/login/parse.py",reg).Output()
+	go os.Remove("api/login/"+reg+".bmp")
 	if err != nil {
 		status <- 0
 	} else {
