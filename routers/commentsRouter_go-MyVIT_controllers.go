@@ -6,6 +6,13 @@ import (
 
 func init() {
 
+	beego.GlobalControllerRouter["go-MyVIT/controllers:AcademicsController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:AcademicsController"],
+		beego.ControllerComments{
+			"Get",
+			`/`,
+			[]string{"get"},
+			nil})
+
 	beego.GlobalControllerRouter["go-MyVIT/controllers:AdvisorController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:AdvisorController"],
 		beego.ControllerComments{
 			"Get",
@@ -38,55 +45,6 @@ func init() {
 		beego.ControllerComments{
 			"Get",
 			`/`,
-			[]string{"get"},
-			nil})
-
-	beego.GlobalControllerRouter["go-MyVIT/controllers:UserController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:UserController"],
-		beego.ControllerComments{
-			"Post",
-			`/`,
-			[]string{"post"},
-			nil})
-
-	beego.GlobalControllerRouter["go-MyVIT/controllers:UserController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:UserController"],
-		beego.ControllerComments{
-			"GetAll",
-			`/`,
-			[]string{"get"},
-			nil})
-
-	beego.GlobalControllerRouter["go-MyVIT/controllers:UserController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:UserController"],
-		beego.ControllerComments{
-			"Get",
-			`/:uid`,
-			[]string{"get"},
-			nil})
-
-	beego.GlobalControllerRouter["go-MyVIT/controllers:UserController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:UserController"],
-		beego.ControllerComments{
-			"Put",
-			`/:uid`,
-			[]string{"put"},
-			nil})
-
-	beego.GlobalControllerRouter["go-MyVIT/controllers:UserController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:UserController"],
-		beego.ControllerComments{
-			"Delete",
-			`/:uid`,
-			[]string{"delete"},
-			nil})
-
-	beego.GlobalControllerRouter["go-MyVIT/controllers:UserController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:UserController"],
-		beego.ControllerComments{
-			"Login",
-			`/login`,
-			[]string{"get"},
-			nil})
-
-	beego.GlobalControllerRouter["go-MyVIT/controllers:UserController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:UserController"],
-		beego.ControllerComments{
-			"Logout",
-			`/logout`,
 			[]string{"get"},
 			nil})
 

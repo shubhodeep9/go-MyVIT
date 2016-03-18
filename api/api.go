@@ -45,6 +45,11 @@ func Schedule(regno, password, baseuri string) *scrape.ExamSchedule{
 	return scrape.ExmSchedule(bow,regno,password,baseuri)
 }
 
+func AcademicHistory(regno, password, baseuri string) *scrape.AcademicStruct{
+	bow := surf.NewBrowser()
+	return scrape.Academics(bow,regno,password,baseuri)
+}
+
 
 
 
