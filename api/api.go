@@ -50,6 +50,10 @@ func AcademicHistory(regno, password, baseuri string) *scrape.AcademicStruct{
 	return scrape.Academics(bow,regno,password,baseuri)
 }
 
+func CoursePage(regno, password, baseuri string) *scrape.CourseStruct{
+	bow := surf.NewBrowser()
+	return scrape.Courses(bow,regno,password,baseuri)
+}
 
 
 

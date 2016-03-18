@@ -50,6 +50,12 @@ func init() {
 				&controllers.AcademicsController{},
 			),
 		),
+		beego.NSNamespace("/coursepage",
+			beego.NSInclude(
+				// controllers/login.go
+				&controllers.CoursePageController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
