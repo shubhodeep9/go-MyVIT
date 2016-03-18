@@ -17,7 +17,7 @@ import (
 )
 
 // Operations about login
-type AdvisorController struct {
+type AcademicsController struct {
 	beego.Controller
 }
 
@@ -26,7 +26,7 @@ type AdvisorController struct {
 // @Success 200
 // @Failure 403 parameters missing
 // @router / [get]
-func (o *AdvisorController) Get() {
+func (o *AcademicsController) Get() {
 	regNo := o.Input().Get("regNo")
 	psswd := o.Input().Get("psswd")
 	campus := o.Ctx.Input.Param(":campus")
