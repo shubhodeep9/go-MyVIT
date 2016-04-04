@@ -6,12 +6,12 @@ import (
 	"go-MyVIT/api/login"
 )
 
-type CourseStruct struct{
+type FacStruct struct{
 	Courselist map[string]string `json:"courses"`
 	Status string `json:"status"`
 }
 
-func Courses(bow *browser.Browser,regno, password, baseuri string) *CourseStruct{
+func Facs(bow *browser.Browser,regno, password, baseuri, coursekey, slt string) *FacStruct{
 	response := login.NewLogin(bow,regno,password,baseuri)
 	status := "Success"
 	courselist := make(map[string]string)
@@ -19,8 +19,8 @@ func Courses(bow *browser.Browser,regno, password, baseuri string) *CourseStruct
 		status = "Failure"
 	} else {
 		bow.Open(baseuri+"/student/coursepage_view.asp?sem=WS")
-		bow.Open(baseuri+"/student/coursepage_view.asp?sem=WS")
-		options := bow.Find("select").Eq(0).Find("option")
+		bow.Open(baseuri+"/student/coursepage_view.asp?sem=WS&crs="+coursekey+"&slt="+slt)
+		options := bow.Find("select").Eq(2).Find("option")
 		options.Each(func(i int, s *goquery.Selection){
 			if i>0 {
 				val, _ := s.Attr("value")
@@ -28,7 +28,7 @@ func Courses(bow *browser.Browser,regno, password, baseuri string) *CourseStruct
 			}
 		})
 	}
-	return &CourseStruct{
+	return &FacStruct{
 		Courselist: courselist,
 		Status: status,
 	}
