@@ -2,6 +2,7 @@ package browser
 
 import (
 	"bytes"
+	"crypto/tls"
 	"fmt"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/errors"
@@ -419,7 +420,7 @@ func (bow *Browser) Scripts() []*Script {
 // @Author Shubhodeep Mukherjee
 // *browser.cookie.SetCookie()
 func (bow *Browser) SetSiteCookies(cookies []*http.Cookie) {
-	urlo, _ := url.Parse("https://academics.vit.ac.in/student/home.asp")
+	urlo, _ := url.Parse("https://academics.vit.ac.in/student/")
 	bow.cookies.SetCookies(urlo, cookies)
 }
 
@@ -553,7 +554,10 @@ func (bow *Browser) Find(expr string) *goquery.Selection {
 
 // buildClient creates, configures, and returns a *http.Client type.
 func (bow *Browser) buildClient() *http.Client {
-	client := &http.Client{}
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	client := &http.Client{Transport: tr}
 	client.Jar = bow.cookies
 	client.CheckRedirect = bow.shouldRedirect
 	if bow.transport != nil {
