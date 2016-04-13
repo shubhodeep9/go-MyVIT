@@ -21,6 +21,9 @@ type RefreshStruct struct {
 	Campus   string             `json:"campus"`
 	Semester string             `json:"semester"`
 	Courses  []Contents         `json:"courses"`
+	Academic *AcademicStruct    `json:"academic_history"`
+	FacAdv   *Advisor           `json:"faculty_advisor"`
+	Exam     *ExamSchedule      `json:"exam_schedule"`
 	Status   login.StatusStruct `json:"status"`
 }
 
@@ -98,6 +101,9 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string) *RefreshStru
 		Campus:   "vellore",
 		Semester: "WS",
 		Courses:  courses,
+		Academic: acad,
+		FacAdv:   adv,
+		Exam:     exam,
 		Status:   stt,
 	}
 }

@@ -3,7 +3,7 @@ package scrape
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-
+	"strconv"
 	"strings"
 	"sync"
 )
@@ -18,15 +18,15 @@ type AcademicStruct struct {
 type CourseDets struct {
 	CourseTitle string `json:"course_title"`
 	CourtType   string `json:"course_type"`
-	Credit      string `json:"credit"`
+	Credit      int    `json:"credit"`
 	Grade       string `json:"grade"`
 }
 
 type StudentDets struct {
-	CGPA        string `json:"cgpa"`
-	CEarned     string `json:"credits earned"`
-	CRegistered string `json:"credits registered"`
-	Rank        string `json:"rank"`
+	CGPA        float64 `json:"cgpa"`
+	CEarned     int     `json:"credits earned"`
+	CRegistered int     `json:"credits registered"`
+	Rank        int     `json:"rank"`
 }
 
 type Grades struct {
@@ -63,7 +63,7 @@ func Academics(bow *browser.Browser, regno, password, baseuri string) *AcademicS
 					history1[td.Eq(1).Text()] = CourseDets{
 						CourseTitle: td.Eq(2).Text(),
 						CourtType:   td.Eq(3).Text(),
-						Credit:      td.Eq(4).Text(),
+						Credit:      conver(td.Eq(4).Text()),
 						Grade:       td.Eq(5).Text(),
 					}
 				}
@@ -73,11 +73,12 @@ func Academics(bow *browser.Browser, regno, password, baseuri string) *AcademicS
 			defer wg.Done()
 			table = bow.Find("table").Eq(3)
 			td := table.Find("tr").Eq(1).Find("td")
+			cg, _ := strconv.ParseFloat(strings.TrimSpace(td.Eq(2).Text()), 64)
 			history2 = StudentDets{
-				CGPA:        strings.TrimSpace(td.Eq(2).Text()),
-				CEarned:     td.Eq(1).Text(),
-				CRegistered: td.Eq(0).Text(),
-				Rank:        td.Eq(3).Text(),
+				CGPA:        cg,
+				CEarned:     conver(td.Eq(1).Text()),
+				CRegistered: conver(td.Eq(0).Text()),
+				Rank:        conver(td.Eq(3).Text()),
 			}
 		}()
 		go func() {
