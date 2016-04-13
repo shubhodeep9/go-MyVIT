@@ -85,9 +85,9 @@ Calls NewLogin to login to academics,
 @return Attendance struct
 */
 func ShowAttendance(bow *browser.Browser, regno, password, baseuri string) *Attendance {
-	var avg float64
-	avg = 0
+	avg := 0
 	status := "Success"
+	tr_len := 0
 	dets := make(map[string]Subject)
 	if false {
 		status = "Failure"
@@ -124,10 +124,10 @@ func ShowAttendance(bow *browser.Browser, regno, password, baseuri string) *Atte
 			}
 		})
 		wg.Wait()
-		avg = avg / (tr.Length() - 1)
+		tr_len = tr.Length() - 1
 	}
 	return &Attendance{
-		Average_Attendance: avg,
+		Average_Attendance: float64(avg / tr_len),
 		AttendanceDet:      dets,
 		Status:             status,
 	}
