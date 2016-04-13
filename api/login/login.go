@@ -43,7 +43,7 @@ func NewLogin(bow *browser.Browser, reg, pass, baseuri string, cac *cache.Cache)
 	go DoLogin(bow, reg, pass, status, baseuri, cac)
 	success := <-status
 	var stt StatusStruct
-	if success == 0 {
+	if success == 1 {
 		stt = StatusStruct{
 			Message: "Successful Execution",
 			Code:    0,
