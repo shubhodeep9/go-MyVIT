@@ -38,6 +38,9 @@ type Contents struct {
 	Registration_status string       `json:"registration_status"`
 	Slot                string       `json:"slot"`
 	Venue               string       `json:"venue"`
+	BillDate            string       `json:"bill_date"`
+	BillNumber          string       `json:"bill_number"`
+	ProjectTitle        string       `json:"project_title"`
 	Timings             []TimeStruct `json:"timings"`
 	Attendance          Subject      `json:"attendance"`
 	Marks               Mrks         `json:"marks"`
