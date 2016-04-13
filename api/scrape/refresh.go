@@ -12,14 +12,16 @@ package scrape
 
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
+	"go-MyVIT/api/login"
 	"sync"
 )
 
 type RefreshStruct struct {
-	RegNo    string     `json:"reg_no"`
-	Campus   string     `json:"campus"`
-	Semester string     `json:"semester"`
-	Courses  []Contents `json:"courses"`
+	RegNo    string             `json:"reg_no"`
+	Campus   string             `json:"campus"`
+	Semester string             `json:"semester"`
+	Courses  []Contents         `json:"courses"`
+	Status   login.StatusStruct `json:"status"`
 }
 
 func Refresh(bow *browser.Browser, regno, password, baseuri string) *RefreshStruct {
@@ -87,11 +89,15 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string) *RefreshStru
 		}
 		courses = append(courses, course)
 	}
-
+	stt := login.StatusStruct{
+		Message: "Successful Execution",
+		Code:    0,
+	}
 	return &RefreshStruct{
 		RegNo:    regno,
 		Campus:   "vellore",
 		Semester: "WS",
 		Courses:  courses,
+		Status:   stt,
 	}
 }

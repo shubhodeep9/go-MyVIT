@@ -21,8 +21,14 @@ import (
 )
 
 type Response struct {
-	Regno  string `json:"regno"`
-	Status int    `json:"status"`
+	Regno  string       `json:"regno"`
+	Campus string       `json:"campus"`
+	Status StatusStruct `json:"status"`
+}
+
+type StatusStruct struct {
+	Message string `json:"message"`
+	Code    int    `json:"code"`
 }
 
 var Sessionname string
@@ -36,9 +42,22 @@ func NewLogin(bow *browser.Browser, reg, pass, baseuri string, cac *cache.Cache)
 	status := make(chan int)
 	go DoLogin(bow, reg, pass, status, baseuri, cac)
 	success := <-status
+	var stt StatusStruct
+	if success == 0 {
+		stt = StatusStruct{
+			Message: "Successful Execution",
+			Code:    0,
+		}
+	} else {
+		stt = StatusStruct{
+			Message: "UnSuccessful Execution",
+			Code:    12,
+		}
+	}
 	return &Response{
 		Regno:  reg,
-		Status: success,
+		Campus: "vellore",
+		Status: stt,
 	}
 }
 
