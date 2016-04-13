@@ -71,6 +71,7 @@ func ShowTimetable(bow *browser.Browser, regno, password, baseuri string) *Timet
 					defer wg.Done()
 					td := s.Find("td")
 					code := td.Eq(3).Text()
+					fmt.Println(td.Eq(2).Text())
 					if code == "Embedded Lab" || td.Eq(2).Text() == "Lab Only" {
 						code = td.Eq(1).Text() + "_L"
 						cn, _ := strconv.Atoi(td.Eq(0).Text())
