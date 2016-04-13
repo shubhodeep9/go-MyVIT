@@ -14,16 +14,11 @@ import (
 	"fmt"
 	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"net/http"
+	"go-MyVIT/api/cache"
 	"net/url"
 	"os"
 	"os/exec"
 )
-
-type MemCache struct {
-	Regno     string
-	MemCookie []*http.Cookie
-}
 
 type Response struct {
 	Regno  string `json:"regno"`
@@ -72,7 +67,7 @@ func DoLogin(bow *browser.Browser, reg, pass string, status chan int, baseuri st
 		v.Add("message", "")
 		bow.PostForm(baseuri+"/student/stud_login_submit.asp", v)
 		fmt.Println(bow.Url())
-		cac.Set(reg, &MemCache{Regno: reg, MemCookie: bow.SiteCookies()}, cache.DefaultExpiration)
+		cac.Set(reg, &cacheSession.MemCache{Regno: reg, MemCookie: bow.SiteCookies()}, cache.DefaultExpiration)
 		stud_home := "/student/stud_home.asp"
 		home := "/student/home.asp"
 		u := bow.Url().EscapedPath()

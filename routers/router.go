@@ -26,36 +26,36 @@ func init() {
 				&controllers.TimetableController{},
 			),
 		),
-		// beego.NSNamespace("/facadvdet",
-		// 	beego.NSInclude(
-		// 		// controllers/advisor.go
-		// 		&controllers.AdvisorController{},
-		// 	),
-		// ),
-		// beego.NSNamespace("/attendance",
-		// 	beego.NSInclude(
-		// 		// controllers/attendance.go
-		// 		&controllers.AttendanceController{},
-		// 	),
-		// ),
-		// beego.NSNamespace("/examschedule",
-		// 	beego.NSInclude(
-		// 		// controllers/login.go
-		// 		&controllers.ExamScheduleController{},
-		// 	),
-		// ),
-		// beego.NSNamespace("/acadhist",
-		// 	beego.NSInclude(
-		// 		// controllers/login.go
-		// 		&controllers.AcademicsController{},
-		// 	),
-		// ),
-		// beego.NSNamespace("/coursepage/:category",
-		// 	beego.NSInclude(
-		// 		// controllers/login.go
-		// 		&controllers.CoursePageController{},
-		// 	),
-		// ),
+		beego.NSNamespace("/facadvdet",
+			beego.NSInclude(
+				// controllers/advisor.go
+				&controllers.AdvisorController{},
+			),
+		),
+		beego.NSNamespace("/attendance",
+			beego.NSInclude(
+				// controllers/attendance.go
+				&controllers.AttendanceController{},
+			),
+		),
+		beego.NSNamespace("/examschedule",
+			beego.NSInclude(
+				// controllers/login.go
+				&controllers.ExamScheduleController{},
+			),
+		),
+		beego.NSNamespace("/acadhist",
+			beego.NSInclude(
+				// controllers/login.go
+				&controllers.AcademicsController{},
+			),
+		),
+		beego.NSNamespace("/coursepage/:category",
+			beego.NSInclude(
+				// controllers/login.go
+				&controllers.CoursePageController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }

@@ -15,7 +15,8 @@ import (
 	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"go-MyVIT/api/login"
+	"go-MyVIT/api/cache"
+
 	"strings"
 )
 
@@ -38,13 +39,6 @@ type Contents struct {
 	Venue               string `json:"venue"`
 }
 
-func setSession(bow *browser.Browser, cac *cache.Cache, regno string) {
-	cacheval, _ := cac.Get(regno)
-	cachevalue := cacheval.(*login.MemCache)
-
-	bow.SetSiteCookies(cachevalue.MemCookie)
-}
-
 /*
 Function to show Timetable,
 Calls NewLogin to login to academics,
@@ -52,7 +46,7 @@ Calls NewLogin to login to academics,
 @return Timtable struct
 */
 func ShowTimetable(bow *browser.Browser, regno, password, baseuri string, cac *cache.Cache) *Timetable {
-	setSession(bow, cac, regno)
+	cacheSession.SetSession(bow, cac, regno)
 	conts := make(map[string]Contents)
 	status := "Success"
 	if 1 != 1 {
