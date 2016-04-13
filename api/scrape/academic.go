@@ -26,7 +26,7 @@ type StudentDets struct {
 	CGPA        float64 `json:"cgpa"`
 	CEarned     int     `json:"credits earned"`
 	CRegistered int     `json:"credits registered"`
-	Rank        int     `json:"rank"`
+	Rank        string  `json:"rank"`
 }
 
 type Grades struct {
@@ -78,7 +78,7 @@ func Academics(bow *browser.Browser, regno, password, baseuri string) *AcademicS
 				CGPA:        cg,
 				CEarned:     conver(td.Eq(1).Text()),
 				CRegistered: conver(td.Eq(0).Text()),
-				Rank:        conver(td.Eq(3).Text()),
+				Rank:        td.Eq(3).Text(),
 			}
 		}()
 		go func() {

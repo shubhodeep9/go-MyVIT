@@ -18,6 +18,8 @@ import (
 
 type RefreshStruct struct {
 	RegNo    string             `json:"reg_no"`
+	Name     string             `json:"name"`
+	School   string             `json:"school"`
 	Campus   string             `json:"campus"`
 	Semester string             `json:"semester"`
 	Courses  []Contents         `json:"courses"`
@@ -29,14 +31,15 @@ type RefreshStruct struct {
 
 func Refresh(bow *browser.Browser, regno, password, baseuri string) *RefreshStruct {
 	var re sync.WaitGroup
-	re.Add(6)
+	re.Add(7)
 	var (
-		timet *Timetable
-		acad  *AcademicStruct
-		adv   *Advisor
-		att   *Attendance
-		exam  *ExamSchedule
-		marks *GetMarks
+		timet    *Timetable
+		acad     *AcademicStruct
+		adv      *Advisor
+		att      *Attendance
+		exam     *ExamSchedule
+		marks    *GetMarks
+		personal *Personal
 	)
 	go func() {
 		defer re.Done()
@@ -61,6 +64,10 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string) *RefreshStru
 	go func() {
 		defer re.Done()
 		marks = ShowMarks(bow, regno, password, baseuri)
+	}()
+	go func() {
+		defer re.Done()
+		personal = ShowPersonal(bow, regno, password, baseuri)
 	}()
 	re.Wait()
 	var courses []Contents
@@ -98,6 +105,8 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string) *RefreshStru
 	}
 	return &RefreshStruct{
 		RegNo:    regno,
+		Name:     personal.Name,
+		School:   personal.School,
 		Campus:   "vellore",
 		Semester: "WS",
 		Courses:  courses,

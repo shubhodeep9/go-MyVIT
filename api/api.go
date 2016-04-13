@@ -21,6 +21,12 @@ import (
 
 var cac *cache.Cache = cache.New(2*time.Minute, 30*time.Second)
 
+func Advisor(regno, password, baseuri string) *scrape.Personal {
+	bow := surf.NewBrowser()
+	cacheSession.SetSession(bow, cac, regno)
+	return scrape.ShowPersonal(bow, regno, password, baseuri)
+}
+
 //Executable script to Login
 func LogIn(regno, password, baseuri string) *login.Response {
 	bow := surf.NewBrowser()
@@ -35,11 +41,11 @@ func TimeTable(regno, password, baseuri string) *scrape.Timetable {
 }
 
 //Executable script to show Faculty Advisor details
-func Advisor(regno, password, baseuri string) *scrape.Advisor {
-	bow := surf.NewBrowser()
-	cacheSession.SetSession(bow, cac, regno)
-	return scrape.FacultyAdvisor(bow, regno, password, baseuri)
-}
+// func Advisor(regno, password, baseuri string) *scrape.Advisor {
+// 	bow := surf.NewBrowser()
+// 	cacheSession.SetSession(bow, cac, regno)
+// 	return scrape.FacultyAdvisor(bow, regno, password, baseuri)
+// }
 
 //Executable script to show Attendance
 func Attendance(regno, password, baseuri string) *scrape.Attendance {
