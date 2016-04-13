@@ -16,6 +16,7 @@ import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/cache"
+	"strconv"
 	"strings"
 	"sync"
 )
@@ -26,7 +27,7 @@ type Timetable struct {
 }
 
 type Contents struct {
-	Class_number        string `json:"class_number"`
+	Class_number        int    `json:"class_number"`
 	Course_code         string `json:"course_code"`
 	Course_mode         string `json:"course_mode"`
 	Course_option       string `json:"course_option"`
@@ -71,8 +72,9 @@ func ShowTimetable(bow *browser.Browser, regno, password, baseuri string, cac *c
 					code := td.Eq(3).Text()
 					if code == "Embedded Lab" {
 						code = td.Eq(1).Text() + "_L"
+						cn, _ := strconv.Atoi(td.Eq(0).Text())
 						conts[code] = Contents{
-							Class_number:  td.Eq(0).Text(),
+							Class_number:  cn,
 							Course_code:   td.Eq(1).Text(),
 							Course_mode:   td.Eq(5).Text(),
 							Course_option: td.Eq(6).Text(),
@@ -84,8 +86,9 @@ func ShowTimetable(bow *browser.Browser, regno, password, baseuri string, cac *c
 							Venue:         td.Eq(8).Text(),
 						}
 					} else {
+						cn, _ := strconv.Atoi(td.Eq(2).Text())
 						conts[code] = Contents{
-							Class_number:        td.Eq(2).Text(),
+							Class_number:        cn,
 							Course_code:         td.Eq(3).Text(),
 							Course_mode:         td.Eq(7).Text(),
 							Course_option:       td.Eq(8).Text(),

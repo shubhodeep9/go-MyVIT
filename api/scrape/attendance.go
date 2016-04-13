@@ -108,7 +108,11 @@ func ShowAttendance(bow *browser.Browser, regno, password, baseuri string, cac *
 					defer wg.Done()
 					td := s.Find("td")
 					classnbr, _ := s.Find("input[name=classnbr]").Attr("value")
-					dets[td.Eq(1).Text()] = Subject{
+					code := td.Eq(1).Text()
+					if td.Eq(0).Text() == "-" {
+						code = code + "_L"
+					}
+					dets[code] = Subject{
 						Percentage: td.Eq(8).Text(),
 						Classes:    td.Eq(6).Text(),
 						Details:    getDetails(classnbr, baseuri, bow),
