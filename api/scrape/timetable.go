@@ -27,17 +27,18 @@ type Timetable struct {
 }
 
 type Contents struct {
-	Class_number        int    `json:"class_number"`
-	Course_code         string `json:"course_code"`
-	Course_mode         string `json:"course_mode"`
-	Course_option       string `json:"course_option"`
-	Course_title        string `json:"course_title"`
-	Course_type         string `json:"course_type"`
-	Faculty             string `json:"faculty"`
-	Ltpjc               string `json:"ltpjc"`
-	Registration_status string `json:"registration_status,omitempty"`
-	Slot                string `json:"slot"`
-	Venue               string `json:"venue"`
+	Class_number        int     `json:"class_number"`
+	Course_code         string  `json:"course_code"`
+	Course_mode         string  `json:"course_mode"`
+	Course_option       string  `json:"course_option"`
+	Course_title        string  `json:"course_title"`
+	Course_type         string  `json:"course_type"`
+	Faculty             string  `json:"faculty"`
+	Ltpjc               string  `json:"ltpjc"`
+	Registration_status string  `json:"registration_status,omitempty"`
+	Slot                string  `json:"slot"`
+	Venue               string  `json:"venue"`
+	Attendace           Subject `json:"attendance,omitempty"`
 }
 
 /*
@@ -70,7 +71,7 @@ func ShowTimetable(bow *browser.Browser, regno, password, baseuri string) *Timet
 					defer wg.Done()
 					td := s.Find("td")
 					code := td.Eq(3).Text()
-					if code == "Embedded Lab" {
+					if code == "Embedded Lab" || code == "Lab Only" {
 						code = td.Eq(1).Text() + "_L"
 						cn, _ := strconv.Atoi(td.Eq(0).Text())
 						conts[code] = Contents{
@@ -85,7 +86,7 @@ func ShowTimetable(bow *browser.Browser, regno, password, baseuri string) *Timet
 							Slot:          td.Eq(7).Text(),
 							Venue:         td.Eq(8).Text(),
 						}
-					} else {
+					} else if code == "Theory Only" || code == "Soft Skill" || code == "Embedded Theory" {
 						cn, _ := strconv.Atoi(td.Eq(2).Text())
 						conts[code] = Contents{
 							Class_number:        cn,
