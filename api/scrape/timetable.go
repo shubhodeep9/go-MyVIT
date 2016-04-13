@@ -38,7 +38,7 @@ type Contents struct {
 	Registration_status string  `json:"registration_status,omitempty"`
 	Slot                string  `json:"slot"`
 	Venue               string  `json:"venue"`
-	Attendace           Subject `json:"attendance,omitempty"`
+	Attendance          Subject `json:"attendance,omitempty"`
 }
 
 /*
@@ -71,7 +71,7 @@ func ShowTimetable(bow *browser.Browser, regno, password, baseuri string) *Timet
 					defer wg.Done()
 					td := s.Find("td")
 					code := td.Eq(3).Text()
-					if code == "Embedded Lab" || td.Eq(4).Text() == "Lab Only" {
+					if code == "Embedded Lab" {
 						code = td.Eq(1).Text() + "_L"
 						cn, _ := strconv.Atoi(td.Eq(0).Text())
 						conts[code] = Contents{
@@ -87,6 +87,9 @@ func ShowTimetable(bow *browser.Browser, regno, password, baseuri string) *Timet
 							Venue:         td.Eq(8).Text(),
 						}
 					} else if code != "Embedded Project" {
+						if td.Eq(5).Text() == "Lab Only" {
+							code = code + "_L"
+						}
 						cn, _ := strconv.Atoi(td.Eq(2).Text())
 						conts[code] = Contents{
 							Class_number:        cn,

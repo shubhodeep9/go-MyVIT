@@ -16,11 +16,10 @@ import (
 )
 
 type RefreshStruct struct {
-	Timetable    *Timetable      `json:"timetable"`
-	Academics    *AcademicStruct `json:"academic_istory"`
-	Advisor      *Advisor        `json:"advisor"`
-	Attendance   *Attendance     `json:"attendance"`
-	ExamSchedule *ExamSchedule   `json:"exam_schedule"`
+	RegNo    string     `json:"reg_no"`
+	Campus   string     `json:"campus"`
+	Semester string     `json:"semester"`
+	Courses  []Contents `json:"courses"`
 }
 
 func Refresh(bow *browser.Browser, regno, password, baseuri string) *RefreshStruct {
@@ -54,11 +53,31 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string) *RefreshStru
 		exam = ExmSchedule(bow, regno, password, baseuri)
 	}()
 	re.Wait()
+	var courses []Contents
+	timetable := timet.Time_table
+	var course Contents
+	for i := range timetable {
+		course = Contents{
+			Class_number:        timetable[i].Class_number,
+			Course_code:         timetable[i].Course_code,
+			Course_mode:         timetable[i].Course_mode,
+			Course_option:       timetable[i].Course_option,
+			Course_title:        timetable[i].Course_title,
+			Course_type:         timetable[i].Course_type,
+			Faculty:             timetable[i].Faculty,
+			Ltpjc:               timetable[i].Ltpjc,
+			Registration_status: timetable[i].Registration_status,
+			Slot:                timetable[i].Slot,
+			Venue:               timetable[i].Venue,
+			Attendance:          att.AttendanceDet[i],
+		}
+		courses = append(courses, course)
+	}
+
 	return &RefreshStruct{
-		Timetable:    timet,
-		Academics:    acad,
-		Advisor:      adv,
-		Attendance:   att,
-		ExamSchedule: exam,
+		RegNo:    regno,
+		Campus:   "vellore",
+		Semester: "WS",
+		Courses:  courses,
 	}
 }
