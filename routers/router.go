@@ -56,6 +56,11 @@ func init() {
 				&controllers.CoursePageController{},
 			),
 		),
+		beego.NSNamespace("/refresh",
+			beego.NSInclude(
+				&controllers.RefreshController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }

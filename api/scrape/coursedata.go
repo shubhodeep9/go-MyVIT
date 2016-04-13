@@ -1,10 +1,8 @@
 package scrape
 
 import (
-	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"go-MyVIT/api/cache"
 
 	"net/url"
 )
@@ -14,8 +12,8 @@ type CourseDataStruct struct {
 	Status  string   `json:"status"`
 }
 
-func CourseData(bow *browser.Browser, regno, password, baseuri, coursekey, slt, fac string, cac *cache.Cache) *CourseDataStruct {
-	cacheSession.SetSession(bow, cac, regno)
+func CourseData(bow *browser.Browser, regno, password, baseuri, coursekey, slt, fac string) *CourseDataStruct {
+
 	status := "Success"
 	var upload []string
 	//courselist := make(map[string]string)

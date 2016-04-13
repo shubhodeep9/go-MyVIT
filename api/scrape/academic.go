@@ -1,10 +1,8 @@
 package scrape
 
 import (
-	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"go-MyVIT/api/cache"
 
 	"strings"
 	"sync"
@@ -42,8 +40,8 @@ type Grades struct {
 	S string `json:"S grades"`
 }
 
-func Academics(bow *browser.Browser, regno, password, baseuri string, cac *cache.Cache) *AcademicStruct {
-	cacheSession.SetSession(bow, cac, regno)
+func Academics(bow *browser.Browser, regno, password, baseuri string) *AcademicStruct {
+
 	status := "Success"
 	var wg sync.WaitGroup
 	history1 := make(map[string]CourseDets)

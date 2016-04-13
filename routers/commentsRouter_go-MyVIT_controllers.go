@@ -48,6 +48,13 @@ func init() {
 			[]string{"get"},
 			nil})
 
+	beego.GlobalControllerRouter["go-MyVIT/controllers:RefreshController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:RefreshController"],
+		beego.ControllerComments{
+			"Get",
+			`/`,
+			[]string{"get"},
+			nil})
+
 	beego.GlobalControllerRouter["go-MyVIT/controllers:TimetableController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:TimetableController"],
 		beego.ControllerComments{
 			"Get",

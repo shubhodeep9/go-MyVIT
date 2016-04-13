@@ -1,10 +1,8 @@
 package scrape
 
 import (
-	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"go-MyVIT/api/cache"
 )
 
 type FacStruct struct {
@@ -12,8 +10,8 @@ type FacStruct struct {
 	Status     string            `json:"status"`
 }
 
-func Facs(bow *browser.Browser, regno, password, baseuri, coursekey, slt string, cac *cache.Cache) *FacStruct {
-	cacheSession.SetSession(bow, cac, regno)
+func Facs(bow *browser.Browser, regno, password, baseuri, coursekey, slt string) *FacStruct {
+
 	status := "Success"
 	courselist := make(map[string]string)
 	if false {

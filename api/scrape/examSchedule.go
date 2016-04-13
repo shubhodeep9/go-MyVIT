@@ -12,8 +12,7 @@ import (
 
 	//"strings"
 	"fmt"
-	"github.com/patrickmn/go-cache"
-	"go-MyVIT/api/cache"
+
 	"sync"
 )
 
@@ -39,8 +38,8 @@ Function ->ExmSchedule to fetch the exam schedule,
 @return ExamSchedule struct
 */
 
-func ExmSchedule(bow *browser.Browser, regno, password, baseuri string, cac *cache.Cache) *ExamSchedule {
-	cacheSession.SetSession(bow, cac, regno)
+func ExmSchedule(bow *browser.Browser, regno, password, baseuri string) *ExamSchedule {
+
 	status := "Success"
 	var cat1 map[string]Contents2
 	var cat2 map[string]Contents2

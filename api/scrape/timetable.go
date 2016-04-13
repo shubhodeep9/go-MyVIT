@@ -12,10 +12,10 @@ package scrape
 
 import (
 	"fmt"
-	"github.com/patrickmn/go-cache"
+
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"go-MyVIT/api/cache"
+
 	"strconv"
 	"strings"
 	"sync"
@@ -46,8 +46,8 @@ Calls NewLogin to login to academics,
 @param bow (surf Browser) registration_no password
 @return Timtable struct
 */
-func ShowTimetable(bow *browser.Browser, regno, password, baseuri string, cac *cache.Cache) *Timetable {
-	cacheSession.SetSession(bow, cac, regno)
+func ShowTimetable(bow *browser.Browser, regno, password, baseuri string) *Timetable {
+
 	conts := make(map[string]Contents)
 	status := "Success"
 	if 1 != 1 {

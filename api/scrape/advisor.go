@@ -11,10 +11,8 @@
 package scrape
 
 import (
-	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"go-MyVIT/api/cache"
 
 	"strings"
 	"sync"
@@ -31,8 +29,8 @@ Calls NewLogin to login to academics,
 @param bow(surf Browser) registration_no password
 @return Advisor struct
 */
-func FacultyAdvisor(bow *browser.Browser, regno, password, baseuri string, cac *cache.Cache) *Advisor {
-	cacheSession.SetSession(bow, cac, regno)
+func FacultyAdvisor(bow *browser.Browser, regno, password, baseuri string) *Advisor {
+
 	status := "Success"
 	dets := make(map[string]string)
 	if false {
