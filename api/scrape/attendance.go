@@ -13,9 +13,9 @@ package scrape
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-
 	"net/url"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 )
@@ -114,7 +114,7 @@ func ShowAttendance(bow *browser.Browser, regno, password, baseuri string) *Atte
 					td := s.Find("td")
 					classnbr, _ := s.Find("input[name=classnbr]").Attr("value")
 					code := td.Eq(1).Text()
-					if td.Eq(0).Text() == "-" {
+					if strings.Contains(td.Eq(3).Text(), "Lab") {
 						code = code + "_L"
 					}
 					percent := td.Eq(8).Text()
