@@ -24,7 +24,7 @@ type RefreshController struct {
 // @Description find object by objectid
 // @Success 200
 // @Failure 403 parameters missing
-// @router / [get]
+// @router / [post]
 func (o *RefreshController) Get() {
 	regNo := o.Input().Get("regNo")
 	psswd := o.Input().Get("psswd")
