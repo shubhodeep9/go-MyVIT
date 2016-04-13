@@ -8,7 +8,6 @@
 	#GDGSwag
 */
 
-
 package controllers
 
 import (
@@ -25,7 +24,7 @@ type LoginController struct {
 // @Description find object by objectid
 // @Success 200
 // @Failure 403 parameters missing
-// @router / [get]
+// @router / [post]
 func (o *LoginController) Get() {
 	regNo := o.Input().Get("regNo")
 	psswd := o.Input().Get("psswd")
