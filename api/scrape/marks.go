@@ -27,8 +27,8 @@ type Assessment struct {
 	Weightage        int     `json:"weightage,omitempty"`
 	Conducted_on     string  `json:"conducted_on,omitempty"`
 	Status           string  `json:"status,omitempty"`
-	ScoredMarks      float64 `json:"scored_marks,omitempty"`
-	ScoredPercentage float64 `json:"scored_percentage,omitempty"`
+	ScoredMarks      float64 `json:"scored_marks"`
+	ScoredPercentage float64 `json:"scored_percentage"`
 }
 
 type Mrks struct {
