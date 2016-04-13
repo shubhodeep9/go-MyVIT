@@ -32,9 +32,9 @@ type Contents struct {
 	Course_mode         string       `json:"course_mode"`
 	Course_option       string       `json:"course_option"`
 	Course_title        string       `json:"course_title"`
-	Course_type         string       `json:"course_type"`
+	Course_type         string       `json:"subject_type"`
 	Faculty             string       `json:"faculty"`
-	Ltpjc               string       `json:"ltpjc"`
+	Ltpjc               string       `json:"ltpc"`
 	Registration_status string       `json:"registration_status,omitempty"`
 	Slot                string       `json:"slot"`
 	Venue               string       `json:"venue"`
