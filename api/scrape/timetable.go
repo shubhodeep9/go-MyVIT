@@ -35,18 +35,18 @@ type Contents struct {
 	Course_type         string       `json:"subject_type"`
 	Faculty             string       `json:"faculty"`
 	Ltpjc               string       `json:"ltpc"`
-	Registration_status string       `json:"registration_status,omitempty"`
+	Registration_status string       `json:"registration_status"`
 	Slot                string       `json:"slot"`
 	Venue               string       `json:"venue"`
-	Timings             []TimeStruct `json:"timings,omitempty"`
-	Attendance          Subject      `json:"attendance,omitempty"`
-	Marks               Mrks         `json:"marks,omitempty"`
+	Timings             []TimeStruct `json:"timings"`
+	Attendance          Subject      `json:"attendance"`
+	Marks               Mrks         `json:"marks"`
 }
 
 type TimeStruct struct {
-	Day       int    `json:"day,omitempty"`
-	StartTime string `json:"start_time,omitempty"`
-	EndTime   string `json:"end_time,omitempty"`
+	Day       int    `json:"day"`
+	StartTime string `json:"start_time"`
+	EndTime   string `json:"end_time"`
 }
 
 /*
