@@ -64,7 +64,7 @@ func ExmSchedule(bow *browser.Browser, regno, password, baseuri string, cac *cac
 		table.Find("tr").Each(func(i int, s *goquery.Selection) {
 			if i >= 1 && i < rows-1 {
 				wg.Add(1)
-				func() {
+				go func() {
 					defer wg.Done()
 					td := s.Find("td")
 

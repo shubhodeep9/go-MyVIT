@@ -16,8 +16,8 @@ import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/cache"
-
 	"strings"
+	"sync"
 )
 
 type Timetable struct {
@@ -61,10 +61,12 @@ func ShowTimetable(bow *browser.Browser, regno, password, baseuri string, cac *c
 
 		tr := reg_table.Find("tr")
 		tr_len := tr.Length()
-		ch := make(chan int)
+		var wg sync.WaitGroup
 		tr.Each(func(i int, s *goquery.Selection) {
 			if i > 0 && i < tr_len-2 {
+				wg.Add(1)
 				go func(conts map[string]Contents, s *goquery.Selection) {
+					defer wg.Done()
 					td := s.Find("td")
 					code := td.Eq(3).Text()
 					if code == "Embedded Lab" {
@@ -96,13 +98,10 @@ func ShowTimetable(bow *browser.Browser, regno, password, baseuri string, cac *c
 							Venue:               td.Eq(10).Text(),
 						}
 					}
-					ch <- 1
 				}(conts, s)
 			}
 		})
-		for ct := 0; ct < tr_len-3; ct++ {
-			<-ch
-		}
+		wg.Wait()
 		if len(conts) == 0 {
 			status = "Failure"
 		}
