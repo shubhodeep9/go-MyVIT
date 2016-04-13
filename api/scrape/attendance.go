@@ -30,15 +30,15 @@ type Attendance struct {
 }
 
 type Subject struct {
-	Percentage string       `json:"attendance_percentage"`
-	Classes    string       `json:"attended_classes"`
+	Percentage int          `json:"attendance_percentage"`
+	Classes    int          `json:"attended_classes"`
 	Details    []DetsBranch `json:"details"`
 	Date       string       `json:"registration_date"`
-	TotalClass string       `json:"total_classes"`
+	TotalClass int          `json:"total_classes"`
 }
 
 type DetsBranch struct {
-	ClassUnits string `json:"class_units"`
+	ClassUnits int    `json:"class_units"`
 	Date       string `json:"date"`
 	Reason     string `json:"reason"`
 	Slot       string `json:"slot"`
@@ -66,7 +66,7 @@ func getDetails(classnbr, baseuri string, bow *browser.Browser) []DetsBranch {
 		if i > 1 {
 			td := s.Find("td")
 			detsbranch = DetsBranch{
-				ClassUnits: td.Eq(4).Text(),
+				ClassUnits: conver(td.Eq(4).Text()),
 				Date:       td.Eq(1).Text(),
 				Reason:     td.Eq(5).Text(),
 				Slot:       td.Eq(2).Text(),
@@ -76,6 +76,11 @@ func getDetails(classnbr, baseuri string, bow *browser.Browser) []DetsBranch {
 		}
 	})
 	return detsbranchlis
+}
+
+func conver(i string) int {
+	l, _ := strconv.Atoi(i)
+	return l
 }
 
 /*
@@ -110,14 +115,15 @@ func ShowAttendance(bow *browser.Browser, regno, password, baseuri string) *Atte
 					if td.Eq(0).Text() == "-" {
 						code = code + "_L"
 					}
+					percent := td.Eq(8).Text()
 					dets[code] = Subject{
-						Percentage: td.Eq(8).Text(),
-						Classes:    td.Eq(6).Text(),
+						Percentage: conver(percent[:len(percent)-1]),
+						Classes:    conver(td.Eq(6).Text()),
 						Details:    getDetails(classnbr, baseuri, bow),
 						Date:       td.Eq(5).Text(),
-						TotalClass: td.Eq(7).Text(),
+						TotalClass: conver(td.Eq(7).Text()),
 					}
-					perc, _ := strconv.Atoi(td.Eq(8).Text()[:len(td.Eq(8).Text())-1])
+					perc := conver(td.Eq(8).Text()[:len(td.Eq(8).Text())-1])
 					avg = avg + perc
 				}()
 
