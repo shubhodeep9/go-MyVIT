@@ -86,7 +86,7 @@ func ShowTimetable(bow *browser.Browser, regno, password, baseuri string) *Timet
 							Slot:          td.Eq(7).Text(),
 							Venue:         td.Eq(8).Text(),
 						}
-					} else if code == "Theory Only" || code == "Soft Skill" || code == "Embedded Theory" {
+					} else if code != "Embedded Project" {
 						cn, _ := strconv.Atoi(td.Eq(2).Text())
 						conts[code] = Contents{
 							Class_number:        cn,
