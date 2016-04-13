@@ -24,7 +24,7 @@ import (
 Attendance structure json
 */
 type Attendance struct {
-	Average_Attendance string             `json:"average_attendace"`
+	Average_Attendance float64            `json:"average_attendace"`
 	AttendanceDet      map[string]Subject `json:"attendance_det"`
 	Status             string             `json:"status"`
 }
@@ -85,8 +85,8 @@ Calls NewLogin to login to academics,
 @return Attendance struct
 */
 func ShowAttendance(bow *browser.Browser, regno, password, baseuri string) *Attendance {
-
-	avg := 0
+	var avg float64
+	avg = 0
 	status := "Success"
 	dets := make(map[string]Subject)
 	if false {
@@ -127,7 +127,7 @@ func ShowAttendance(bow *browser.Browser, regno, password, baseuri string) *Atte
 		avg = avg / (tr.Length() - 1)
 	}
 	return &Attendance{
-		Average_Attendance: strconv.Itoa(avg) + "%",
+		Average_Attendance: avg,
 		AttendanceDet:      dets,
 		Status:             status,
 	}
