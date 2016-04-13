@@ -38,6 +38,7 @@ type Subject struct {
 }
 
 type DetsBranch struct {
+	Sl         int    `json:"sl"`
 	ClassUnits int    `json:"class_units"`
 	Date       string `json:"date"`
 	Reason     string `json:"reason"`
@@ -66,6 +67,7 @@ func getDetails(classnbr, baseuri string, bow *browser.Browser) []DetsBranch {
 		if i > 1 {
 			td := s.Find("td")
 			detsbranch = DetsBranch{
+				Sl:         1,
 				ClassUnits: conver(td.Eq(4).Text()),
 				Date:       td.Eq(1).Text(),
 				Reason:     td.Eq(5).Text(),
