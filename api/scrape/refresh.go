@@ -24,13 +24,14 @@ type RefreshStruct struct {
 
 func Refresh(bow *browser.Browser, regno, password, baseuri string) *RefreshStruct {
 	var re sync.WaitGroup
-	re.Add(5)
+	re.Add(6)
 	var (
 		timet *Timetable
 		acad  *AcademicStruct
 		adv   *Advisor
 		att   *Attendance
 		exam  *ExamSchedule
+		marks *GetMarks
 	)
 	go func() {
 		defer re.Done()
@@ -52,10 +53,21 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string) *RefreshStru
 		defer re.Done()
 		exam = ExmSchedule(bow, regno, password, baseuri)
 	}()
+	go func() {
+		defer re.Done()
+		marks = ShowMarks(bow, regno, password, baseuri)
+	}()
 	re.Wait()
 	var courses []Contents
 	timetable := timet.Time_table
 	var course Contents
+	var timings []TimeStruct
+	time := TimeStruct{
+		Day:       0,
+		StartTime: "03:30:00Z",
+		EndTime:   "03:30:00Z",
+	}
+	timings = append(timings, time)
 	for i := range timetable {
 		course = Contents{
 			Class_number:        timetable[i].Class_number,
@@ -69,7 +81,9 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string) *RefreshStru
 			Registration_status: timetable[i].Registration_status,
 			Slot:                timetable[i].Slot,
 			Venue:               timetable[i].Venue,
+			Timings:             timings,
 			Attendance:          att.AttendanceDet[i],
+			Marks:               marks.Marks[i],
 		}
 		courses = append(courses, course)
 	}

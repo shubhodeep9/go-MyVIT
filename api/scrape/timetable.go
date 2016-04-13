@@ -27,18 +27,26 @@ type Timetable struct {
 }
 
 type Contents struct {
-	Class_number        int     `json:"class_number"`
-	Course_code         string  `json:"course_code"`
-	Course_mode         string  `json:"course_mode"`
-	Course_option       string  `json:"course_option"`
-	Course_title        string  `json:"course_title"`
-	Course_type         string  `json:"course_type"`
-	Faculty             string  `json:"faculty"`
-	Ltpjc               string  `json:"ltpjc"`
-	Registration_status string  `json:"registration_status,omitempty"`
-	Slot                string  `json:"slot"`
-	Venue               string  `json:"venue"`
-	Attendance          Subject `json:"attendance,omitempty"`
+	Class_number        int          `json:"class_number"`
+	Course_code         string       `json:"course_code"`
+	Course_mode         string       `json:"course_mode"`
+	Course_option       string       `json:"course_option"`
+	Course_title        string       `json:"course_title"`
+	Course_type         string       `json:"course_type"`
+	Faculty             string       `json:"faculty"`
+	Ltpjc               string       `json:"ltpjc"`
+	Registration_status string       `json:"registration_status,omitempty"`
+	Slot                string       `json:"slot"`
+	Venue               string       `json:"venue"`
+	Timings             []TimeStruct `json:"timings,omitempty"`
+	Attendance          Subject      `json:"attendance,omitempty"`
+	Marks               Mrks         `json:"marks,omitempty"`
+}
+
+type TimeStruct struct {
+	Day       int    `json:"day,omitempty"`
+	StartTime string `json:"start_time,omitempty"`
+	EndTime   string `json:"end_time,omitempty"`
 }
 
 /*
