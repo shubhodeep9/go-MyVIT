@@ -118,11 +118,12 @@ func ShowAttendance(bow *browser.Browser, regno, password, baseuri string) *Atte
 						code = code + "_L"
 					}
 					percent := td.Eq(8).Text()
+					date := strings.Split(td.Eq(5).Text(), "-")
 					dets[code] = Subject{
 						Percentage: conver(percent[:len(percent)-1]),
 						Classes:    conver(td.Eq(6).Text()),
 						Details:    getDetails(classnbr, baseuri, bow),
-						Date:       td.Eq(5).Text(),
+						Date:       date[2] + "-" + date[1] + "-" + date[0],
 						TotalClass: conver(td.Eq(7).Text()),
 					}
 					perc := conver(td.Eq(8).Text()[:len(td.Eq(8).Text())-1])
