@@ -37,7 +37,7 @@ func FacultyAdvisor(bow *browser.Browser, regno, password, baseuri string) *Advi
 		status = "Failure"
 	} else {
 		var wg sync.WaitGroup
-		bow.Open(baseuri + "/student/faculty_advisor_view.asp")
+		//bow.Open(baseuri + "/student/faculty_advisor_view.asp")
 		//Reload
 		bow.Open(baseuri + "/student/faculty_advisor_view.asp")
 		table := bow.Find("table").Eq(1)

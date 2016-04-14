@@ -100,7 +100,7 @@ func ShowAttendance(bow *browser.Browser, regno, password, baseuri string) *Atte
 		status = "Failure"
 	} else {
 		year, month, day := time.Now().Date()
-		bow.Open(baseuri + "/student/attn_report.asp?sem=WS&fmdt=04-Jan-2016&todt=" + strconv.Itoa(day) + "-" + month.String()[:3] + "-" + strconv.Itoa(year))
+		//bow.Open(baseuri + "/student/attn_report.asp?sem=WS&fmdt=04-Jan-2016&todt=" + strconv.Itoa(day) + "-" + month.String()[:3] + "-" + strconv.Itoa(year))
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
 		bow.Open(baseuri + "/student/attn_report.asp?sem=WS&fmdt=04-Jan-2016&todt=" + strconv.Itoa(day) + "-" + month.String()[:3] + "-" + strconv.Itoa(year))
 		table := bow.Find("table").Eq(3)

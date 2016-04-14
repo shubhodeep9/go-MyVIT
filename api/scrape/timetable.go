@@ -65,7 +65,7 @@ func ShowTimetable(bow *browser.Browser, regno, password, baseuri string) *Timet
 	if 1 != 1 {
 		status = "Failure"
 	} else {
-		bow.Open(baseuri + "/student/timetable_ws.asp")
+		//bow.Open(baseuri + "/student/timetable_ws.asp")
 		fmt.Println(bow.Url())
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
 		bow.Open(baseuri + "/student/timetable_ws.asp")

@@ -68,7 +68,7 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 			status = "Failure"
 		} else {
 			var wg sync.WaitGroup
-			bow.Open(baseuri + "/student/marks.asp?sem=WS")
+			//bow.Open(baseuri + "/student/marks.asp?sem=WS")
 			fmt.Println(bow.Url())
 			//Twice loading due to Redirect policy defined by academics.vit.ac.in
 			bow.Open(baseuri + "/student/marks.asp?sem=WS")

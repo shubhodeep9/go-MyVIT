@@ -51,7 +51,7 @@ func ExmSchedule(bow *browser.Browser, regno, password, baseuri string) *ExamSch
 		status = "Failure"
 	} else {
 		var wg sync.WaitGroup
-		bow.Open(baseuri + "/student/exam_schedule.asp?sem=FS")
+		//bow.Open(baseuri + "/student/exam_schedule.asp?sem=FS")
 		//Reload
 		bow.Open(baseuri + "/student/exam_schedule.asp?sem=FS")
 		table := bow.Find("table").Eq(1)

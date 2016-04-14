@@ -50,7 +50,7 @@ func Academics(bow *browser.Browser, regno, password, baseuri string) *AcademicS
 	if false {
 		status = "Failure"
 	} else {
-		bow.Open(baseuri + "/student/student_history.asp")
+		//bow.Open(baseuri + "/student/student_history.asp")
 		bow.Open(baseuri + "/student/student_history.asp")
 		table := bow.Find("table").Eq(2)
 		tr := table.Find("tr")

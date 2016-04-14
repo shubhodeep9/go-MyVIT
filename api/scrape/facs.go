@@ -17,7 +17,7 @@ func Facs(bow *browser.Browser, regno, password, baseuri, coursekey, slt string)
 	if false {
 		status = "Failure"
 	} else {
-		bow.Open(baseuri + "/student/coursepage_view.asp?sem=WS")
+		//bow.Open(baseuri + "/student/coursepage_view.asp?sem=WS")
 		bow.Open(baseuri + "/student/coursepage_view.asp?sem=WS&crs=" + coursekey + "&slt=" + slt)
 		options := bow.Find("select").Eq(2).Find("option")
 		options.Each(func(i int, s *goquery.Selection) {
