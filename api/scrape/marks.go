@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
+	"math"
 	"strconv"
 	"strings"
 	"sync"
@@ -52,6 +53,14 @@ func Value(inp string) (val float64) {
 		ret, _ := strconv.ParseFloat(inp, 64)
 		return ret
 	}
+}
+func round(num float64) int {
+	return int(num + math.Copysign(0.5, num))
+}
+
+func toFixed(num float64, precision int) float64 {
+	output := math.Pow(10, float64(precision))
+	return float64(round(num*output)) / output
 }
 
 func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks {
@@ -95,7 +104,7 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 								Conducted_on:     "Check ExamSchedule",
 								Status:           td.Eq(5).Text(),
 								ScoredMarks:      fmarks,
-								ScoredPercentage: fmarksPer,
+								ScoredPercentage: toFixed(fmarksPer, 1),
 							}
 							fmarks2 := Value(td.Eq(8).Text())
 							fmarks2Per := (fmarks2 / 50) * 10
@@ -106,7 +115,7 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 								Conducted_on:     "Check ExamSchedule",
 								Status:           td.Eq(7).Text(),
 								ScoredMarks:      fmarks2,
-								ScoredPercentage: fmarks2Per,
+								ScoredPercentage: toFixed(fmarks2Per, 1),
 							}
 							daMarks := Value(td.Eq(9).Text())
 							daMarksPer := daMarks / 30
@@ -115,7 +124,7 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 								Max_marks:        30,
 								Weightage:        30,
 								ScoredMarks:      daMarks,
-								ScoredPercentage: daMarksPer,
+								ScoredPercentage: toFixed(daMarksPer, 1),
 							}
 							fatmarks := Value(td.Eq(11).Text())
 							fatPer := (fatmarks / 100) * 50
@@ -126,7 +135,7 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 								Conducted_on:     "Check ExamSchedule",
 								Status:           td.Eq(10).Text(),
 								ScoredMarks:      fatmarks,
-								ScoredPercentage: fatPer,
+								ScoredPercentage: toFixed(fatPer, 1),
 							}
 							Aments := []Assessment{cat1, cat2, da, fat}
 							total := fatmarks + daMarks + fmarks2 + fmarks
@@ -136,7 +145,7 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 								Max_marks:         230,
 								Max_percentage:    100,
 								Scored_Marks:      total,
-								Scored_Percentage: totalPer,
+								Scored_Percentage: toFixed(totalPer, 1),
 							}
 
 						} else if td.Length() == 6 {
@@ -210,7 +219,7 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 								Conducted_on:     "Check ExamSchedule",
 								Status:           td.Eq(5).Text(),
 								ScoredMarks:      fmarks,
-								ScoredPercentage: fmarksPer,
+								ScoredPercentage: toFixed(fmarksPer, 1),
 							}
 							fmarks2 := Value(td.Eq(8).Text())
 							fmarks2Per := (fmarks2 / 50) * 10
@@ -221,7 +230,7 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 								Conducted_on:     "Check ExamSchedule",
 								Status:           td.Eq(7).Text(),
 								ScoredMarks:      fmarks2,
-								ScoredPercentage: fmarks2Per,
+								ScoredPercentage: toFixed(fmarks2Per, 1),
 							}
 
 							Q1marks := Value(td.Eq(10).Text())
@@ -233,7 +242,7 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 								Conducted_on:     "Check ExamSchedule",
 								Status:           td.Eq(9).Text(),
 								ScoredMarks:      Q1marks,
-								ScoredPercentage: Q1marksPer,
+								ScoredPercentage: toFixed(Q1marksPer, 1),
 							}
 
 							Q2marks := Value(td.Eq(12).Text())
@@ -245,7 +254,7 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 								Conducted_on:     "Check ExamSchedule",
 								Status:           td.Eq(11).Text(),
 								ScoredMarks:      Q2marks,
-								ScoredPercentage: Q2marksPer,
+								ScoredPercentage: toFixed(Q2marksPer, 1),
 							}
 
 							Q3marks := Value(td.Eq(14).Text())
@@ -257,7 +266,7 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 								Conducted_on:     "Check ExamSchedule",
 								Status:           td.Eq(13).Text(),
 								ScoredMarks:      Q3marks,
-								ScoredPercentage: Q3marksPer,
+								ScoredPercentage: toFixed(Q3marksPer, 1),
 							}
 							daMarks := Value(td.Eq(16).Text())
 							daMarksPer := daMarks / 30
@@ -267,7 +276,7 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 								Weightage:        30,
 								Status:           td.Eq(15).Text(),
 								ScoredMarks:      daMarks,
-								ScoredPercentage: daMarksPer,
+								ScoredPercentage: toFixed(daMarksPer, 1),
 							}
 							fatmarks := Value(td.Eq(19).Text())
 							fatPer := (fatmarks / 100) * 50
@@ -278,7 +287,7 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 								Conducted_on:     "Check ExamSchedule",
 								Status:           td.Eq(18).Text(),
 								ScoredMarks:      fatmarks,
-								ScoredPercentage: fatPer,
+								ScoredPercentage: toFixed(fatPer, 1),
 							}
 							Aments := []Assessment{cat1, cat2, quiz1, quiz2, quiz3, da, fat}
 							total := fatmarks + daMarks + fmarks2 + fmarks + Q1marks + Q2marks + Q3marks

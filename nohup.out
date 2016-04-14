@@ -230,3 +230,32 @@ https://academics.vit.ac.in/student/stud_home.asp
 Working
 Number of rows =  26
 2016/04/13 18:37:09 [1;34m[router.go:829][D] | GET        | /campus/vellore/refresh                  | 5.0404228s       | match      | /campus/:campus/refresh/                 | [0m
+2016/04/14 18:06:44 [1;34m[parser.go:61][I] /home/azureuser/go/src/go-MyVIT/controllers no changed [0m
+2016/04/14 18:06:44 [1;34m[parser.go:61][I] /home/azureuser/go/src/go-MyVIT/controllers no changed [0m
+2016/04/14 18:06:44 [1;34m[parser.go:61][I] /home/azureuser/go/src/go-MyVIT/controllers no changed [0m
+2016/04/14 18:06:44 [1;34m[parser.go:61][I] /home/azureuser/go/src/go-MyVIT/controllers no changed [0m
+2016/04/14 18:06:44 [1;34m[parser.go:61][I] /home/azureuser/go/src/go-MyVIT/controllers no changed [0m
+2016/04/14 18:06:44 [1;34m[parser.go:61][I] /home/azureuser/go/src/go-MyVIT/controllers no changed [0m
+2016/04/14 18:06:44 [1;34m[parser.go:61][I] /home/azureuser/go/src/go-MyVIT/controllers no changed [0m
+2016/04/14 18:06:44 [1;34m[parser.go:61][I] /home/azureuser/go/src/go-MyVIT/controllers no changed [0m
+2016/04/14 18:06:44 [1;34m[asm_amd64.s:1998][I] http server Running on :8080[0m
+<nil>
+https://academics.vit.ac.in/student/home.asp
+2016/04/14 18:07:00 [1;34m[router.go:829][D] | POST       | /campus/vellore/login                    | 2.0118675s       | match      | /campus/:campus/login/                   | [0m
+https://academics.vit.ac.in/student/stud_home.asp
+https://academics.vit.ac.in/student/stud_home.asp
+Working
+Number of rows =  26
+2016/04/14 18:07:08 [1;34m[router.go:829][D] | POST       | /campus/vellore/refresh                  | 3.7594732s       | match      | /campus/:campus/refresh/                 | [0m
+<nil>
+https://academics.vit.ac.in/student/stud_login.asp
+2016/04/14 18:07:35 [1;34m[router.go:829][D] | POST       | /campus/vellore/login                    | 2.0341746s       | match      | /campus/:campus/login/                   | [0m
+<nil>
+https://academics.vit.ac.in/student/home.asp
+2016/04/14 18:07:41 [1;34m[router.go:829][D] | POST       | /campus/vellore/login                    | 1.9265897s       | match      | /campus/:campus/login/                   | [0m
+https://academics.vit.ac.in/student/stud_home.asp
+https://academics.vit.ac.in/student/stud_home.asp
+Working
+Number of rows =  26
+2016/04/14 18:07:45 [1;34m[router.go:829][D] | POST       | /campus/vellore/refresh                  | 3.7614578s       | match      | /campus/:campus/refresh/                 | [0m
+2016/04/14 18:08:41 [1;34m[router.go:829][D] | GET        | /reader/about/                           | 1.0429ms         | notmatch   | [0m
