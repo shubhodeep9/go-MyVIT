@@ -91,6 +91,6 @@ func CourseDataPage(regno, password, baseuri, coursekey, slt, fac string) *scrap
 
 func Refresh(regno, password, baseuri string) *scrape.RefreshStruct {
 	bow := surf.NewBrowser()
-	cacheSession.SetSession(bow, cac, regno)
-	return scrape.Refresh(bow, regno, password, baseuri)
+
+	return scrape.Refresh(bow, regno, password, baseuri, cacheSession.SetSession(bow, cac, regno))
 }

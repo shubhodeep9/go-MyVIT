@@ -11,9 +11,12 @@ type MemCache struct {
 	MemCookie []*http.Cookie
 }
 
-func SetSession(bow *browser.Browser, cac *cache.Cache, regno string) {
-	cacheval, _ := cac.Get(regno)
-	cachevalue := cacheval.(*MemCache)
+func SetSession(bow *browser.Browser, cac *cache.Cache, regno string) bool {
+	cacheval, found := cac.Get(regno)
+	if found {
+		cachevalue := cacheval.(*MemCache)
 
-	bow.SetSiteCookies(cachevalue.MemCookie)
+		bow.SetSiteCookies(cachevalue.MemCookie)
+	}
+	return found
 }
