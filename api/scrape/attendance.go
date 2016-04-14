@@ -52,6 +52,20 @@ Function to get Course daily attendance,
 @return List of DetsBranch struct
 */
 func getDetails(classnbr, baseuri string, bow *browser.Browser) []DetsBranch {
+	monthtoint := map[string]string{
+		"Jan": "01",
+		"Feb": "02",
+		"Mar": "03",
+		"Apr": "04",
+		"May": "05",
+		"Jun": "06",
+		"Jul": "07",
+		"Aug": "08",
+		"Sep": "09",
+		"Oct": "10",
+		"Nov": "11",
+		"Dec": "12",
+	}
 	year, month, day := time.Now().Date()
 	v := url.Values{}
 	v.Set("semcode", "WINSEM2015-16")
@@ -66,10 +80,11 @@ func getDetails(classnbr, baseuri string, bow *browser.Browser) []DetsBranch {
 	tr.Each(func(i int, s *goquery.Selection) {
 		if i > 1 {
 			td := s.Find("td")
+			date := strings.Split(td.Eq(1).Text(), "-")
 			detsbranch = DetsBranch{
-				Sl:         1,
+				Sl:         i - 1,
 				ClassUnits: conver(td.Eq(4).Text()),
-				Date:       td.Eq(1).Text(),
+				Date:       date[2] + "-" + monthtoint[date[1]] + "-" + date[0],
 				Reason:     td.Eq(5).Text(),
 				Slot:       td.Eq(2).Text(),
 				Status:     td.Eq(3).Text(),
@@ -118,12 +133,11 @@ func ShowAttendance(bow *browser.Browser, regno, password, baseuri string) *Atte
 						code = code + "_L"
 					}
 					percent := td.Eq(8).Text()
-					date := strings.Split(td.Eq(5).Text(), "-")
 					dets[code] = Subject{
 						Percentage: conver(percent[:len(percent)-1]),
 						Classes:    conver(td.Eq(6).Text()),
 						Details:    getDetails(classnbr, baseuri, bow),
-						Date:       date[2] + "-" + date[1] + "-" + date[0],
+						Date:       td.Eq(5).Text(),
 						TotalClass: conver(td.Eq(7).Text()),
 					}
 					perc := conver(td.Eq(8).Text()[:len(td.Eq(8).Text())-1])
