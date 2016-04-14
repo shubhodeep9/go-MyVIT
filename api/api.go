@@ -11,11 +11,13 @@
 package api
 
 import (
+	"crypto/tls"
 	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf"
 	"go-MyVIT/api/cache"
 	"go-MyVIT/api/login"
 	"go-MyVIT/api/scrape"
+	"net/http"
 	"time"
 )
 
@@ -30,6 +32,10 @@ func Advisor(regno, password, baseuri string) *scrape.Personal {
 //Executable script to Login
 func LogIn(regno, password, baseuri string) *login.Response {
 	bow := surf.NewBrowser()
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
 	return login.NewLogin(bow, regno, password, baseuri, cac)
 }
 

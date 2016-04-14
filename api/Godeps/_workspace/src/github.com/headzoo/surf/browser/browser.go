@@ -555,7 +555,7 @@ func (bow *Browser) Find(expr string) *goquery.Selection {
 // buildClient creates, configures, and returns a *http.Client type.
 func (bow *Browser) buildClient() *http.Client {
 	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		TLSClientConfig: &tls.Config{},
 	}
 	client := &http.Client{Transport: tr}
 	client.Jar = bow.cookies
