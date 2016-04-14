@@ -97,6 +97,10 @@ func CourseDataPage(regno, password, baseuri, coursekey, slt, fac string) *scrap
 
 func Refresh(regno, password, baseuri string) *scrape.RefreshStruct {
 	bow := surf.NewBrowser()
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
 	cacheSession.SetSession(bow, cac, regno)
 	return scrape.Refresh(bow, regno, password, baseuri)
 }
