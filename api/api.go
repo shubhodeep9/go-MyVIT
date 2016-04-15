@@ -94,3 +94,7 @@ func Refresh(regno, password, baseuri string) *scrape.RefreshStruct {
 
 	return scrape.Refresh(bow, regno, password, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
+func Message(regno,password,baseuri string) *scrape.ViewMessages {
+	bow:= surf.NewBrowser()
+	return scrape.Messg(bow,regno,password,baseuri,cac)
+}
