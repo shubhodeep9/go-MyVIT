@@ -1,5 +1,5 @@
 /*
-@Author Shubhodeep Mukherjee
+@Author Shubhodeep Mukherjee and Ujjwal Ayyangar
 @Organization Google Developers Group VIT Vellore
 	Isn't Go sexy?
 	I know right!!
@@ -97,4 +97,8 @@ func Refresh(regno, password, baseuri string) *scrape.RefreshStruct {
 func Message(regno,password,baseuri string) *scrape.ViewMessages {
 	bow:= surf.NewBrowser()
 	return scrape.Messg(bow,regno,password,baseuri,cac)
+}
+func Spotlight(regno,password,baseuri string) *scrape.Spotlight {
+	bow:= surf.NewBrowser()
+	return scrape.Spoli(bow,regno,password,baseuri)
 }
