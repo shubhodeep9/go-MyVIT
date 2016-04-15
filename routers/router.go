@@ -61,6 +61,12 @@ func init() {
 				&controllers.RefreshController{},
 			),
 		),
+		beego.NSNamespace("/message",
+			beego.NSInclude(
+				// controllers/message.go
+				&controllers.MessageController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
