@@ -67,6 +67,12 @@ func init() {
 				&controllers.MessageController{},
 			),
 		),
+		beego.NSNamespace("/spotlight",
+			beego.NSInclude(
+				// controllers/spotlight.go
+				&controllers.SpotlightController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
