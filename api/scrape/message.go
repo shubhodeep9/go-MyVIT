@@ -9,83 +9,122 @@ package scrape
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"go-MyVIT/api/login"
-	"github.com/patrickmn/go-cache"
-	"fmt"
+	//"go-MyVIT/api/login"
+	//"github.com/patrickmn/go-cache"
 
-
-	"sync"
+	//"sync"
 	// "strings"
-	
+	//"fmt"
 
 )
+type Spotlight struct {
+		Campus string `json:"campus"`
+		Status string `json:"status"`
+		Spot Spotlight1 `json:"spotlight"`
 
-type Message struct {
-	From string `json:"from"`
-	Course string  `json:"course"`
-	Message string `json:"message"`
-	PostedOn string `json:"posted"`
 }
+type Spotlight1 struct {
+	Academics  []Base `json:"academics"`
+	Coe []Base `json:"coe"`
+	Research []Base  `json:"research"`
+	}
 
-type ViewMessages struct{
-	Status string `json:"status"`
-	Messages []Message `json:"messages"`
+type Base struct{
+	Text string `json:"text"`
+	Url string `json:"url"`
 }
 
 
 /*
-Function ->Messg to fetch the data of messages sent by the faculty
+Function ->Spoli to fetch the data of spotlight
 
-@return ViewMessages struct
+@return Spoli struct
 */
-func setMessageSession(bow *browser.Browser, cac *cache.Cache, regno string) {
-	cacheval, _ := cac.Get(regno)
-	cachevalue := cacheval.(*login.MemCache)
 
-	bow.SetSiteCookies(cachevalue.MemCookie)
-}
-func Messg(bow *browser.Browser, regno, password, baseuri string, cac *cache.Cache) *ViewMessages{
-	setMessageSession(bow, cac, regno)
-	var msg []Message
+func Spoli(bow *browser.Browser,regno, password, baseuri string) *Spotlight{
+
 	status := "Success"
+	var acad []Base
+	var coe []Base
+	var res []Base
+	
 	if 1 != 1 {
 		status = "Failure"
 	} else {
-		    var wg sync.WaitGroup
+		 		
 
-		bow.Open(baseuri+"/student/class_message_view.asp?sem=WS")
-		bow.Open(baseuri+"/student/class_message_view.asp?sem=WS")
+		bow.Open(baseuri+"/include_spotlight_part01.asp")
+		bow.Open(baseuri+"/include_spotlight_part01.asp")
 		tables := bow.Find("table")
-		messageTable:= tables.Eq(1)
-		tr:= messageTable.Find("tr")
-		tr_len:= tr.Length()
-		tr.Each(func(i int,s *goquery.Selection) {
-			if i>0 && i<tr_len-1 {
-	        wg.Add(1)
-	        go func(){
-	        	defer wg.Done()
-			fmt.Println(s.Text())
-			td:=s.Find("td")
-			x:=Message{
-				From:td.Eq(0).Text(),
-				Course:td.Eq(1).Text(),
-				Message:td.Eq(2).Text(),
-				PostedOn:td.Eq(3).Text(),
-
-			}
-		msg=append(msg,x)
-		}()
-		wg.Wait()
-	}
-			})
-
 
 		
+		tables.Find("a").Each(func(_ int, s *goquery.Selection) {
+			
+			url,_:= s.Attr("href")
+			temp:= Base {
+				Text :s.Text(),
+				Url:url,
+			}
+			acad = append(acad,temp)
+			
+    
+})
+		bow.Open(baseuri+"/include_spotlight_part02.asp")
+		bow.Open(baseuri+"/include_spotlight_part02.asp")
+		tables2 := bow.Find("table")
+ 		
+		
+		tables2.Find("a").Each(func(_ int, s *goquery.Selection) {
+			
+			url,_:= s.Attr("href")
+			temp:= Base {
+				Text :s.Text(),
+				Url:url,
+			}
+			coe = append(coe,temp)
+			
+    
+})
+		bow.Open(baseuri+"/include_spotlight_part03.asp")
+		bow.Open(baseuri+"/include_spotlight_part03.asp")
+		tables3 := bow.Find("table")
+		
+		
+		tables3.Find("a").Each(func(_ int, s *goquery.Selection) {
+			
+			url,_:= s.Attr("href")
+			temp:= Base {
+				Text :s.Text(),
+				Url:url,
+			}
+			res = append(res,temp)
+
+
+    
+})
+		
+		if len(res) ==0{
+			res=make([]Base,0)
+		}
+		if len(acad) ==0{
+			acad=make([]Base,0)
+		}
+		if len(coe) == 0{
+			coe=make([]Base,0)
+		}
+				
+}
+x:= Spotlight1{
+			Academics:acad,
+			Coe:coe,
+			Research:res,
 		}
 
 
-	return &ViewMessages{
+	return &Spotlight{
+		Campus : "Vellore",
 		Status:     status,
-		Messages : msg,
+		Spot: x,
+
 	}
 }
