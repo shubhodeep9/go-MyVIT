@@ -14,7 +14,7 @@ import (
 	"fmt"
 
 
-	//"sync"
+	"sync"
 	// "strings"
 	
 
@@ -51,6 +51,8 @@ func Messg(bow *browser.Browser, regno, password, baseuri string, cac *cache.Cac
 	if 1 != 1 {
 		status = "Failure"
 	} else {
+		    var wg sync.WaitGroup
+
 		bow.Open(baseuri+"/student/class_message_view.asp?sem=WS")
 		bow.Open(baseuri+"/student/class_message_view.asp?sem=WS")
 		tables := bow.Find("table")
@@ -59,6 +61,9 @@ func Messg(bow *browser.Browser, regno, password, baseuri string, cac *cache.Cac
 		tr_len:= tr.Length()
 		tr.Each(func(i int,s *goquery.Selection) {
 			if i>0 && i<tr_len-1 {
+	        wg.Add(1)
+	        go func(){
+	        	defer wg.Done()
 			fmt.Println(s.Text())
 			td:=s.Find("td")
 			x:=Message{
@@ -69,7 +74,9 @@ func Messg(bow *browser.Browser, regno, password, baseuri string, cac *cache.Cac
 
 			}
 		msg=append(msg,x)
-		}
+		}()
+		wg.Wait()
+	}
 			})
 
 
