@@ -14,20 +14,24 @@ import (
 
 	//"sync"
 	// "strings"
-	//"fmt"
+	"fmt"
 
 )
-
 type Spotlight struct {
-	Status string `json:"status"`
-	Academics  []Base `json:"acad"`
+		Campus string `json:"campus"`
+		Status string `json:"status"`
+		Spot Spotlight1 `json:"spotlight"`
+
+}
+type Spotlight1 struct {
+	Academics  []Base `json:"academics"`
 	Coe []Base `json:"coe"`
 	Research []Base  `json:"research"`
 	}
 
 type Base struct{
 	Text string `json:"text"`
-	Url string `json:"link"`
+	Url string `json:"url"`
 }
 
 
@@ -43,6 +47,8 @@ func Spoli(bow *browser.Browser,regno, password, baseuri string) *Spotlight{
 	var acad []Base
 	var coe []Base
 	var res []Base
+	countAcad:=0
+	countCoe:=0
 	if 1 != 1 {
 		status = "Failure"
 	} else {
@@ -59,6 +65,7 @@ func Spoli(bow *browser.Browser,regno, password, baseuri string) *Spotlight{
 				Url:url,
 			}
 			acad = append(acad,temp)
+			countAcad=countAcad+1
     
 })
 		bow.Open(baseuri+"/include_spotlight_part02.asp")
@@ -74,13 +81,14 @@ func Spoli(bow *browser.Browser,regno, password, baseuri string) *Spotlight{
 				Url:url,
 			}
 			coe = append(coe,temp)
+			countCoe=countCoe+1
     
 })
 		bow.Open(baseuri+"/include_spotlight_part03.asp")
 		bow.Open(baseuri+"/include_spotlight_part03.asp")
 		tables3 := bow.Find("table")
 
-		
+		countRes:=0
 		tables3.Find("a").Each(func(_ int, s *goquery.Selection) {
 			
 			url,_:= s.Attr("href")
@@ -89,15 +97,34 @@ func Spoli(bow *browser.Browser,regno, password, baseuri string) *Spotlight{
 				Url:url,
 			}
 			res = append(res,temp)
+			countRes=countRes+1
+
+
     
 })
-		
+		fmt.Println(countRes)
+		if countRes ==0{
+			res=make([]Base,0)
+		}
+		if countAcad ==0{
+			acad=make([]Base,0)
+		}
+		if countCoe == 0{
+			coe=make([]Base,0)
+		}
+				
 }
+x:= Spotlight1{
+			Academics:acad,
+			Coe:coe,
+			Research:res,
+		}
+
 
 	return &Spotlight{
+		Campus : "Vellore",
 		Status:     status,
-		Academics: acad,
-		Coe: coe,
-		Research: res,
+		Spot: x,
+
 	}
 }
