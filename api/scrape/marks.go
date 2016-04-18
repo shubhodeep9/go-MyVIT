@@ -271,7 +271,7 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 							daMarks := Value(td.Eq(16).Text())
 							daMarksPer := daMarks / 30
 							da := Assessment{
-								Title:            "Digital Assignment",
+								Title:            "Assignment",
 								Max_marks:        30,
 								Weightage:        30,
 								Status:           td.Eq(15).Text(),
