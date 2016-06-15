@@ -8,7 +8,6 @@
 	#GDGSwag
 */
 
-
 package controllers
 
 import (
@@ -32,7 +31,7 @@ func (o *TimetableController) Get() {
 	campus := o.Ctx.Input.Param(":campus")
 	var baseuri string
 	if campus == "vellore" {
-		baseuri = "https://academics.vit.ac.in"
+		baseuri = "https://vtop.vit.ac.in"
 	} else {
 		baseuri = "https://academicscc.vit.ac.in"
 	}

@@ -61,12 +61,6 @@ func init() {
 				&controllers.RefreshController{},
 			),
 		),
-		beego.NSNamespace("/message",
-			beego.NSInclude(
-				// controllers/message.go
-				&controllers.MessageController{},
-			),
-		),
 		beego.NSNamespace("/spotlight",
 			beego.NSInclude(
 				// controllers/spotlight.go
