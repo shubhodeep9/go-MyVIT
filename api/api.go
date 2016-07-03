@@ -100,8 +100,8 @@ func Spotlight(regno, password, baseuri string) *scrape.Spotlight {
 	return scrape.Spoli(bow, regno, password, baseuri)
 }
 
-func ShowPersonal(regno, password, baseuri string) *scrape.Personal {
+func ShowPersonal(regno, password, baseuri string) *scrape.GetMarks {
 	bow := surf.NewBrowser()
 	cacheSession.SetSession(bow, cac, regno)
-	return scrape.ShowPersonal(bow, regno, password, baseuri)
+	return scrape.ShowMarks(bow, regno, password, baseuri)
 }

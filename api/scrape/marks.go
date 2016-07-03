@@ -78,10 +78,11 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 		} else {
 			var wg sync.WaitGroup
 			bow.Open(baseuri + "/student/marks.asp?sem=WS")
-			fmt.Println(bow.Url())
+
 			//Twice loading due to Redirect policy defined by academics.vit.ac.in
 			bow.Open(baseuri + "/student/marks.asp?sem=WS")
 			tables := bow.Find("table")
+			fmt.Println(baseuri)
 			marks_table := tables.Eq(1)
 
 			rows := marks_table.Find("tr")
@@ -94,7 +95,7 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 					go func() {
 						defer wg.Done()
 						td := s.Find("td") // all the columns of the row
-						if td.Length() == 10 {
+						if td.Length() == 12 {
 							fmarks := Value(td.Eq(6).Text())
 							fmarksPer := (fmarks / 50) * 10
 							cat1 := Assessment{
@@ -148,7 +149,7 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 								Scored_Percentage: toFixed(totalPer, 1),
 							}
 
-						} else if td.Length() == 6 {
+						} else if td.Length() == 8 {
 							var title, code string
 							if strings.Contains(td.Eq(4).Text(), "Lab") {
 								code = td.Eq(2).Text() + "_L"
@@ -201,7 +202,6 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 
 			rows := marks_table.Find("tr")
 			//tr_len := tr.Length()
-
 			rows.Each(func(i int, s *goquery.Selection) {
 				if i > 0 {
 					wg.Add(1)
@@ -209,7 +209,8 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 					go func() {
 						defer wg.Done()
 						td := s.Find("td") // all the columns of the row
-						if td.Length() == 18 {
+						fmt.Println(td.Length())
+						if td.Length() == 20 {
 							fmarks := Value(td.Eq(6).Text())
 							fmarksPer := (fmarks / 50) * 10
 							cat1 := Assessment{
@@ -299,8 +300,9 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 								Scored_Marks:      total,
 								Scored_Percentage: totalPer,
 							}
+							fmt.Println(td.Eq(2).Text())
 
-						} else if td.Length() == 8 { // end of the 19 column if condition
+						} else if td.Length() == 10 { // end of the 19 column if condition
 							var title, code string
 							if strings.Contains(td.Eq(4).Text(), "Lab") {
 								code = td.Eq(2).Text() + "_L"
