@@ -8,7 +8,6 @@
 	#GDGSwag
 */
 
-
 package controllers
 
 import (
@@ -33,7 +32,7 @@ func (o *CoursePageController) Get() {
 	campus := o.Ctx.Input.Param(":campus")
 	var baseuri string
 	if campus == "vellore" {
-		baseuri = "https://academics.vit.ac.in"
+		baseuri = "https://vtop.vit.ac.in"
 	} else {
 		baseuri = "https://academicscc.vit.ac.in"
 	}
@@ -46,11 +45,11 @@ func (o *CoursePageController) Get() {
 			o.Data["json"] = api.CourseSlotsPage(regNo, psswd, baseuri, coursekey)
 		} else if category == "faculties" {
 			coursekey := o.Input().Get("crs")
-			slt := strings.Replace(o.Input().Get("slt")," ","+",1)
+			slt := strings.Replace(o.Input().Get("slt"), " ", "+", 1)
 			o.Data["json"] = api.CourseFacPage(regNo, psswd, baseuri, coursekey, slt)
 		} else if category == "data" {
 			coursekey := o.Input().Get("crs")
-			slt := strings.Replace(o.Input().Get("slt")," ","+",1)
+			slt := strings.Replace(o.Input().Get("slt"), " ", "+", 1)
 			fac := o.Input().Get("fac")
 			o.Data["json"] = api.CourseDataPage(regNo, psswd, baseuri, coursekey, slt, fac)
 		} else {
