@@ -11,11 +11,8 @@
 package scrape
 
 import (
-	"fmt"
-
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-
 	"strconv"
 	"strings"
 	"sync"
@@ -66,7 +63,6 @@ func ShowTimetable(bow *browser.Browser, regno, password, baseuri string) *Timet
 		status = "Failure"
 	} else {
 		bow.Open(baseuri + "/student/timetable_ws.asp")
-		fmt.Println(bow.Url())
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
 		bow.Open(baseuri + "/student/timetable_ws.asp")
 		tables := bow.Find("table")

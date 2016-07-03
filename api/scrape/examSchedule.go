@@ -9,10 +9,6 @@ package scrape
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-
-	//"strings"
-	"fmt"
-
 	"sync"
 )
 
@@ -55,9 +51,7 @@ func ExmSchedule(bow *browser.Browser, regno, password, baseuri string) *ExamSch
 		//Reload
 		bow.Open(baseuri + "/student/exam_schedule.asp?sem=FS")
 		table := bow.Find("table").Eq(1)
-		fmt.Println("Working")
 		rows := table.Find("tr").Length()
-		fmt.Println("Number of rows = ", rows)
 		dets := make(map[string]Contents2)
 
 		table.Find("tr").Each(func(i int, s *goquery.Selection) {

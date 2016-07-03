@@ -11,7 +11,6 @@
 package login
 
 import (
-	"fmt"
 	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/cache"
@@ -69,11 +68,11 @@ Using that session user is logged in.
 */
 func DoLogin(bow *browser.Browser, reg, pass string, status chan int, baseuri string, cac *cache.Cache) {
 
-	fmt.Println(bow.Open("https://vtop.vit.ac.in/student/captcha.asp"))
+	bow.Open("https://vtop.vit.ac.in/student/captcha.asp")
 	out, _ := os.Create("api/login/" + reg + ".bmp")
 	bow.Download(out)
 	out1, err := exec.Command("python", "api/login/parse.py", reg).Output()
-	fmt.Println(out1)
+	go os.Remove("api/login/" + reg + ".bmp")
 	if err != nil {
 		status <- 0
 	} else {
@@ -85,13 +84,11 @@ func DoLogin(bow *browser.Browser, reg, pass string, status chan int, baseuri st
 		v.Add("vrfcd", capt)
 		v.Add("message", "")
 		bow.PostForm(baseuri+"/student/stud_login_submit.asp", v)
-		fmt.Println(bow.Url())
-		fmt.Println(bow.SiteCookies())
-		cac.Set(reg, &cacheSession.MemCache{Regno: reg, MemCookie: bow.SiteCookies()}, cache.DefaultExpiration)
 		stud_home := "/student/stud_home.asp"
 		home := "/student/home.asp"
 		u := bow.Url().EscapedPath()
 		if u == stud_home || u == home {
+			cac.Set(reg, &cacheSession.MemCache{Regno: reg, MemCookie: bow.SiteCookies()}, cache.DefaultExpiration)
 			status <- 1
 		} else {
 			status <- 0

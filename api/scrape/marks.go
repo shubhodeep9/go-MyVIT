@@ -8,7 +8,6 @@ Marks done!
 package scrape
 
 import (
-	"fmt"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"math"
@@ -70,7 +69,6 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 	type m []Mrks
 	rowdata := make(map[string]Mrks) // type :- "Subject name" : Array of Assesments of different exams
 	status := "Success"
-	//fmt.Println(regno[1])
 	if regno[1]-48 == 5 {
 
 		if 1 != 1 {
@@ -82,7 +80,6 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 			//Twice loading due to Redirect policy defined by academics.vit.ac.in
 			bow.Open(baseuri + "/student/marks.asp?sem=WS")
 			tables := bow.Find("table")
-			fmt.Println(baseuri)
 			marks_table := tables.Eq(1)
 
 			rows := marks_table.Find("tr")
@@ -194,7 +191,6 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 		} else {
 			var wg sync.WaitGroup
 			bow.Open(baseuri + "/student/marks.asp?sem=WS")
-			fmt.Println(bow.Url())
 			//Twice loading due to Redirect policy defined by academics.vit.ac.in
 			bow.Open(baseuri + "/student/marks.asp?sem=WS")
 			tables := bow.Find("table")
@@ -209,7 +205,6 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 					go func() {
 						defer wg.Done()
 						td := s.Find("td") // all the columns of the row
-						fmt.Println(td.Length())
 						if td.Length() == 20 {
 							fmarks := Value(td.Eq(6).Text())
 							fmarksPer := (fmarks / 50) * 10
@@ -300,7 +295,6 @@ func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks 
 								Scored_Marks:      total,
 								Scored_Percentage: totalPer,
 							}
-							fmt.Println(td.Eq(2).Text())
 
 						} else if td.Length() == 10 { // end of the 19 column if condition
 							var title, code string

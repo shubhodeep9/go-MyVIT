@@ -21,48 +21,10 @@ import (
 
 var cac *cache.Cache = cache.New(2*time.Minute, 30*time.Second)
 
-func Advisor(regno, password, baseuri string) *scrape.Personal {
-	bow := surf.NewBrowser()
-	cacheSession.SetSession(bow, cac, regno)
-	return scrape.ShowPersonal(bow, regno, password, baseuri)
-}
-
 //Executable script to Login
 func LogIn(regno, password, baseuri string) *login.Response {
 	bow := surf.NewBrowser()
 	return login.NewLogin(bow, regno, password, baseuri, cac)
-}
-
-//Executable script to show timetable
-func TimeTable(regno, password, baseuri string) *scrape.Timetable {
-	bow := surf.NewBrowser()
-	cacheSession.SetSession(bow, cac, regno)
-	return scrape.ShowTimetable(bow, regno, password, baseuri)
-}
-
-//Executable script to show Faculty Advisor details
-// func Advisor(regno, password, baseuri string) *scrape.Advisor {
-// 	bow := surf.NewBrowser()
-// 	cacheSession.SetSession(bow, cac, regno)
-// 	return scrape.FacultyAdvisor(bow, regno, password, baseuri)
-// }
-
-//Executable script to show Attendance
-func Attendance(regno, password, baseuri string) *scrape.Attendance {
-	bow := surf.NewBrowser()
-	cacheSession.SetSession(bow, cac, regno)
-	return scrape.ShowAttendance(bow, regno, password, baseuri)
-}
-func Schedule(regno, password, baseuri string) *scrape.ExamSchedule {
-	bow := surf.NewBrowser()
-	cacheSession.SetSession(bow, cac, regno)
-	return scrape.ExmSchedule(bow, regno, password, baseuri)
-}
-
-func AcademicHistory(regno, password, baseuri string) *scrape.AcademicStruct {
-	bow := surf.NewBrowser()
-	cacheSession.SetSession(bow, cac, regno)
-	return scrape.Academics(bow, regno, password, baseuri)
 }
 
 func CourseCoursesPage(regno, password, baseuri string) *scrape.CourseStruct {
@@ -98,10 +60,4 @@ func Refresh(regno, password, baseuri string) *scrape.RefreshStruct {
 func Spotlight(regno, password, baseuri string) *scrape.Spotlight {
 	bow := surf.NewBrowser()
 	return scrape.Spoli(bow, regno, password, baseuri)
-}
-
-func ShowPersonal(regno, password, baseuri string) *scrape.GetMarks {
-	bow := surf.NewBrowser()
-	cacheSession.SetSession(bow, cac, regno)
-	return scrape.ShowMarks(bow, regno, password, baseuri)
 }
