@@ -86,6 +86,7 @@ func DoLogin(bow *browser.Browser, reg, pass string, status chan int, baseuri st
 		v.Add("message", "")
 		bow.PostForm(baseuri+"/student/stud_login_submit.asp", v)
 		fmt.Println(bow.Url())
+		fmt.Println(bow.SiteCookies())
 		cac.Set(reg, &cacheSession.MemCache{Regno: reg, MemCookie: bow.SiteCookies()}, cache.DefaultExpiration)
 		stud_home := "/student/stud_home.asp"
 		home := "/student/home.asp"

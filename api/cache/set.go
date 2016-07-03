@@ -15,7 +15,6 @@ func SetSession(bow *browser.Browser, cac *cache.Cache, regno string) bool {
 	cacheval, found := cac.Get(regno)
 	if found {
 		cachevalue := cacheval.(*MemCache)
-
 		bow.SetSiteCookies(cachevalue.MemCookie)
 	}
 	return found

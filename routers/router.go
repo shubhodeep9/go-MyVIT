@@ -47,7 +47,7 @@ func init() {
 		beego.NSNamespace("/acadhist",
 			beego.NSInclude(
 				// controllers/login.go
-				&controllers.AcademicsController{},
+				&controllers.PersonalController{},
 			),
 		),
 		beego.NSNamespace("/coursepage/:category",

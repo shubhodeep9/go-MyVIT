@@ -420,7 +420,7 @@ func (bow *Browser) Scripts() []*Script {
 // @Author Shubhodeep Mukherjee
 // *browser.cookie.SetCookie()
 func (bow *Browser) SetSiteCookies(cookies []*http.Cookie) {
-	urlo, _ := url.Parse("https://academics.vit.ac.in/student/")
+	urlo, _ := url.Parse("https://vtop.vit.ac.in/student/")
 	bow.cookies.SetCookies(urlo, cookies)
 }
 

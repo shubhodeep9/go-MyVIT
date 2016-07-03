@@ -99,3 +99,9 @@ func Spotlight(regno, password, baseuri string) *scrape.Spotlight {
 	bow := surf.NewBrowser()
 	return scrape.Spoli(bow, regno, password, baseuri)
 }
+
+func ShowPersonal(regno, password, baseuri string) *scrape.Personal {
+	bow := surf.NewBrowser()
+	cacheSession.SetSession(bow, cac, regno)
+	return scrape.ShowPersonal(bow, regno, password, baseuri)
+}

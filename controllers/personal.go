@@ -16,7 +16,7 @@ import (
 )
 
 // Operations about login
-type LoginController struct {
+type PersonalController struct {
 	beego.Controller
 }
 
@@ -24,8 +24,8 @@ type LoginController struct {
 // @Description find object by objectid
 // @Success 200
 // @Failure 403 parameters missing
-// @router / [post]
-func (o *LoginController) Get() {
+// @router / [get]
+func (o *PersonalController) Get() {
 	regNo := o.Input().Get("regNo")
 	psswd := o.Input().Get("psswd")
 	campus := o.Ctx.Input.Param(":campus")
@@ -36,7 +36,7 @@ func (o *LoginController) Get() {
 		baseuri = "https://academicscc.vit.ac.in"
 	}
 	if regNo != "" && psswd != "" {
-		resp := api.LogIn(regNo, psswd, baseuri)
+		resp := api.ShowPersonal(regNo, psswd, baseuri)
 		o.Data["json"] = resp
 	}
 	o.ServeJSON()
