@@ -41,4 +41,11 @@ func init() {
 			[]string{"get"},
 			nil})
 
+	beego.GlobalControllerRouter["go-MyVIT/controllers:StatsController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:StatsController"],
+		beego.ControllerComments{
+			"Get",
+			`/`,
+			[]string{"get"},
+			nil})
+
 }

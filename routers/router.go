@@ -22,12 +22,13 @@ func init() {
 		),
 		beego.NSNamespace("/coursepage/:category",
 			beego.NSInclude(
-				// controllers/login.go
+				// controllers/coursepage.go
 				&controllers.CoursePageController{},
 			),
 		),
 		beego.NSNamespace("/refresh",
 			beego.NSInclude(
+				// controllers/refresh.go
 				&controllers.RefreshController{},
 			),
 		),
@@ -39,10 +40,19 @@ func init() {
 		),
 		beego.NSNamespace("/pic",
 			beego.NSInclude(
-				// controllers/spotlight.go
+				// controllers/pic.go
 				&controllers.PicController{},
 			),
 		),
 	)
+	stats := beego.NewNamespace("/admin",
+		beego.NSNamespace("/stats",
+			beego.NSInclude(
+				// controllers/stats.go
+				&controllers.StatsController{},
+			),
+		),
+	)
 	beego.AddNamespace(ns)
+	beego.AddNamespace(stats)
 }

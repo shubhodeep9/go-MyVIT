@@ -67,3 +67,9 @@ func ProfilePic(regno, password, baseuri string) string {
 	cacheSession.SetSession(bow, cac, regno)
 	return scrape.ProfilePhoto(bow, regno, baseuri)
 }
+
+func ShowStats() map[string]int {
+	stat := make(map[string]int)
+	stat["current_users"] = len(cac.Items())
+	return stat
+}
