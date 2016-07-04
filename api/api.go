@@ -57,9 +57,9 @@ func Refresh(regno, password, baseuri string) *scrape.RefreshStruct {
 	return scrape.Refresh(bow, regno, password, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
 
-func Spotlight(regno, password, baseuri string) *scrape.Spotlight {
+func Spotlight(baseuri string) *scrape.Spotlight {
 	bow := surf.NewBrowser()
-	return scrape.Spoli(bow, regno, password, baseuri)
+	return scrape.Spoli(bow, baseuri)
 }
 
 func ProfilePic(regno, password, baseuri string) string {

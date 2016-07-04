@@ -29,7 +29,7 @@ Calls NewLogin to login to academics,
 @param bow(surf Browser) registration_no password
 @return Advisor struct
 */
-func FacultyAdvisor(bow *browser.Browser, regno, password, baseuri string) *Advisor {
+func FacultyAdvisor(bow *browser.Browser, baseuri string) *Advisor {
 
 	status := "Success"
 	dets := make(map[string]string)

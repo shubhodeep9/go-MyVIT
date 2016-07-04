@@ -2,7 +2,6 @@
 SpotlightController
 */
 
-
 package controllers
 
 import (
@@ -21,8 +20,6 @@ type SpotlightController struct {
 // @Failure 403 parameters missing
 // @router / [get]
 func (o *SpotlightController) Get() {
-	regNo := o.Input().Get("regNo")
-	psswd := o.Input().Get("psswd")
 	campus := o.Ctx.Input.Param(":campus")
 	var baseuri string
 	if campus == "vellore" {
@@ -30,9 +27,7 @@ func (o *SpotlightController) Get() {
 	} else {
 		baseuri = "https://academicscc.vit.ac.in"
 	}
-	if regNo != "" && psswd != "" {
-		resp := api.Spotlight(regNo, psswd, baseuri)
-		o.Data["json"] = resp
-	}
+	resp := api.Spotlight(baseuri)
+	o.Data["json"] = resp
 	o.ServeJSON()
 }

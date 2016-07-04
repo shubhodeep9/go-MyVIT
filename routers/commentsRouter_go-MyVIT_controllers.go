@@ -8,28 +8,28 @@ func init() {
 
 	beego.GlobalControllerRouter["go-MyVIT/controllers:CoursePageController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:CoursePageController"],
 		beego.ControllerComments{
-			"Get",
+			"Post",
 			`/`,
 			[]string{"post"},
 			nil})
 
 	beego.GlobalControllerRouter["go-MyVIT/controllers:LoginController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:LoginController"],
 		beego.ControllerComments{
-			"Get",
+			"Post",
 			`/`,
 			[]string{"post"},
 			nil})
 
 	beego.GlobalControllerRouter["go-MyVIT/controllers:PicController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:PicController"],
 		beego.ControllerComments{
-			"Get",
+			"Post",
 			`/`,
 			[]string{"post"},
 			nil})
 
 	beego.GlobalControllerRouter["go-MyVIT/controllers:RefreshController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:RefreshController"],
 		beego.ControllerComments{
-			"Get",
+			"Post",
 			`/`,
 			[]string{"post"},
 			nil})

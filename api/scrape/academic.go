@@ -40,7 +40,7 @@ type Grades struct {
 	S string `json:"S grades"`
 }
 
-func Academics(bow *browser.Browser, regno, password, baseuri string) *AcademicStruct {
+func Academics(bow *browser.Browser, baseuri string) *AcademicStruct {
 
 	status := "Success"
 	var wg sync.WaitGroup

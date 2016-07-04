@@ -33,7 +33,7 @@ Function ->Spoli to fetch the data of spotlight
 @return Spoli struct
 */
 
-func Spoli(bow *browser.Browser, regno, password, baseuri string) *Spotlight {
+func Spoli(bow *browser.Browser, baseuri string) *Spotlight {
 
 	status := "Success"
 	var acad []Base

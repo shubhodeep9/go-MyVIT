@@ -44,31 +44,31 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) 
 		)
 		go func() {
 			defer re.Done()
-			timet = ShowTimetable(bow, regno, password, baseuri)
+			timet = ShowTimetable(bow, baseuri)
 		}()
 		go func() {
 			defer re.Done()
-			acad = Academics(bow, regno, password, baseuri)
+			acad = Academics(bow, baseuri)
 		}()
 		go func() {
 			defer re.Done()
-			adv = FacultyAdvisor(bow, regno, password, baseuri)
+			adv = FacultyAdvisor(bow, baseuri)
 		}()
 		go func() {
 			defer re.Done()
-			att = ShowAttendance(bow, regno, password, baseuri)
+			att = ShowAttendance(bow, baseuri)
 		}()
 		go func() {
 			defer re.Done()
-			exam = ExmSchedule(bow, regno, password, baseuri)
+			exam = ExmSchedule(bow, baseuri)
 		}()
 		go func() {
 			defer re.Done()
-			marks = ShowMarks(bow, regno, password, baseuri)
+			marks = ShowMarks(bow, regno, baseuri)
 		}()
 		go func() {
 			defer re.Done()
-			personal = ShowPersonal(bow, regno, password, baseuri)
+			personal = ShowPersonal(bow, baseuri)
 		}()
 		re.Wait()
 		var courses []Contents

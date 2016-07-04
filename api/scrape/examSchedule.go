@@ -34,7 +34,7 @@ Function ->ExmSchedule to fetch the exam schedule,
 @return ExamSchedule struct
 */
 
-func ExmSchedule(bow *browser.Browser, regno, password, baseuri string) *ExamSchedule {
+func ExmSchedule(bow *browser.Browser, baseuri string) *ExamSchedule {
 
 	status := "Success"
 	var cat1 map[string]Contents2

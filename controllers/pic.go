@@ -25,7 +25,7 @@ type PicController struct {
 // @Success 200
 // @Failure 403 parameters missing
 // @router / [post]
-func (o *PicController) Get() {
+func (o *PicController) Post() {
 	regNo := o.Input().Get("regNo")
 	psswd := o.Input().Get("psswd")
 	campus := o.Ctx.Input.Param(":campus")

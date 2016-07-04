@@ -25,7 +25,7 @@ type LoginController struct {
 // @Success 200
 // @Failure 403 parameters missing
 // @router / [post]
-func (o *LoginController) Get() {
+func (o *LoginController) Post() {
 	regNo := o.Input().Get("regNo")
 	psswd := o.Input().Get("psswd")
 	campus := o.Ctx.Input.Param(":campus")

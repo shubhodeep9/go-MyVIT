@@ -55,7 +55,7 @@ Calls NewLogin to login to academics,
 @param bow (surf Browser) registration_no password
 @return Timtable struct
 */
-func ShowTimetable(bow *browser.Browser, regno, password, baseuri string) *Timetable {
+func ShowTimetable(bow *browser.Browser, baseuri string) *Timetable {
 
 	conts := make(map[string]Contents)
 	status := "Success"

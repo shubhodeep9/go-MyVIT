@@ -20,7 +20,7 @@ type Personal struct {
 	School string
 }
 
-func ShowPersonal(bow *browser.Browser, regno, password, baseuri string) *Personal {
+func ShowPersonal(bow *browser.Browser, baseuri string) *Personal {
 	bow.Open(baseuri + "/student/home.asp")
 	table := bow.Find("table").Eq(1)
 	tr := table.Find("tr").Eq(0)

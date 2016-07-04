@@ -62,7 +62,7 @@ func toFixed(num float64, precision int) float64 {
 	return float64(round(num*output)) / output
 }
 
-func ShowMarks(bow *browser.Browser, regno, password, baseuri string) *GetMarks {
+func ShowMarks(bow *browser.Browser, regno, baseuri string) *GetMarks {
 	//conts := make(map[string]Contents)
 	//type t make(map[string]Assessment)// "CAT: Assessment struct"
 	type t2 []Assessment // t2 is a type for array of Assesments
