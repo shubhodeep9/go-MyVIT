@@ -1,6 +1,7 @@
 package cacheSession
 
 import (
+	"fmt"
 	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"net/http"
@@ -17,5 +18,6 @@ func SetSession(bow *browser.Browser, cac *cache.Cache, regno string) bool {
 		cachevalue := cacheval.(*MemCache)
 		bow.SetSiteCookies(cachevalue.MemCookie)
 	}
+	fmt.Println(cac.Items())
 	return found
 }
