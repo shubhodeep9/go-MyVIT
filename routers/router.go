@@ -37,6 +37,12 @@ func init() {
 				&controllers.SpotlightController{},
 			),
 		),
+		beego.NSNamespace("/pic",
+			beego.NSInclude(
+				// controllers/spotlight.go
+				&controllers.PicController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }

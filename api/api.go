@@ -61,3 +61,9 @@ func Spotlight(regno, password, baseuri string) *scrape.Spotlight {
 	bow := surf.NewBrowser()
 	return scrape.Spoli(bow, regno, password, baseuri)
 }
+
+func ProfilePic(regno, password, baseuri string) string {
+	bow := surf.NewBrowser()
+	cacheSession.SetSession(bow, cac, regno)
+	return scrape.ProfilePhoto(bow, regno, baseuri)
+}

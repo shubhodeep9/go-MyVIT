@@ -25,7 +25,7 @@ type CoursePageController struct {
 // @Description find object by objectid
 // @Success 200
 // @Failure 403 parameters missing
-// @router / [get]
+// @router / [post]
 func (o *CoursePageController) Get() {
 	regNo := o.Input().Get("regNo")
 	psswd := o.Input().Get("psswd")

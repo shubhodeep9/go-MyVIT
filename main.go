@@ -11,9 +11,9 @@
 package main
 
 import (
+	"github.com/astaxie/beego"
 	_ "go-MyVIT/docs"
 	_ "go-MyVIT/routers"
-	"github.com/astaxie/beego"
 )
 
 func main() {
