@@ -29,26 +29,22 @@ func LogIn(regno, password, baseuri string) *login.Response {
 
 func CourseCoursesPage(regno, password, baseuri string) *scrape.CourseStruct {
 	bow := surf.NewBrowser()
-	cacheSession.SetSession(bow, cac, regno)
-	return scrape.Courses(bow, regno, password, baseuri)
+	return scrape.Courses(bow, regno, password, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
 
 func CourseSlotsPage(regno, password, baseuri, coursekey string) *scrape.SlotsStruct {
 	bow := surf.NewBrowser()
-	cacheSession.SetSession(bow, cac, regno)
-	return scrape.Slots(bow, regno, password, baseuri, coursekey)
+	return scrape.Slots(bow, regno, password, baseuri, coursekey, cacheSession.SetSession(bow, cac, regno))
 }
 
 func CourseFacPage(regno, password, baseuri, coursekey, slt string) *scrape.FacStruct {
 	bow := surf.NewBrowser()
-	cacheSession.SetSession(bow, cac, regno)
-	return scrape.Facs(bow, regno, password, baseuri, coursekey, slt)
+	return scrape.Facs(bow, regno, password, baseuri, coursekey, slt, cacheSession.SetSession(bow, cac, regno))
 }
 
 func CourseDataPage(regno, password, baseuri, coursekey, slt, fac string) *scrape.CourseDataStruct {
 	bow := surf.NewBrowser()
-	cacheSession.SetSession(bow, cac, regno)
-	return scrape.CourseData(bow, regno, password, baseuri, coursekey, slt, fac)
+	return scrape.CourseData(bow, regno, password, baseuri, coursekey, slt, fac, cacheSession.SetSession(bow, cac, regno))
 }
 
 func Refresh(regno, password, baseuri string) *scrape.RefreshStruct {
