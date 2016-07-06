@@ -3,26 +3,20 @@ package scrape
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"go-MyVIT/api/login"
+	"go-MyVIT/api/status"
 )
 
 type CourseStruct struct {
-	Courselist map[string]string  `json:"courses"`
-	Status     login.StatusStruct `json:"status"`
+	Courselist map[string]string   `json:"courses"`
+	Status     status.StatusStruct `json:"status"`
 }
 
 func Courses(bow *browser.Browser, regno, password, baseuri string, found bool) *CourseStruct {
 
-	status := login.StatusStruct{
-		Message: "Successful execution",
-		Code:    0,
-	}
+	stats := status.Success()
 	courselist := make(map[string]string)
 	if !found {
-		status = login.StatusStruct{
-			Message: "Session Timed Out",
-			Code:    11,
-		}
+		stats = status.SessionError()
 	} else {
 		bow.Open(baseuri + "/student/coursepage_view.asp?sem=WS")
 		bow.Open(baseuri + "/student/coursepage_view.asp?sem=WS")
@@ -36,6 +30,6 @@ func Courses(bow *browser.Browser, regno, password, baseuri string, found bool) 
 	}
 	return &CourseStruct{
 		Courselist: courselist,
-		Status:     status,
+		Status:     stats,
 	}
 }

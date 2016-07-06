@@ -12,21 +12,21 @@ package scrape
 
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"go-MyVIT/api/login"
+	"go-MyVIT/api/status"
 	"sync"
 )
 
 type RefreshStruct struct {
-	RegNo    string             `json:"reg_no"`
-	Name     string             `json:"name,omitempty"`
-	School   string             `json:"school,omitempty"`
-	Campus   string             `json:"campus"`
-	Semester string             `json:"semester"`
-	Courses  []Contents         `json:"courses,omitempty"`
-	Academic *AcademicStruct    `json:"academic_history,omitempty"`
-	FacAdv   *Advisor           `json:"faculty_advisor,omitempty"`
-	Exam     *ExamSchedule      `json:"exam_schedule,omitempty"`
-	Status   login.StatusStruct `json:"status"`
+	RegNo    string              `json:"reg_no"`
+	Name     string              `json:"name,omitempty"`
+	School   string              `json:"school,omitempty"`
+	Campus   string              `json:"campus"`
+	Semester string              `json:"semester"`
+	Courses  []Contents          `json:"courses,omitempty"`
+	Academic *AcademicStruct     `json:"academic_history,omitempty"`
+	FacAdv   *Advisor            `json:"faculty_advisor,omitempty"`
+	Exam     *ExamSchedule       `json:"exam_schedule,omitempty"`
+	Status   status.StatusStruct `json:"status"`
 }
 
 func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) *RefreshStruct {
@@ -100,10 +100,7 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) 
 			}
 			courses = append(courses, course)
 		}
-		stt := login.StatusStruct{
-			Message: "Successful Execution",
-			Code:    0,
-		}
+		stt := status.Success()
 		return &RefreshStruct{
 			RegNo:    regno,
 			Name:     personal.Name,
@@ -117,10 +114,7 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) 
 			Status:   stt,
 		}
 	}
-	stt := login.StatusStruct{
-		Message: "Session timed out",
-		Code:    11,
-	}
+	stt := status.SessionError()
 	return &RefreshStruct{
 		RegNo:    regno,
 		Campus:   "vellore",

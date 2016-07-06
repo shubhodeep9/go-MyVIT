@@ -3,14 +3,14 @@ package scrape
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"go-MyVIT/api/login"
+	"go-MyVIT/api/status"
 	"net/url"
 	"strings"
 )
 
 type CourseDataStruct struct {
-	Uploads Upload             `json:"uploads"`
-	Status  login.StatusStruct `json:"status"`
+	Uploads Upload              `json:"uploads"`
+	Status  status.StatusStruct `json:"status"`
 }
 
 type Upload struct {
@@ -38,16 +38,10 @@ type LectureStruct struct {
 }
 
 func CourseData(bow *browser.Browser, regno, password, baseuri, coursekey, slt, fac string, found bool) *CourseDataStruct {
-	status := login.StatusStruct{
-		Message: "Successfull Execution",
-		Code:    0,
-	}
+	stats := status.Success()
 	var upload Upload
 	if !found {
-		status = login.StatusStruct{
-			Message: "Session Timed Out",
-			Code:    11,
-		}
+		stats = status.SessionError()
 	} else {
 
 		bow.Open(baseuri + "/student/coursepage_view.asp?sem=WS")
@@ -136,6 +130,6 @@ func CourseData(bow *browser.Browser, regno, password, baseuri, coursekey, slt, 
 	}
 	return &CourseDataStruct{
 		Uploads: upload,
-		Status:  status,
+		Status:  stats,
 	}
 }

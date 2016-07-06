@@ -14,20 +14,16 @@ import (
 	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/cache"
+	"go-MyVIT/api/status"
 	"net/url"
 	"os"
 	"os/exec"
 )
 
 type Response struct {
-	Regno  string       `json:"regno"`
-	Campus string       `json:"campus"`
-	Status StatusStruct `json:"status"`
-}
-
-type StatusStruct struct {
-	Message string `json:"message"`
-	Code    int    `json:"code"`
+	Regno  string              `json:"regno"`
+	Campus string              `json:"campus"`
+	Status status.StatusStruct `json:"status"`
 }
 
 var Sessionname string
@@ -38,20 +34,14 @@ Creates a new StudLogin object and Starts logging in
 @param Registration_Number Password
 */
 func NewLogin(bow *browser.Browser, reg, pass, baseuri string, cac *cache.Cache) *Response {
-	status := make(chan int)
-	go DoLogin(bow, reg, pass, status, baseuri, cac)
-	success := <-status
-	var stt StatusStruct
+	stats := make(chan int)
+	go DoLogin(bow, reg, pass, stats, baseuri, cac)
+	success := <-stats
+	var stt status.StatusStruct
 	if success == 1 {
-		stt = StatusStruct{
-			Message: "Successful Execution",
-			Code:    0,
-		}
+		stt = status.Success()
 	} else {
-		stt = StatusStruct{
-			Message: "UnSuccessful Execution",
-			Code:    12,
-		}
+		stt = status.CredentialError()
 	}
 	return &Response{
 		Regno:  reg,
@@ -66,7 +56,7 @@ Using that session user is logged in.
 @param bow(surf Browser) registration_no password status(channel for goroutine)
 @return void
 */
-func DoLogin(bow *browser.Browser, reg, pass string, status chan int, baseuri string, cac *cache.Cache) {
+func DoLogin(bow *browser.Browser, reg, pass string, stats chan int, baseuri string, cac *cache.Cache) {
 
 	bow.Open("https://vtop.vit.ac.in/student/captcha.asp")
 	out, _ := os.Create("api/login/" + reg + ".bmp")
@@ -74,7 +64,7 @@ func DoLogin(bow *browser.Browser, reg, pass string, status chan int, baseuri st
 	out1, err := exec.Command("python", "api/login/parse.py", reg).Output()
 	go os.Remove("api/login/" + reg + ".bmp")
 	if err != nil {
-		status <- 0
+		stats <- 0
 	} else {
 
 		capt := string(out1)[:len(out1)-1]
@@ -89,9 +79,9 @@ func DoLogin(bow *browser.Browser, reg, pass string, status chan int, baseuri st
 		u := bow.Url().EscapedPath()
 		if u == stud_home || u == home {
 			cac.Set(reg, &cacheSession.MemCache{Regno: reg, MemCookie: bow.SiteCookies()}, cache.DefaultExpiration)
-			status <- 1
+			stats <- 1
 		} else {
-			status <- 0
+			stats <- 0
 		}
 	}
 }
