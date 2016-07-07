@@ -74,9 +74,9 @@ func DoLogin(bow *browser.Browser, reg, pass string, stats chan int, baseuri str
 		v.Add("vrfcd", capt)
 		v.Add("message", "")
 		bow.PostForm(baseuri+"/student/stud_login_submit.asp", v)
-		stud_home := "/student/stud_home.asp"
-		home := "/student/home.asp"
-		u := bow.Url().EscapedPath()
+		stud_home := baseuri + "/student/stud_home.asp"
+		home := baseuri + "/student/home.asp"
+		u := bow.Url().String()
 		if u == stud_home || u == home {
 			cac.Set(reg, &cacheSession.MemCache{Regno: reg, MemCookie: bow.SiteCookies()}, cache.DefaultExpiration)
 			stats <- 1
