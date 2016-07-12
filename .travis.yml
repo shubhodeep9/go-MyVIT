@@ -12,6 +12,7 @@ install:
   - go get github.com/astaxie/beego
   - go get github.com/patrickmn/go-cache
   - go get github.com/smartystreets/goconvey/convey
+  - go get github.com/hotei/bmp
 
 script:
   - go test -v tests/*
