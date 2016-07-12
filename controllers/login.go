@@ -39,5 +39,6 @@ func (o *LoginController) Post() {
 		resp := api.LogIn(regNo, psswd, baseuri)
 		o.Data["json"] = resp
 	}
+	o.Ctx.Output.Header("Cookie", api.CookieReturn(regNo))
 	o.ServeJSON()
 }
