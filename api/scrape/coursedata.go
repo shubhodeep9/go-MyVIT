@@ -44,8 +44,8 @@ func CourseData(bow *browser.Browser, regno, password, baseuri, coursekey, slt, 
 		stats = status.SessionError()
 	} else {
 
-		bow.Open(baseuri + "/student/coursepage_view.asp?sem=WS")
-		bow.Open(baseuri + "/student/coursepage_view.asp?sem=WS&crs=" + coursekey + "&slt=" + slt + "&fac=" + fac)
+		bow.Open(baseuri + "/student/coursepage_view.asp?sem=FS")
+		bow.Open(baseuri + "/student/coursepage_view.asp?sem=FS&crs=" + coursekey + "&slt=" + slt + "&fac=" + fac)
 		v := url.Values{}
 		v.Set("sem", "WS")
 		crsplancode, _ := bow.Find("input[name=crsplancode]").Attr("value")

@@ -68,9 +68,9 @@ func getDetails(classnbr, baseuri string, bow *browser.Browser) []DetsBranch {
 	}
 	year, month, day := time.Now().Date()
 	v := url.Values{}
-	v.Set("semcode", "WINSEM2015-16")
+	v.Set("semcode", "FALLSEM2016-17")
 	v.Add("classnbr", classnbr)
-	v.Add("from_date", "04-Jan-2016")
+	v.Add("from_date", "11-Jul-2016")
 	v.Add("to_date", strconv.Itoa(day)+"-"+month.String()[:3]+"-"+strconv.Itoa(year))
 	bow.PostForm(baseuri+"/student/attn_report_details.asp", v)
 	table := bow.Find("table").Eq(2)
@@ -115,9 +115,9 @@ func ShowAttendance(bow *browser.Browser, baseuri string) *Attendance {
 		status = "Failure"
 	} else {
 		year, month, day := time.Now().Date()
-		bow.Open(baseuri + "/student/attn_report.asp?sem=WS&fmdt=04-Jan-2016&todt=" + strconv.Itoa(day) + "-" + month.String()[:3] + "-" + strconv.Itoa(year))
+		bow.Open(baseuri + "/student/attn_report.asp?sem=FS&fmdt=11-Jul-2016&todt=" + strconv.Itoa(day) + "-" + month.String()[:3] + "-" + strconv.Itoa(year))
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
-		bow.Open(baseuri + "/student/attn_report.asp?sem=WS&fmdt=04-Jan-2016&todt=" + strconv.Itoa(day) + "-" + month.String()[:3] + "-" + strconv.Itoa(year))
+		bow.Open(baseuri + "/student/attn_report.asp?sem=FS&fmdt=11-Jul-2016&todt=" + strconv.Itoa(day) + "-" + month.String()[:3] + "-" + strconv.Itoa(year))
 		table := bow.Find("table").Eq(3)
 		tr := table.Find("tr")
 		var wg sync.WaitGroup

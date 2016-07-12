@@ -118,7 +118,7 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) 
 	return &RefreshStruct{
 		RegNo:    regno,
 		Campus:   "vellore",
-		Semester: "WS",
+		Semester: "FS",
 		Status:   stt,
 	}
 }

@@ -75,10 +75,10 @@ func ShowMarks(bow *browser.Browser, regno, baseuri string) *GetMarks {
 			status = "Failure"
 		} else {
 			var wg sync.WaitGroup
-			bow.Open(baseuri + "/student/marks.asp?sem=WS")
+			bow.Open(baseuri + "/student/marks.asp?sem=FS")
 
 			//Twice loading due to Redirect policy defined by academics.vit.ac.in
-			bow.Open(baseuri + "/student/marks.asp?sem=WS")
+			bow.Open(baseuri + "/student/marks.asp?sem=FS")
 			tables := bow.Find("table")
 			marks_table := tables.Eq(1)
 
@@ -190,9 +190,9 @@ func ShowMarks(bow *browser.Browser, regno, baseuri string) *GetMarks {
 			status = "Failure"
 		} else {
 			var wg sync.WaitGroup
-			bow.Open(baseuri + "/student/marks.asp?sem=WS")
+			bow.Open(baseuri + "/student/marks.asp?sem=FS")
 			//Twice loading due to Redirect policy defined by academics.vit.ac.in
-			bow.Open(baseuri + "/student/marks.asp?sem=WS")
+			bow.Open(baseuri + "/student/marks.asp?sem=FS")
 			tables := bow.Find("table")
 			marks_table := tables.Eq(1)
 
