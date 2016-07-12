@@ -1,5 +1,6 @@
 # go-MyVIT
-The student login API for the app MyVIT in Go programming language
+The student login API for the app MyVIT in Go programming language<br />
+[![Build Status](https://travis-ci.org/shubhodeep9/go-MyVIT.svg?branch=master)](https://travis-ci.org/shubhodeep9/go-MyVIT)
 
 ##API URLs
 http://207.46.139.218:8080/campus/[campus]/login?regNo=[reg]&psswd=[psswd] <br />
