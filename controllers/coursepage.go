@@ -55,6 +55,7 @@ func (o *CoursePageController) Post() {
 		} else {
 			o.Abort("404")
 		}
+		o.Ctx.Output.Header("Cookie", api.CookieReturn(regNo))
 	}
 	o.ServeJSON()
 }

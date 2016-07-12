@@ -74,3 +74,15 @@ func FacultyInformation(regno, password, baseuri, query string) string {
 	bow := surf.NewBrowser()
 	return scrape.FacultySearch(bow, regno, password, baseuri, query, cacheSession.SetSession(bow, cac, regno))
 }
+
+func CookieReturn(regno string) string {
+	bow := surf.NewBrowser()
+	cacheSession.SetSession(bow, cac, regno)
+	val, _ := cac.Get(regno)
+	cookies := val.(*cacheSession.MemCache)
+	result := ""
+	for i := range cookies.MemCookie {
+		result = result + cookies.MemCookie[i].Name + "=" + cookies.MemCookie[i].Value + ";"
+	}
+	return result[:len(result)-1]
+}
