@@ -14,10 +14,10 @@ import (
 	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/cache"
+	"go-MyVIT/api/login/captcha"
 	"go-MyVIT/api/status"
 	"net/url"
 	"os"
-	"os/exec"
 )
 
 type Response struct {
@@ -59,19 +59,17 @@ Using that session user is logged in.
 func DoLogin(bow *browser.Browser, reg, pass string, stats chan int, baseuri string, cac *cache.Cache) {
 
 	bow.Open("https://vtop.vit.ac.in/student/captcha.asp")
-	out, _ := os.Create("api/login/" + reg + ".bmp")
+	out, err := os.Create("api/login/" + reg + ".bmp")
 	bow.Download(out)
-	out1, err := exec.Command("python", "api/login/parse.py", reg).Output()
+	out1 := captcha.Parse(reg)
 	go os.Remove("api/login/" + reg + ".bmp")
 	if err != nil {
 		stats <- 0
 	} else {
-
-		capt := string(out1)[:len(out1)-1]
 		v := url.Values{}
 		v.Set("regno", reg)
 		v.Add("passwd", pass)
-		v.Add("vrfcd", capt)
+		v.Add("vrfcd", out1)
 		v.Add("message", "")
 		bow.PostForm(baseuri+"/student/stud_login_submit.asp", v)
 		stud_home := baseuri + "/student/stud_home.asp"

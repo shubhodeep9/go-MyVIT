@@ -69,3 +69,8 @@ func ShowStats() map[string]int {
 	stat["current_users"] = len(cac.Items())
 	return stat
 }
+
+func FacultyInformation(regno, password, baseuri, query string) string {
+	bow := surf.NewBrowser()
+	return scrape.FacultySearch(bow, regno, password, baseuri, query, cacheSession.SetSession(bow, cac, regno))
+}

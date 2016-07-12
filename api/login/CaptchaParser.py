@@ -1,3 +1,4 @@
+from __future__ import print_function
 import json
 from PIL import Image
 class CaptchaParser:
@@ -13,7 +14,7 @@ class CaptchaParser:
 			count=0
 			for y in range(0,yy,1):
 				for x in range(0,len(mask1[y]),1):
-					try:
+					if ry+y < 24 and rx+x < 129:
 						if mask1[y][x] == '1':
 							if pix1[ry+y][rx+x]:
 								count+=1
@@ -23,7 +24,7 @@ class CaptchaParser:
 								break
 						else:
 							pass
-					except:
+					else:
 						flag=0
 						breakflag=1
 						break
@@ -68,6 +69,8 @@ class CaptchaParser:
 				if(y!=0 and y!=24):
 					if(pix[x,y+1]==0 and temp==1 and pix[x,y-1]==0):
 						pix[x,y]=0
+				print(pix[x,y],end='')
+			print('')
 		xoff=20
 		yoff=2
 		newpix=[]

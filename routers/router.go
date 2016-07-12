@@ -44,6 +44,11 @@ func init() {
 				&controllers.PicController{},
 			),
 		),
+		beego.NSNamespace("/facdet",
+			beego.NSInclude(
+				&controllers.FacultyController{},
+			),
+		),
 	)
 	stats := beego.NewNamespace("/admin",
 		beego.NSNamespace("/stats",
