@@ -11,6 +11,7 @@
 package api
 
 import (
+	"fmt"
 	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf"
 	"go-MyVIT/api/cache"
@@ -76,13 +77,16 @@ func FacultyInformation(regno, password, baseuri, query string) string {
 }
 
 func CookieReturn(regno string) string {
-	bow := surf.NewBrowser()
-	cacheSession.SetSession(bow, cac, regno)
-	val, _ := cac.Get(regno)
-	cookies := val.(*cacheSession.MemCache)
-	result := ""
-	for i := range cookies.MemCookie {
-		result = result + cookies.MemCookie[i].Name + "=" + cookies.MemCookie[i].Value + ";"
+	val, found := cac.Get(regno)
+	fmt.Println(found)
+	if found {
+		cookies := val.(*cacheSession.MemCache)
+		result := ""
+		for i := range cookies.MemCookie {
+			result = result + cookies.MemCookie[i].Name + "=" + cookies.MemCookie[i].Value + ";"
+		}
+		return result[:len(result)-1]
+	} else {
+		return ""
 	}
-	return result[:len(result)-1]
 }
