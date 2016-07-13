@@ -52,7 +52,7 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) 
 		}()
 		go func() {
 			defer re.Done()
-			adv = FacultyAdvisor(bow, baseuri)
+			adv = FacultyAdvisor(bow, regno, baseuri)
 		}()
 		go func() {
 			defer re.Done()
