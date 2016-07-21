@@ -12,11 +12,14 @@ package api
 
 import (
 	"fmt"
+	"github.com/alexjlockwood/gcm"
 	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf"
 	"go-MyVIT/api/cache"
 	"go-MyVIT/api/login"
 	"go-MyVIT/api/scrape"
+	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
 	"time"
 )
 
@@ -88,5 +91,44 @@ func CookieReturn(regno string) string {
 		return result[:len(result)-1]
 	} else {
 		return ""
+	}
+}
+
+type Registrations struct {
+	Regid string
+}
+
+func GcmSender(message string) *gcm.Response {
+	session, _ := mgo.Dial("mongodb://shubho:deep@ds047865.mlab.com:47865/analyticsweekly")
+	defer session.Close()
+	var registrations []*Registrations
+	c := session.DB("analyticsweekly").C("gcm")
+	c.Find(bson.M{}).All(&registrations)
+	var regIDs []string
+	for _, val := range registrations {
+		regIDs = append(regIDs, val.Regid)
+	}
+
+	data := map[string]interface{}{"message": message}
+	msg := gcm.NewMessage(data, regIDs...)
+
+	// Create a Sender to send the message.
+	sender := &gcm.Sender{ApiKey: "AIzaSyAmDb9Gv7rY8dWvEUbwyU0y3hQTz2eoatU"}
+
+	// Send the message and receive the response after at most two retries.
+	response, _ := sender.Send(msg, 2)
+	return response
+}
+
+func GcmRegister(regID string) string {
+	session, _ := mgo.Dial("mongodb://shubho:deep@ds047865.mlab.com:47865/analyticsweekly")
+	defer session.Close()
+	c := session.DB("analyticsweekly").C("gcm")
+	n, _ := c.Find(bson.M{"regid": regID}).Count()
+	if n == 0 {
+		c.Insert(&Registrations{Regid: regID})
+		return "Success"
+	} else {
+		return "Failure"
 	}
 }

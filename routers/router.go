@@ -57,6 +57,11 @@ func init() {
 				&controllers.StatsController{},
 			),
 		),
+		beego.NSNamespace("/message/:function",
+			beego.NSInclude(
+				&controllers.GcmMessageController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 	beego.AddNamespace(stats)
