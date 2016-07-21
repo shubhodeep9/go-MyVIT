@@ -62,9 +62,9 @@ func ShowTimetable(bow *browser.Browser, baseuri string) *Timetable {
 	if 1 != 1 {
 		status = "Failure"
 	} else {
-		bow.Open(baseuri + "/student/timetable.asp?sem=FS")
+		bow.Open(baseuri + "/student/course_regular.asp?sem=FS")
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
-		bow.Open(baseuri + "/student/timetable.asp?sem=FS")
+		bow.Open(baseuri + "/student/course_regular.asp?sem=FS")
 		tables := bow.Find("table")
 		reg_table := tables.Eq(1)
 
