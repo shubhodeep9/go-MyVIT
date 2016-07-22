@@ -108,15 +108,15 @@ func GcmSender(message string) *gcm.Response {
 	for _, val := range registrations {
 		regIDs = append(regIDs, val.Regid)
 	}
-
 	data := map[string]interface{}{"message": message}
 	msg := gcm.NewMessage(data, regIDs...)
 
 	// Create a Sender to send the message.
-	sender := &gcm.Sender{ApiKey: "AIzaSyAmDb9Gv7rY8dWvEUbwyU0y3hQTz2eoatU"}
+	sender := &gcm.Sender{ApiKey: "AIzaSyBMGB6Mk4SJCH3hP5f_r8OUiL0mjxEhuWk"}
 
 	// Send the message and receive the response after at most two retries.
-	response, _ := sender.Send(msg, 2)
+	response, err := sender.Send(msg, 2)
+	fmt.Println(err)
 	return response
 }
 
