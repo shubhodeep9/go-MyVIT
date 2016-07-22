@@ -13,6 +13,8 @@ install:
   - go get github.com/patrickmn/go-cache
   - go get github.com/smartystreets/goconvey/convey
   - go get github.com/hotei/bmp
+  - go get github.com/alexjlockwood/gcm
+  - go get gopkg.in/mgo.v2
 
 script:
   - go test -v tests/*
