@@ -118,7 +118,7 @@ func ShowAttendance(bow *browser.Browser, baseuri string) *Attendance {
 		bow.Open(baseuri + "/student/attn_report.asp?sem=FS&fmdt=11-Jul-2016&todt=" + strconv.Itoa(day) + "-" + month.String()[:3] + "-" + strconv.Itoa(year))
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
 		bow.Open(baseuri + "/student/attn_report.asp?sem=FS&fmdt=11-Jul-2016&todt=" + strconv.Itoa(day) + "-" + month.String()[:3] + "-" + strconv.Itoa(year))
-		table := bow.Find("table").Eq(3)
+		table := bow.Find("table").Eq(4)
 		tr := table.Find("tr")
 		var wg sync.WaitGroup
 		tr.Each(func(i int, s *goquery.Selection) {
