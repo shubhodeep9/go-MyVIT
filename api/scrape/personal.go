@@ -27,7 +27,7 @@ func ShowPersonal(bow *browser.Browser, baseuri string) *Personal {
 	font := tr.Find("font").Eq(0)
 	s := strings.Split(strings.TrimSpace(font.Text())[10:], "-")
 	return &Personal{
-		Name:   strings.Title(strings.TrimSpace(s[0])),
+		Name:   strings.Title(strings.ToLower(strings.TrimSpace(s[0]))),
 		School: strings.TrimSpace(s[2]),
 	}
 }
