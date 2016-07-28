@@ -18,8 +18,12 @@ func Slots(bow *browser.Browser, regno, password, baseuri, coursekey string, fou
 	if !found {
 		stats = status.SessionError()
 	} else {
-		bow.Open(baseuri + "/student/coursepage_view.asp?sem=FS")
-		bow.Open(baseuri + "/student/coursepage_view.asp?sem=FS&crs=" + coursekey)
+		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=FS")
+		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=FS")
+		fm, _ := bow.Form("form")
+		fm.Input("sem", "FS")
+		fm.Set("course", coursekey)
+		fm.Submit()
 		options := bow.Find("select").Eq(1).Find("option")
 		options.Each(func(i int, s *goquery.Selection) {
 			if i > 0 {

@@ -1,10 +1,10 @@
 package scrape
 
 import (
+	"fmt"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/status"
-	"net/url"
 	"strings"
 )
 
@@ -43,15 +43,23 @@ func CourseData(bow *browser.Browser, regno, password, baseuri, coursekey, slt, 
 	if !found {
 		stats = status.SessionError()
 	} else {
-
 		bow.Open(baseuri + "/student/coursepage_view.asp?sem=FS")
-		bow.Open(baseuri + "/student/coursepage_view.asp?sem=FS&crs=" + coursekey + "&slt=" + slt + "&fac=" + fac)
-		v := url.Values{}
-		v.Set("sem", "WS")
-		crsplancode, _ := bow.Find("input[name=crsplancode]").Attr("value")
-		v.Add("crsplancode", crsplancode)
-		v.Add("crpnvwcmd", "View")
-		bow.PostForm(baseuri+"/student/coursepage_view3.asp", v)
+		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=FS")
+		fm, _ := bow.Form("form")
+		fm.Input("sem", "FS")
+		fm.Set("course", coursekey)
+		fm.Set("slot", slt)
+		fm.Submit()
+		fm = bow.Forms()[3]
+		fm.Set("sem", "FS")
+		classnbr, _ := bow.Find("input[name=classnbr]").Attr("value")
+		crscd, _ := bow.Find("input[name=crscd]").Attr("value")
+		crstp, _ := bow.Find("input[name=crstp]").Attr("value")
+		fm.Set("classnbr", classnbr)
+		fm.Set("crscd", crscd)
+		fm.Set("crstp", crstp)
+		fmt.Println(fm)
+		fm.Submit()
 		outer_table := bow.Find("table")
 		inners := outer_table.Find("table")
 		materials := inners.Eq(1)

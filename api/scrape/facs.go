@@ -18,8 +18,13 @@ func Facs(bow *browser.Browser, regno, password, baseuri, coursekey, slt string,
 	if !found {
 		stats = status.SessionError()
 	} else {
-		bow.Open(baseuri + "/student/coursepage_view.asp?sem=FS")
-		bow.Open(baseuri + "/student/coursepage_view.asp?sem=FS&crs=" + coursekey + "&slt=" + slt)
+		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=FS")
+		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=FS")
+		fm, _ := bow.Form("form")
+		fm.Input("sem", "FS")
+		fm.Set("course", coursekey)
+		fm.Set("slot", slt)
+		fm.Submit()
 		options := bow.Find("select").Eq(2).Find("option")
 		options.Each(func(i int, s *goquery.Selection) {
 			if i > 0 {
