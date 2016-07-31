@@ -51,7 +51,7 @@ func FacultyAdvisor(bow *browser.Browser, reg, baseuri string) *Advisor {
 			out, _ := os.Create("api/" + reg + ".jpg")
 			bow.Download(out)
 			imgFile, _ := os.Open("api/" + reg + ".jpg")
-			go os.Remove("api/" + reg + ".jpg")
+			//go os.Remove("api/" + reg + ".jpg")
 			defer imgFile.Close()
 
 			// create a new buffer base on file size
