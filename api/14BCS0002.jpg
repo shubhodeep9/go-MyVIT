@@ -1,0 +1,487 @@
+
+
+<html>
+<head>
+<title>V-TOP Student Login</title>
+
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<link href="style2.css" rel="stylesheet" type="text/css">
+
+<script language="javascript">
+
+function checknull()
+{
+	var val = new Array();
+	var chkfg = 1;
+	
+	val = document.getElementsByName('crscd');
+	
+	for(var k=0; k < val.length ; k++)
+	{
+		if(val[k].checked == true)
+		{
+			chkfg = 2;
+		}
+	}
+	
+	if (chkfg == 1)
+	{
+		alert("Choose any one (or) more courses to generate receipt.");
+		return false;
+	}
+	
+	return true;
+}
+
+function popup(url) 
+{
+	//params  = 'width='+screen.width;
+	//params += ', height='+screen.height;
+	params  = 'width=800';
+	params += ', height=600';
+	params += ', top=0, left=0'
+	params += ', fullscreen=no';
+	params += ', scrollbars=yes';
+
+	newwin=window.open(url,'ffcs', params);
+	if (window.focus)
+	{
+		newwin.focus();
+	}
+	return false;
+}
+
+</script>
+
+</head>
+
+<table width="79%" border="0" cellpadding="0" cellspacing="0" height="350">
+  <tr>
+	<td valign="top" width="1%" bgcolor=#FFFFFF>
+		&nbsp;
+	</td>
+	<td valign="top" width="78%" bgcolor=#FFFFFF>
+			
+	
+		
+	<br>
+	<center><b><u>
+	TIME TABLE  -  Fall Semester 2016~17
+	</u></b></center>
+	<br><br>
+					
+	
+	
+	<u><b>Note:</b></u>
+	<ul>
+	<!--<li><font color=black><b>Fee receipt generation will be provided after Add or Drop.</b></font></li>-->
+	<li><font color=black><b>Last date for payment of Fee is '<font color=red>22-Jul-2016</font>' till 05:00PM (Only for Additional/ Re-registered/ Grade Improvement/ Minor/ Honors/ Course Substitution courses).</b></font></li>
+	<li><font color=red><b>Before generating the receipt read the '<a href="#" onclick="popup('https://vtop.vit.ac.in/student/fp_instruction.html')"><font color=blue><b>Fee Payment Instructions</b></font></a>' carefully...!</b></font></li>
+	<li><font color=black><b>STAR Students</b> approval will be given after <b>22-Jul-2016</b>.</font></li>
+	</ul>
+	<br>
+	
+	
+		<br><b><u>Registration</u>:</b></center><br><br>
+		
+		<form name="course_regular" action="course_regular_submit.asp" method="post">
+		<input type="hidden" name="sem" value="FS"> 
+		
+		<table cellspacing=0 cellpadding=2 border="1" width="1200" style="border-collapse: collapse" bordercolor="#000000">
+		
+		<tr bgcolor="#5A768D" align=center height="25">
+			<td width="25"><font color=white>&nbsp;</font></td>
+			<td width="50"><font color=white>Sl.No.</font></td>
+			<td width="80"><font color=white>Class Nbr</font></td>
+			<td width="100"><font color=white>Course Code</font></td>
+			<td><font color=white>Course Title</font></td>
+			<td width="80"><font color=white>Course Type</font></td>
+			<td width="80"><font color=white>L T P J C</font></td>
+			<td width="80"><font color=white>Course Mode</font></td>
+			<td width="80"><font color=white>Course Option</font></td>
+			<td width="80"><font color=white>Slot</font></td>
+			<td width="70"><font color=white>Venue</font></td>
+			<td width="120"><font color=white>Faculty Name</font></td>
+			<td width="100"><font color=white>Status</font></td>
+			<td width="100"><font color=white>Ref. No.</font></td>
+			<td width="80"><font color=white>Bill No. / Date</font></td>
+		</tr>
+	
+			<tr bgcolor="#EDEADE" height="20">
+			
+				<td rowspan="2" align=center>
+				
+				</td>
+				<td rowspan="2" align=center><font color='green'>1</font></td>
+			
+			<td align=center><font color='green'>2013</font></td>
+			<td align=center><font color='green'>CSC307</font></td>
+			<td><font color='green'>Visual Programming</font></td>
+			<td><font color='green'>Embedded Theory</font></td>
+			<td align=center>
+				<font color='green'>
+				3 1 0 0 4 
+				</font>
+			</td>
+			<td align=center><font color='green'>CBL</font></td>
+			<td align=center><font color='green'>Regular</font></td>
+	
+			<td><font color='green'>C2+TC2+TCC2</font></td>
+			<td align=center><font color='green'>SJT322</font></td>
+			<td><font color='green'>KAUSHIK S - SCOPE</font></td>
+	
+			<td rowspan="2"><font color='green'>Registered and Approved</font></td>
+			<td rowspan="2"><font color='green'></font></td>
+			<td rowspan="2"><font color='green'></font></td>
+	
+		</tr>
+	
+			<tr bgcolor="#EDEADE" height="20">
+			
+			<td align=center><font color='green'>2081</font></td>
+			<td align=center><font color='green'>CSC307</font></td>
+			<td><font color='green'>Visual Programming</font></td>
+			<td><font color='green'>Embedded Lab</font></td>
+			<td align=center>
+				<font color='green'>
+				0 0 2 0 1 
+				</font>
+			</td>
+			<td align=center><font color='green'>LBC</font></td>
+			<td align=center><font color='green'>Regular</font></td>
+	
+			<td><font color='green'>L3+L4</font></td>
+			<td align=center><font color='green'>SJT515</font></td>
+			<td><font color='green'>KAUSHIK S - SCOPE</font></td>
+	
+		</tr>
+	
+			<tr bgcolor="#EDEADE" height="20">
+			
+				<td rowspan="1" align=center>
+				
+				</td>
+				<td rowspan="1" align=center><font color='green'>2</font></td>
+			
+			<td align=center><font color='green'>2050</font></td>
+			<td align=center><font color='green'>CSC313</font></td>
+			<td><font color='green'>Object Oriented Analysis and Design</font></td>
+			<td><font color='green'>Theory Only</font></td>
+			<td align=center>
+				<font color='green'>
+				3 0 0 0 3 
+				</font>
+			</td>
+			<td align=center><font color='green'>CBL</font></td>
+			<td align=center><font color='green'>Regular</font></td>
+	
+			<td><font color='green'>B2+TB2</font></td>
+			<td align=center><font color='green'>SJT401</font></td>
+			<td><font color='green'>SWARNALATHA P - SCOPE</font></td>
+	
+			<td rowspan="1"><font color='green'>Registered and Approved</font></td>
+			<td rowspan="1"><font color='green'></font></td>
+			<td rowspan="1"><font color='green'></font></td>
+	
+		</tr>
+	
+			<tr bgcolor="#EDEADE" height="20">
+			
+				<td rowspan="1" align=center>
+				
+				</td>
+				<td rowspan="1" align=center><font color='green'>3</font></td>
+			
+			<td align=center><font color='green'>1250</font></td>
+			<td align=center><font color='green'>CSC318</font></td>
+			<td><font color='green'>Data Mining</font></td>
+			<td><font color='green'>Theory Only</font></td>
+			<td align=center>
+				<font color='green'>
+				3 0 0 0 3 
+				</font>
+			</td>
+			<td align=center><font color='green'>CBL</font></td>
+			<td align=center><font color='green'>Regular</font></td>
+	
+			<td><font color='green'>D2+TD2</font></td>
+			<td align=center><font color='green'>SJT803</font></td>
+			<td><font color='green'>SATHYARAJ R - SCOPE</font></td>
+	
+			<td rowspan="1"><font color='green'>Registered and Approved</font></td>
+			<td rowspan="1"><font color='green'></font></td>
+			<td rowspan="1"><font color='green'></font></td>
+	
+		</tr>
+	
+			<tr bgcolor="#EDEADE" height="20">
+			
+				<td rowspan="2" align=center>
+				
+				</td>
+				<td rowspan="2" align=center><font color='green'>4</font></td>
+			
+			<td align=center><font color='green'>2032</font></td>
+			<td align=center><font color='green'>CSC321</font></td>
+			<td><font color='green'>Web Technology</font></td>
+			<td><font color='green'>Embedded Theory</font></td>
+			<td align=center>
+				<font color='green'>
+				3 0 0 0 3 
+				</font>
+			</td>
+			<td align=center><font color='green'>CBL</font></td>
+			<td align=center><font color='green'>Regular</font></td>
+	
+			<td><font color='green'>A2+TA2</font></td>
+			<td align=center><font color='green'>SJT401</font></td>
+			<td><font color='green'>PADMA PRIYA R - SCOPE</font></td>
+	
+			<td rowspan="2"><font color='green'>Registered and Approved</font></td>
+			<td rowspan="2"><font color='green'></font></td>
+			<td rowspan="2"><font color='green'></font></td>
+	
+		</tr>
+	
+			<tr bgcolor="#EDEADE" height="20">
+			
+			<td align=center><font color='green'>2092</font></td>
+			<td align=center><font color='green'>CSC321</font></td>
+			<td><font color='green'>Web Technology</font></td>
+			<td><font color='green'>Embedded Lab</font></td>
+			<td align=center>
+				<font color='green'>
+				0 0 2 0 1 
+				</font>
+			</td>
+			<td align=center><font color='green'>LBC</font></td>
+			<td align=center><font color='green'>Regular</font></td>
+	
+			<td><font color='green'>L7+L8</font></td>
+			<td align=center><font color='green'>SJT417</font></td>
+			<td><font color='green'>MURALI S - SCOPE</font></td>
+	
+		</tr>
+	
+			<tr bgcolor="#EDEADE" height="20">
+			
+				<td rowspan="1" align=center>
+				
+				</td>
+				<td rowspan="1" align=center><font color='green'>5</font></td>
+			
+			<td align=center><font color='green'>8598</font></td>
+			<td align=center><font color='green'>MGT318</font></td>
+			<td><font color='green'>International Business</font></td>
+			<td><font color='green'>Theory Only</font></td>
+			<td align=center>
+				<font color='green'>
+				3 0 0 0 3 
+				</font>
+			</td>
+			<td align=center><font color='green'>CBL</font></td>
+			<td align=center><font color='green'>Regular</font></td>
+	
+			<td><font color='green'>E1+TE1</font></td>
+			<td align=center><font color='green'>SJT802</font></td>
+			<td><font color='green'>HIMANSHU TANDON - SMEC</font></td>
+	
+			<td rowspan="1"><font color='green'>Registered and Approved</font></td>
+			<td rowspan="1"><font color='green'></font></td>
+			<td rowspan="1"><font color='green'></font></td>
+	
+		</tr>
+	 
+		<tr bgcolor="#E1ECF2" align=center height="25">
+			<td colspan=15>
+				<b>Total Credits &nbsp; : &nbsp;&nbsp;18</b>
+			</td>
+		</tr>
+		
+		<tr bgcolor="#5A768D" align=center height="25">
+			<td colspan=15>
+				
+			</td>
+		</tr>
+		
+		</table>
+		</form>
+	
+		
+		<br><br>
+		<table cellspacing=0 cellpadding=2 border="1" width="95%" style="border-collapse: collapse" bordercolor="#000000">
+		<tr align=center>
+		    <td width="65" bgcolor=#C0C0C0 height="50"><b>THEORY HOURS</b></td>
+		    <td width="60" bgcolor=#CCCCFF height="50"><b>08:00AM<br>to<br>08:50AM</b></td>
+		    <td width="60" bgcolor=#CCCCFF height="50"><b>09:00AM<br>to<br>09:50AM</b></td>
+		    <td width="60" bgcolor=#CCCCFF height="50"><b>10:00AM<br>to<br>10:50AM</b></td>
+		    <td width="60" bgcolor=#CCCCFF height="50"><b>11:00AM<br>to<br>11:50AM</b></td>
+		    <td width="60" bgcolor=#CCCCFF height="50"><b>12:00AM<br>to<br>12:50PM</b></td>
+			<td width="77" bgcolor=#CCCCFF height="50">&nbsp;</td>
+		    <td width="10" rowspan="9" bgcolor=#C0C0C0><b>L<br>U<br>N<br>C<br>H</b></td>
+		    <td width="60" bgcolor=#CCCCFF height="50"><b>02:00PM<br>to<br>02:50PM</b></td>
+		    <td width="60" bgcolor=#CCCCFF height="50"><b>03:00PM<br>to<br>03:50PM</b></td>
+		    <td width="60" bgcolor=#CCCCFF height="50"><b>04:00PM<br>to<br>04:50PM</b></td>
+		    <td width="60" bgcolor=#CCCCFF height="50"><b>05:00PM<br>to<br>05:50PM</b></td>
+		    <td width="60" bgcolor=#CCCCFF height="50"><b>06:00PM<br>to<br>06:50PM</b></td>
+		    <td width="60" bgcolor=#CCCCFF height="50">&nbsp;</td>
+		    <td width="60" bgcolor=#CCCCFF height="50"><b>07:00PM<br>to<br>07:50PM</b></td>
+		    <td width="60" bgcolor=#CCCCFF height="50"><b>08:00PM<br>to<br>08:50PM</b></td>
+		</tr>
+		  
+		<tr align=center height="25">
+		    <td width="65" height="54" bgcolor=#C0C0C0><b>LAB HOURS</b></td>
+		    <td width="60" bgcolor=#99CCFF height="50"><b>08:00AM<br>to<br>08:50AM</b></td>
+		    <td width="60" bgcolor=#99CCFF height="50"><b>09:00AM<br>to<br>09:50AM</b></td>
+		    <td width="60" bgcolor=#99CCFF height="50"><b>10:00AM<br>to<br>10:50AM</b></td>
+		    <td width="60" bgcolor=#99CCFF height="50"><b>11:00AM<br>to<br>11:50AM</b></td>
+		    <td width="60" bgcolor=#99CCFF height="50"><b>11:50AM<br>to<br>12:40PM</b></td>
+			<td width="77" bgcolor=#99CCFF height="50"><b>12:40PM<br>to<br>01:30PM</b></td>
+		    <td width="60" bgcolor=#99CCFF height="50"><b>02:00PM<br>to<br>02:50PM</b></td>
+		    <td width="60" bgcolor=#99CCFF height="50"><b>03:00PM<br>to<br>03:50PM</b></td>
+		    <td width="60" bgcolor=#99CCFF height="50"><b>04:00PM<br>to<br>04:50PM</b></td>
+		    <td width="60" bgcolor=#99CCFF height="50"><b>05:00PM<br>to<br>05:50PM</b></td>
+		    <td width="60" bgcolor=#99CCFF height="50"><b>05:50PM<br>to<br>06:40PM</b></td>
+		    <td width="60" bgcolor=#99CCFF height="50"><b>06:40PM<br>to<br>07:30PM</b></td>
+		    <td width="60" bgcolor=#99CCFF height="50"><b>07:30PM<br>to<br>08:20PM</b></td>
+		    <td width="60" bgcolor=#99CCFF height="50"><b>08:20PM<br>to<br>09:10PM</b></td>
+		</tr>
+		  
+		<tr height="25">
+		    <td align=center bgcolor=#C0C0C0><b>MON</b></td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>A1</font><font color='#99CCFF'> / L1</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>F1</font><font color='#99CCFF'> / L2</font></td>
+		    <td bgcolor="#CCFF33">CSC307 - ELA - SJT515 - L3</td>
+		    <td bgcolor="#CCFF33">CSC307 - ELA - SJT515 - L4</td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>TG1</font><font color='#99CCFF'> / L5</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#99CCFF'>L6</font></td>
+		    <td bgcolor="#CCFF33">CSC321 - ETH - SJT401 - A2</td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>F2</font><font color='#99CCFF'> / L32</font></td>
+			<td bgcolor="#CCFF33">CSC318 - TH - SJT803 - D2</td>
+			<td bgcolor="#CCFF33">CSC313 - TH - SJT401 - TB2</td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>TG2</font><font color='#99CCFF'> / L35</font></td>
+			<td bgcolor="#FFFFCC"><font color='#99CCFF'>L36</font></td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>H1</font><font color='#99CCFF'> / L61</font></td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>K1</font><font color='#99CCFF'> / L62</font></td>
+		</tr>
+		  
+		<tr height="25">
+		    <td align=center bgcolor=#C0C0C0><b>TUE</b></td>
+		    <td bgcolor="#CCFF33">CSC321 - ELA - SJT417 - L7</td>
+		    <td bgcolor="#CCFF33">CSC321 - ELA - SJT417 - L8</td>
+		    <td bgcolor="#CCFF33">MGT318 - TH - SJT802 - E1</td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>TC1</font><font color='#99CCFF'> / L10</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>TAA1</font><font color='#99CCFF'> / L11</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#99CCFF'>L12</font></td>
+		    <td bgcolor="#CCFF33">CSC313 - TH - SJT401 - B2</td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>G2</font><font color='#99CCFF'> / L38</font></td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>E2</font><font color='#99CCFF'> / L39</font></td>
+			<td bgcolor="#CCFF33">CSC307 - ETH - SJT322 - TC2</td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>TAA2</font><font color='#99CCFF'> / L41</font></td>
+			<td bgcolor="#FFFFCC"><font color='#99CCFF'>L42</font></td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>H2</font><font color='#99CCFF'> / L63</font></td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>K2</font><font color='#99CCFF'> / L64</font></td>
+		</tr>
+		
+		<tr height="25">
+		    <td align=center bgcolor=#C0C0C0><b>WED</b></td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>C1</font><font color='#99CCFF'> / L13</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>A1</font><font color='#99CCFF'> / L14</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>F1</font></td>
+		   <!-- <td bgcolor="#FFFFCC"></td>
+		    <td bgcolor="#FFFFCC"></td>
+		    <td bgcolor="#FFFFCC"></td>-->
+		    <td align=center bgcolor="#FFFFFF" colspan="3"><b>Extramural Hour</b></td>
+		    <td bgcolor="#CCFF33">CSC307 - ETH - SJT322 - C2</td>
+			<td bgcolor="#CCFF33">CSC321 - ETH - SJT401 - A2</td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>F2</font><font color='#99CCFF'> / L45</font></td>
+			<td bgcolor="#CCFF33">CSC318 - TH - SJT803 - TD2</td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>TBB2</font><font color='#99CCFF'> / L47</font></td>
+			<td bgcolor="#FFFFCC"><font color='#99CCFF'>L48</font></td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>H3</font><font color='#99CCFF'> / L65</font></td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>K3</font><font color='#99CCFF'> / L66</font></td>
+		</tr>
+		
+		<tr height="25">
+			<td align=center bgcolor=#C0C0C0><b>THU</b></td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>D1</font><font color='#99CCFF'> / L19</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>B1</font><font color='#99CCFF'> / L20</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>G1</font><font color='#99CCFF'> / L21</font></td>
+		    <td bgcolor="#CCFF33">MGT318 - TH - SJT802 - TE1</td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>TCC1</font><font color='#99CCFF'> / L23</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#99CCFF'>L24</font></td>
+		    <td bgcolor="#CCFF33">CSC318 - TH - SJT803 - D2</td>
+			<td bgcolor="#CCFF33">CSC313 - TH - SJT401 - B2</td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>G2</font><font color='#99CCFF'> / L51</font></td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>TE2</font><font color='#99CCFF'> / L52</font></td>
+			<td bgcolor="#CCFF33">CSC307 - ETH - SJT322 - TCC2</td>
+			<td bgcolor="#FFFFCC"><font color='#99CCFF'>L54</font></td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>H4</font><font color='#99CCFF'> / L67</font></td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>K4</font><font color='#99CCFF'> / L68</font></td>
+		</tr>
+		
+		<tr height="25">
+		    <td align=center bgcolor=#C0C0C0><b>FRI</b></td>
+		  	<td bgcolor="#CCFF33">MGT318 - TH - SJT802 - E1</td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>C1</font><font color='#99CCFF'> / L26</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>TA1</font><font color='#99CCFF'> / L27</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>TF1</font><font color='#99CCFF'> / L28</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>TD1</font><font color='#99CCFF'> / L29</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#99CCFF'>L30</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#CCCCFF'>E2</font><font color='#99CCFF'> / L55</font></td>
+			<td bgcolor="#CCFF33">CSC307 - ETH - SJT322 - C2</td>
+			<td bgcolor="#CCFF33">CSC321 - ETH - SJT401 - TA2</td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>TF2</font><font color='#99CCFF'> / L58</font></td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>TDD2</font><font color='#99CCFF'> / L59</font></td>
+			<td bgcolor="#FFFFCC"><font color='#99CCFF'>L60</font></td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>H5</font><font color='#99CCFF'> / L69</font></td>
+			<td bgcolor="#FFFFCC"><font color='#CCCCFF'>K5</font><font color='#99CCFF'> / L70</font></td>
+		</tr>
+		
+		<tr height="25">
+		    <td align=center bgcolor=#C0C0C0><b>SAT</b></td>
+		  	<td bgcolor="#FFFFCC"><font color='#99CCFF'>L71</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#99CCFF'>L72</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#99CCFF'>L73</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#99CCFF'>L74</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#99CCFF'>L75</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#99CCFF'>L76</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#99CCFF'>L77</font></td>
+			<td bgcolor="#FFFFCC"><font color='#99CCFF'>L78</font></td>
+			<td bgcolor="#FFFFCC"><font color='#99CCFF'>L79</font></td>
+			<td bgcolor="#FFFFCC"><font color='#99CCFF'>L80</font></td>
+			<td bgcolor="#FFFFCC"><font color='#99CCFF'>L81</font></td>
+			<td bgcolor="#FFFFCC"><font color='#99CCFF'>L82</font></td>
+			<td bgcolor="#FFFFCC">&nbsp;</td>
+			<td bgcolor="#FFFFCC">&nbsp;</td>
+		</tr>
+		
+		<tr height="25">
+		    <td align=center bgcolor=#C0C0C0><b>SUN</b></td>
+		  	<td bgcolor="#FFFFCC"><font color='#99CCFF'>L83</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#99CCFF'>L84</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#99CCFF'>L85</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#99CCFF'>L86</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#99CCFF'>L87</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#99CCFF'>L88</font></td>
+		    <td bgcolor="#FFFFCC"><font color='#99CCFF'>L89</font></td>
+			<td bgcolor="#FFFFCC"><font color='#99CCFF'>L90</font></td>
+			<td bgcolor="#FFFFCC"><font color='#99CCFF'>L91</font></td>
+			<td bgcolor="#FFFFCC"><font color='#99CCFF'>L92</font></td>
+			<td bgcolor="#FFFFCC"><font color='#99CCFF'>L93</font></td>
+			<td bgcolor="#FFFFCC"><font color='#99CCFF'>L94</font></td>
+			<td bgcolor="#FFFFCC">&nbsp;</td>
+			<td bgcolor="#FFFFCC">&nbsp;</td>
+		</tr>
+		
+		</table>
+	
+	
+	<br><br>
+	</td>
+  </tr>
+</table>
+
+
+</html>
