@@ -40,6 +40,8 @@ func NewLogin(bow *browser.Browser, reg, pass, baseuri string, cac *cache.Cache)
 	var stt status.StatusStruct
 	if success == 1 {
 		stt = status.Success()
+	} else if success == 2 {
+		stt = status.ServerError()
 	} else {
 		stt = status.CredentialError()
 	}
@@ -58,7 +60,9 @@ Using that session user is logged in.
 */
 func DoLogin(bow *browser.Browser, reg, pass string, stats chan int, baseuri string, cac *cache.Cache) {
 
-	bow.Open("https://vtop.vit.ac.in/student/captcha.asp")
+	if bow.Open("https://vtop.vit.ac.in/student/captcha.asp") != nil {
+		stats <- 2
+	}
 	out, err := os.Create("api/login/" + reg + ".bmp")
 	bow.Download(out)
 	out1 := captcha.Parse(reg)

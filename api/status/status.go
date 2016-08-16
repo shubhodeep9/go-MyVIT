@@ -25,3 +25,10 @@ func CredentialError() StatusStruct {
 		Code:    12,
 	}
 }
+
+func ServerError() StatusStruct{
+	return StatusStruct{
+		Message: "VIT Servers are down",
+		Code: 89,
+	}
+}

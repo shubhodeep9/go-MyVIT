@@ -106,7 +106,7 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) 
 			Name:     personal.Name,
 			School:   personal.School,
 			Campus:   "vellore",
-			Semester: "WS",
+			Semester: "FS",
 			Courses:  courses,
 			Academic: acad,
 			FacAdv:   adv,
