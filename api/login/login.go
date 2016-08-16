@@ -62,28 +62,29 @@ func DoLogin(bow *browser.Browser, reg, pass string, stats chan int, baseuri str
 
 	if bow.Open("https://vtop.vit.ac.in/student/captcha.asp") != nil {
 		stats <- 2
-	}
-	out, err := os.Create("api/login/" + reg + ".bmp")
-	bow.Download(out)
-	out1 := captcha.Parse(reg)
-	go os.Remove("api/login/" + reg + ".bmp")
-	if err != nil {
-		stats <- 0
 	} else {
-		v := url.Values{}
-		v.Set("regno", reg)
-		v.Add("passwd", pass)
-		v.Add("vrfcd", out1)
-		v.Add("message", "")
-		bow.PostForm(baseuri+"/student/stud_login_submit.asp", v)
-		stud_home := baseuri + "/student/stud_home.asp"
-		home := baseuri + "/student/home.asp"
-		u := bow.Url().String()
-		if u == stud_home || u == home {
-			cac.Set(reg, &cacheSession.MemCache{Regno: reg, MemCookie: bow.SiteCookies()}, cache.DefaultExpiration)
-			stats <- 1
-		} else {
+		out, err := os.Create("api/login/" + reg + ".bmp")
+		bow.Download(out)
+		out1 := captcha.Parse(reg)
+		go os.Remove("api/login/" + reg + ".bmp")
+		if err != nil {
 			stats <- 0
+		} else {
+			v := url.Values{}
+			v.Set("regno", reg)
+			v.Add("passwd", pass)
+			v.Add("vrfcd", out1)
+			v.Add("message", "")
+			bow.PostForm(baseuri+"/student/stud_login_submit.asp", v)
+			stud_home := baseuri + "/student/stud_home.asp"
+			home := baseuri + "/student/home.asp"
+			u := bow.Url().String()
+			if u == stud_home || u == home {
+				cac.Set(reg, &cacheSession.MemCache{Regno: reg, MemCookie: bow.SiteCookies()}, cache.DefaultExpiration)
+				stats <- 1
+			} else {
+				stats <- 0
+			}
 		}
 	}
 }
