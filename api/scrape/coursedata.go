@@ -1,7 +1,6 @@
 package scrape
 
 import (
-	"fmt"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/status"
@@ -43,12 +42,13 @@ func CourseData(bow *browser.Browser, regno, password, baseuri, coursekey, slt, 
 	if !found {
 		stats = status.SessionError()
 	} else {
-		bow.Open(baseuri + "/student/coursepage_view.asp?sem=FS")
+		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=FS")
 		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=FS")
 		fm, _ := bow.Form("form")
 		fm.Input("sem", "FS")
 		fm.Set("course", coursekey)
 		fm.Set("slot", slt)
+		fm.Set("faculty",fac)
 		fm.Submit()
 		fm = bow.Forms()[3]
 		fm.Set("sem", "FS")
@@ -58,7 +58,6 @@ func CourseData(bow *browser.Browser, regno, password, baseuri, coursekey, slt, 
 		fm.Set("classnbr", classnbr)
 		fm.Set("crscd", crscd)
 		fm.Set("crstp", crstp)
-		fmt.Println(fm)
 		fm.Submit()
 		outer_table := bow.Find("table")
 		inners := outer_table.Find("table")
