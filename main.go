@@ -14,12 +14,14 @@ import (
 	"github.com/astaxie/beego"
 	_ "go-MyVIT/docs"
 	_ "go-MyVIT/routers"
+	"strconv"
+	"os"
 )
 
 func main() {
-	if beego.BConfig.RunMode == "dev" {
-		beego.BConfig.WebConfig.DirectoryIndex = true
-		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
+	port, err := strconv.Atoi(os.Getenv("PORT"))
+	if err == nil {
+		beego.HttpPort = port
 	}
 	beego.Run()
 }
