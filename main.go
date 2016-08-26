@@ -14,14 +14,14 @@ import (
 	"github.com/astaxie/beego"
 	_ "go-MyVIT/docs"
 	_ "go-MyVIT/routers"
-	"strconv"
 	"os"
+	"strconv"
 )
 
 func main() {
 	port, err := strconv.Atoi(os.Getenv("PORT"))
 	if err == nil {
-		beego.HttpPort = port
+		beego.BConfig.Listen.HTTPPort = port
 	}
 	beego.Run()
 }
