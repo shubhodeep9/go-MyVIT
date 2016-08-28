@@ -15,6 +15,7 @@ import (
 	"github.com/alexjlockwood/gcm"
 	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf"
+	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/cache"
 	"go-MyVIT/api/login"
 	"go-MyVIT/api/scrape"
@@ -26,53 +27,42 @@ import (
 )
 
 var cac *cache.Cache = cache.New(2*time.Minute, 30*time.Second)
+var bow *browser.Browser= surf.NewBrowser()
+var tr *http.Transport = &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+			}
 
 //Executable script to Login
 func LogIn(regno, password, baseuri string) *login.Response {
-	bow := surf.NewBrowser()
-	tr := &http.Transport{
-        TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-        }
 	bow.SetTransport(tr)
 	return login.NewLogin(bow, regno, password, baseuri, cac)
 }
 
 func CourseCoursesPage(regno, password, baseuri string) *scrape.CourseStruct {
-	bow := surf.NewBrowser()
 	return scrape.Courses(bow, regno, password, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
 
 func CourseSlotsPage(regno, password, baseuri, coursekey string) *scrape.SlotsStruct {
-	bow := surf.NewBrowser()
 	return scrape.Slots(bow, regno, password, baseuri, coursekey, cacheSession.SetSession(bow, cac, regno))
 }
 
 func CourseFacPage(regno, password, baseuri, coursekey, slt string) *scrape.FacStruct {
-	bow := surf.NewBrowser()
 	return scrape.Facs(bow, regno, password, baseuri, coursekey, slt, cacheSession.SetSession(bow, cac, regno))
 }
 
 func CourseDataPage(regno, password, baseuri, coursekey, slt, fac string) *scrape.CourseDataStruct {
-	bow := surf.NewBrowser()
 	return scrape.CourseData(bow, regno, password, baseuri, coursekey, slt, fac, cacheSession.SetSession(bow, cac, regno))
 }
 
 func Refresh(regno, password, baseuri string) *scrape.RefreshStruct {
-	bow := surf.NewBrowser()
-	tr := &http.Transport{
-        TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-        }
-	bow.SetTransport(tr)
 	return scrape.Refresh(bow, regno, password, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
 
 func Spotlight(baseuri string) *scrape.Spotlight {
-	bow := surf.NewBrowser()
 	return scrape.Spoli(bow, baseuri)
 }
 
 func ProfilePic(regno, password, baseuri string) string {
-	bow := surf.NewBrowser()
 	cacheSession.SetSession(bow, cac, regno)
 	return scrape.ProfilePhoto(bow, regno, baseuri)
 }
@@ -84,7 +74,6 @@ func ShowStats() map[string]int {
 }
 
 func FacultyInformation(regno, password, baseuri, query string) string {
-	bow := surf.NewBrowser()
 	return scrape.FacultySearch(bow, regno, password, baseuri, query, cacheSession.SetSession(bow, cac, regno))
 }
 
