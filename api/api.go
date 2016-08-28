@@ -21,6 +21,8 @@ import (
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"time"
+	"crypto/tls"
+	"net/http"
 )
 
 var cac *cache.Cache = cache.New(2*time.Minute, 30*time.Second)
@@ -28,6 +30,10 @@ var cac *cache.Cache = cache.New(2*time.Minute, 30*time.Second)
 //Executable script to Login
 func LogIn(regno, password, baseuri string) *login.Response {
 	bow := surf.NewBrowser()
+	tr := &http.Transport{
+        TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+        }
+	bow.SetTransport(tr)
 	return login.NewLogin(bow, regno, password, baseuri, cac)
 }
 
@@ -53,7 +59,10 @@ func CourseDataPage(regno, password, baseuri, coursekey, slt, fac string) *scrap
 
 func Refresh(regno, password, baseuri string) *scrape.RefreshStruct {
 	bow := surf.NewBrowser()
-
+	tr := &http.Transport{
+        TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+        }
+	bow.SetTransport(tr)
 	return scrape.Refresh(bow, regno, password, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
 
