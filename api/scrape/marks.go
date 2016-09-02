@@ -47,7 +47,7 @@ Calls NewLogin to login to academics,
 */
 func Value(inp string) (val float64) {
 	if len(inp) == 0 {
-		return 0
+		return 0.0
 	} else {
 		ret, _ := strconv.ParseFloat(inp, 64)
 		return ret

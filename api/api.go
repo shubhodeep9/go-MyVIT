@@ -137,7 +137,7 @@ type Registrations struct {
 	Regid string
 }
 func GcmSender(message string) *gcm.Response {
-	session, _ := mgo.Dial()
+	session, _ := mgo.Dial("")
 	defer session.Close()
 	var registrations []*Registrations
 	c := session.DB("analyticsweekly").C("gcm")
@@ -159,7 +159,7 @@ func GcmSender(message string) *gcm.Response {
 }
 
 func GcmRegister(regID string) string {
-	session, _ := mgo.Dial()
+	session, _ := mgo.Dial("")
 	defer session.Close()
 	c := session.DB("analyticsweekly").C("gcm")
 	n, _ := c.Find(bson.M{"regid": regID}).Count()
