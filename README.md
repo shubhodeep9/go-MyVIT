@@ -40,3 +40,6 @@ $ bee run
 ## Contributors
 <a href="https://github.com/shubhodeep9">Shubhodeep Mukherjee</a><br />
 <a href="https://github.com/JiraiyaFool">Ujjwal Ayyangar</a>
+
+## Credits
+Twenty One Pilots, without their songs this project would have been a disaster.
