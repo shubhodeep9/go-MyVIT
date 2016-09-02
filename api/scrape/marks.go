@@ -69,7 +69,7 @@ func ShowMarks(bow *browser.Browser, regno, baseuri string) *GetMarks {
 	type m []Mrks
 	rowdata := make(map[string]Mrks) // type :- "Subject name" : Array of Assesments of different exams
 	status := "Success"
-	if regno[1]-48 == 5 {
+	if regno[1]-48 >= 5 {
 
 		if 1 != 1 {
 			status = "Failure"
@@ -205,7 +205,7 @@ func ShowMarks(bow *browser.Browser, regno, baseuri string) *GetMarks {
 					go func() {
 						defer wg.Done()
 						td := s.Find("td") // all the columns of the row
-						if td.Length() == 20 {
+						if td.Length() == 18 {
 							fmarks := Value(td.Eq(6).Text())
 							fmarksPer := (fmarks / 50) * 10
 							cat1 := Assessment{
@@ -296,7 +296,7 @@ func ShowMarks(bow *browser.Browser, regno, baseuri string) *GetMarks {
 								Scored_Percentage: totalPer,
 							}
 
-						} else if td.Length() == 10 { // end of the 19 column if condition
+						} else if td.Length() == 8 { // end of the 19 column if condition
 							var title, code string
 							if strings.Contains(td.Eq(4).Text(), "Lab") {
 								code = td.Eq(2).Text() + "_L"

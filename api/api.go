@@ -136,9 +136,8 @@ func CookieReturn(regno string) string {
 type Registrations struct {
 	Regid string
 }
-
 func GcmSender(message string) *gcm.Response {
-	session, _ := mgo.Dial("mongodb://shubho:deep@ds047865.mlab.com:47865/analyticsweekly")
+	session, _ := mgo.Dial()
 	defer session.Close()
 	var registrations []*Registrations
 	c := session.DB("analyticsweekly").C("gcm")
@@ -151,7 +150,7 @@ func GcmSender(message string) *gcm.Response {
 	msg := gcm.NewMessage(data, regIDs...)
 
 	// Create a Sender to send the message.
-	sender := &gcm.Sender{ApiKey: "AIzaSyBMGB6Mk4SJCH3hP5f_r8OUiL0mjxEhuWk"}
+	sender := &gcm.Sender{ApiKey: ""}
 
 	// Send the message and receive the response after at most two retries.
 	response, err := sender.Send(msg, 2)
@@ -160,7 +159,7 @@ func GcmSender(message string) *gcm.Response {
 }
 
 func GcmRegister(regID string) string {
-	session, _ := mgo.Dial("mongodb://shubho:deep@ds047865.mlab.com:47865/analyticsweekly")
+	session, _ := mgo.Dial()
 	defer session.Close()
 	c := session.DB("analyticsweekly").C("gcm")
 	n, _ := c.Find(bson.M{"regid": regID}).Count()
