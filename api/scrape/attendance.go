@@ -14,6 +14,7 @@ import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"net/url"
+	"os"
 	"strconv"
 	"strings"
 	"sync"
@@ -109,6 +110,7 @@ Calls NewLogin to login to academics,
 @return Attendance struct
 */
 func ShowAttendance(bow *browser.Browser, baseuri string) *Attendance {
+	sem := os.Getenv("SEM")
 	avg := 0
 	status := "Success"
 	tr_len := 0
@@ -117,9 +119,9 @@ func ShowAttendance(bow *browser.Browser, baseuri string) *Attendance {
 		status = "Failure"
 	} else {
 		year, month, day := time.Now().Date()
-		bow.Open(baseuri + "/student/attn_report.asp?sem=FS&fmdt=11-Jul-2016&todt=" + strconv.Itoa(day) + "-" + month.String()[:3] + "-" + strconv.Itoa(year))
+		bow.Open(baseuri + "/student/attn_report.asp?sem=" + sem + "&fmdt=11-Jul-2016&todt=" + strconv.Itoa(day) + "-" + month.String()[:3] + "-" + strconv.Itoa(year))
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
-		bow.Open(baseuri + "/student/attn_report.asp?sem=FS&fmdt=11-Jul-2016&todt=" + strconv.Itoa(day) + "-" + month.String()[:3] + "-" + strconv.Itoa(year))
+		bow.Open(baseuri + "/student/attn_report.asp?sem=" + sem + "&fmdt=11-Jul-2016&todt=" + strconv.Itoa(day) + "-" + month.String()[:3] + "-" + strconv.Itoa(year))
 		table := bow.Find("table").Eq(4)
 		tr := table.Find("tr")
 		var wg sync.WaitGroup
