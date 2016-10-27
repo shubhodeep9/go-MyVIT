@@ -9,6 +9,7 @@ package scrape
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
+	"os"
 	"sync"
 )
 
@@ -35,7 +36,7 @@ Function ->ExmSchedule to fetch the exam schedule,
 */
 
 func ExmSchedule(bow *browser.Browser, baseuri string) *ExamSchedule {
-
+	sem := os.Getenv("SEM")
 	status := "Success"
 	var cat1 map[string]Contents2
 	var cat2 map[string]Contents2
