@@ -13,6 +13,7 @@ package scrape
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
+	"os"
 	"strconv"
 	"strings"
 	"sync"
@@ -56,15 +57,15 @@ Calls NewLogin to login to academics,
 @return Timtable struct
 */
 func ShowTimetable(bow *browser.Browser, baseuri string) *Timetable {
-
+	sem := os.Getenv("SEM")
 	conts := make(map[string]Contents)
 	status := "Success"
 	if 1 != 1 {
 		status = "Failure"
 	} else {
-		bow.Open(baseuri + "/student/course_regular.asp?sem=FS")
+		bow.Open(baseuri + "/student/course_regular.asp?sem=" + sem)
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
-		bow.Open(baseuri + "/student/course_regular.asp?sem=FS")
+		bow.Open(baseuri + "/student/course_regular.asp?sem=" + sem)
 		tables := bow.Find("table")
 		reg_table := tables.Eq(1)
 
