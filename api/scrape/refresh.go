@@ -13,6 +13,7 @@ package scrape
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/status"
+	"os"
 	"sync"
 )
 
@@ -30,6 +31,7 @@ type RefreshStruct struct {
 }
 
 func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) *RefreshStruct {
+	sem := os.Getenv("SEM")
 	if found {
 		var re sync.WaitGroup
 		re.Add(7)
@@ -106,7 +108,7 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) 
 			Name:     personal.Name,
 			School:   personal.School,
 			Campus:   "vellore",
-			Semester: "FS",
+			Semester: sem,
 			Courses:  courses,
 			Academic: acad,
 			FacAdv:   adv,
@@ -118,7 +120,7 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) 
 	return &RefreshStruct{
 		RegNo:    regno,
 		Campus:   "vellore",
-		Semester: "FS",
+		Semester: sem,
 		Status:   stt,
 	}
 }
