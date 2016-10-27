@@ -4,6 +4,7 @@ import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/status"
+	"os"
 )
 
 type FacStruct struct {
@@ -12,16 +13,16 @@ type FacStruct struct {
 }
 
 func Facs(bow *browser.Browser, regno, password, baseuri, coursekey, slt string, found bool) *FacStruct {
-
+	sem := os.Getenv("SEM")
 	stats := status.Success()
 	courselist := make(map[string]string)
 	if !found {
 		stats = status.SessionError()
 	} else {
-		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=FS")
-		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=FS")
+		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=" + sem)
+		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=" + sem)
 		fm, _ := bow.Form("form")
-		fm.Input("sem", "FS")
+		fm.Input("sem", sem)
 		fm.Set("course", coursekey)
 		fm.Set("slot", slt)
 		fm.Submit()

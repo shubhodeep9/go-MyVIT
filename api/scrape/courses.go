@@ -4,6 +4,7 @@ import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/status"
+	"os"
 )
 
 type CourseStruct struct {
@@ -12,14 +13,14 @@ type CourseStruct struct {
 }
 
 func Courses(bow *browser.Browser, regno, password, baseuri string, found bool) *CourseStruct {
-
+	sem := os.Getenv("SEM")
 	stats := status.Success()
 	courselist := make(map[string]string)
 	if !found {
 		stats = status.SessionError()
 	} else {
-		bow.Open(baseuri + "/student/coursepage_view.asp?sem=FS")
-		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=FS")
+		bow.Open(baseuri + "/student/coursepage_view.asp?sem=" + sem)
+		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=" + sem)
 		options := bow.Find("select").Eq(0).Find("option")
 		options.Each(func(i int, s *goquery.Selection) {
 			if i > 0 {

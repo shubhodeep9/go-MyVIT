@@ -4,6 +4,7 @@ import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/status"
+	"os"
 	"strings"
 )
 
@@ -37,21 +38,22 @@ type LectureStruct struct {
 }
 
 func CourseData(bow *browser.Browser, regno, password, baseuri, coursekey, slt, fac string, found bool) *CourseDataStruct {
+	sem := os.Getenv("SEM")
 	stats := status.Success()
 	var upload Upload
 	if !found {
 		stats = status.SessionError()
 	} else {
-		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=FS")
-		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=FS")
+		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=" + sem)
+		bow.Open(baseuri + "/student/coursepage_plan_view.asp?sem=" + sem)
 		fm, _ := bow.Form("form")
-		fm.Input("sem", "FS")
+		fm.Input("sem", sem)
 		fm.Set("course", coursekey)
 		fm.Set("slot", slt)
-		fm.Set("faculty",fac)
+		fm.Set("faculty", fac)
 		fm.Submit()
 		fm = bow.Forms()[3]
-		fm.Set("sem", "FS")
+		fm.Set("sem", sem)
 		classnbr, _ := bow.Find("input[name=classnbr]").Attr("value")
 		crscd, _ := bow.Find("input[name=crscd]").Attr("value")
 		crstp, _ := bow.Find("input[name=crstp]").Attr("value")
