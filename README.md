@@ -18,12 +18,8 @@ CoursePage: http://myffcs.in:8080/campus/vellore/coursepage/data --data "regNo=[
 Dependencies are already satisfied in Godep folder in api.<br />
 Extra dependency to be installed: <br />
 ```sh
-$ go get github.com/astaxie/beego
-$ go get github.com/patrickmn/go-cache
-$ go get github.com/smartystreets/goconvey/convey
-$ go get github.com/hotei/bmp
-$ go get github.com/alexjlockwood/gcm
-$ go get gopkg.in/mgo.v2
+$ go get github.com/tools/godep
+$ godep get
 ```
 Execution<br />
 ```sh
