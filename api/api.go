@@ -148,10 +148,19 @@ func GcmSender(message string) *gcm.Response {
 		regIDs = append(regIDs, val.Regid)
 	}
 	data := map[string]interface{}{"message": message}
-	msg := gcm.NewMessage(data, regIDs...)
-
 	// Create a Sender to send the message.
 	sender := &gcm.Sender{ApiKey: os.Getenv("VITKEY")}
+	//query for more than 1000 regs
+	for i := 0; i < len(regIDs)/1000; i++ {
+		msg := gcm.NewMessage(data, regIDs[1000*i:(1000*i)+1000]...)
+
+		// Send the message and receive the response after at most two retries.
+		sender.Send(msg, 2)
+	}
+
+	//for remainder
+	div := len(regIDs) / 1000
+	msg := gcm.NewMessage(data, regIDs[div:]...)
 
 	// Send the message and receive the response after at most two retries.
 	response, err := sender.Send(msg, 2)
