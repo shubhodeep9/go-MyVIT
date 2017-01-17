@@ -31,6 +31,7 @@ Execution<br />
 ```sh
 $ bee run
 ```
+> Use cron jobs for continuous serving, a module already has been built [MyVIT-Cron](https://github.com/shubhodeep9/MyVIT-Cron)
 
 ##Features
 <ul>
