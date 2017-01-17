@@ -118,6 +118,17 @@ func FacultyInformation(regno, password, baseuri, query string) string {
 	return scrape.FacultySearch(bow, regno, password, baseuri, query, cacheSession.SetSession(bow, cac, regno))
 }
 
+//To be deleted later
+func GetMarks(regno, password, baseuri string) *scrape.GetMarks {
+	var bow *browser.Browser = surf.NewBrowser()
+	var tr *http.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
+	cacheSession.SetSession(bow, cac, regno)
+	return scrape.ShowMarks(bow, regno, baseuri)
+}
+
 func CookieReturn(regno string) string {
 	val, found := cac.Get(regno)
 	fmt.Println(found)

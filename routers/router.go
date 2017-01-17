@@ -26,6 +26,12 @@ func init() {
 				&controllers.CoursePageController{},
 			),
 		),
+		beego.NSNamespace("/marks",
+			beego.NSInclude(
+				// controllers/coursepage.go
+				&controllers.MarksController{},
+			),
+		),
 		beego.NSNamespace("/refresh",
 			beego.NSInclude(
 				// controllers/refresh.go
