@@ -37,8 +37,8 @@ type Mrks struct {
 	Assessments       []Assessment `json:"assessments,omitempty"`
 	Max_marks         int          `json:"max_marks,omitempty"`
 	Max_percentage    int          `json:"max_percentage,omitempty"`
-	Scored_Marks      float64      `json:"scored_marks,omitempty"`
-	Scored_Percentage float64      `json:"scored_percentage,omitempty"`
+	Scored_Marks      float64      `json:"scored_marks"`
+	Scored_Percentage float64      `json:"scored_percentage"`
 }
 
 /*
@@ -81,7 +81,40 @@ func ShowMarks(bow *browser.Browser, regno, baseuri string) *GetMarks {
 		if strings.Contains(td.Eq(4).Text(), "Lab") {
 			code = code + "_L"
 		}
-		rowdata[code] = Mrks{}
+		var assessment_list []Assessment
+		marksection := s.Next().Find("table").Find("tr[bgcolor='#CCCCCC']")
+		totalmaxmarks := 0
+		totalweight := 0
+		totalscored := float64(0)
+		totalscoredper := float64(0)
+		marksection.Each(func(j int, sel *goquery.Selection) {
+			seltd := sel.Find("td")
+			maxmark, _ := strconv.Atoi(seltd.Eq(2).Text())
+			weight, _ := strconv.Atoi(seltd.Eq(3).Text())
+			scored := Value(seltd.Eq(5).Text())
+			per := Value(seltd.Eq(6).Text())
+			assess := Assessment{
+				Title:            seltd.Eq(1).Text(),
+				Max_marks:        maxmark,
+				Weightage:        weight,
+				Conducted_on:     "Check ExamSchedule",
+				Status:           seltd.Eq(4).Text(),
+				ScoredMarks:      scored,
+				ScoredPercentage: per,
+			}
+			totalmaxmarks = totalmaxmarks + maxmark
+			totalweight = totalweight + weight
+			totalscored = totalscored + scored
+			totalscoredper = totalscoredper + per
+			assessment_list = append(assessment_list, assess)
+		})
+		rowdata[code] = Mrks{
+			Assessments:       assessment_list,
+			Max_marks:         totalmaxmarks,
+			Max_percentage:    totalweight,
+			Scored_Marks:      totalscored,
+			Scored_Percentage: totalscoredper,
+		}
 	})
 
 	// end of  if condition for seniors/juniors
