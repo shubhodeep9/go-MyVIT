@@ -26,9 +26,9 @@ func CredentialError() StatusStruct {
 	}
 }
 
-func ServerError() StatusStruct{
+func ServerError() StatusStruct {
 	return StatusStruct{
 		Message: "VIT Servers are down",
-		Code: 89,
+		Code:    89,
 	}
 }
