@@ -4,17 +4,14 @@ The student login API for the app MyVIT in Go programming language<br />
 [![Go Report Card](https://goreportcard.com/badge/github.com/shubhodeep9/go-MyVIT)](https://goreportcard.com/report/github.com/shubhodeep9/go-MyVIT)
 
 ##API URLs
-<ul>
-<li>
-LogIn: http://myffcs.in:8080/campus/[campus]/login --data "regNo=[reg]&psswd=[psswd]"
-</li>
-<li>
-Refresh: http://myffcs.in:8080/campus/[campus]/refresh --data "regNo=[reg]&psswd=[psswd]"
-</li>
-<li>
-CoursePage: http://myffcs.in:8080/campus/vellore/coursepage/data --data "regNo=[reg]&psswd=[psswd]&crs=[crscode]&slt=[slots]&fac=[facid]"
-</li>
-</ul>
+```sh
+#login
+curl http://myffcs.in:8080/campus/[campus]/login --data "regNo=[reg]&psswd=[psswd]"
+#refresh
+curl http://myffcs.in:8080/campus/[campus]/refresh --data "regNo=[reg]&psswd=[psswd]"
+#course page
+curl http://myffcs.in:8080/campus/vellore/coursepage/data --data "regNo=[reg]&psswd=[psswd]&crs=[crscode]&slt=[slots]&fac=[facid]"
+```
 ##Custom installation
 Dependencies are already satisfied in Godep folder in api.<br />
 Extra dependency to be installed: <br />
