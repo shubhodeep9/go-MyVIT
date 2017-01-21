@@ -1,0 +1,592 @@
+{
+  "reg_no": "14BCS0002",
+  "name": "Shubhodeep Mukherjee",
+  "school": "SCOPE",
+  "campus": "vellore",
+  "semester": "WS",
+  "courses": [
+    {
+      "class_number": 5142,
+      "course_code": "CSC399",
+      "course_mode": "PBC",
+      "course_option": "Regular",
+      "course_title": "Project Work",
+      "subject_type": "Project",
+      "faculty": "Registered and Approved by Faculty",
+      "ltpc": "0 0 0 0 10",
+      "registration_status": "",
+      "slot": "Title:Conflict Mediation Tool (Brav Internship)",
+      "venue": "Guide:SWARNALATHA P - SCOPE",
+      "bill_date": "",
+      "bill_number": "",
+      "project_title": "",
+      "timings": [
+        {
+          "day": 0,
+          "start_time": "03:30:00Z",
+          "end_time": "03:30:00Z"
+        }
+      ],
+      "attendance": {
+        "attendance_percentage": 0,
+        "attended_classes": 0,
+        "details": null,
+        "registration_date": "",
+        "total_classes": 0
+      },
+      "marks": {
+        "scored_marks": 0,
+        "scored_percentage": 0
+      }
+    },
+    {
+      "class_number": 2461,
+      "course_code": "CSC317",
+      "course_mode": "CBL",
+      "course_option": "Regular",
+      "course_title": "Data Warehousing",
+      "subject_type": "Theory Only",
+      "faculty": "RAMANI S - SCOPE",
+      "ltpc": "3 0 0 0 3",
+      "registration_status": "Registered and Approved",
+      "slot": "G2+TG2",
+      "venue": "SJT422",
+      "bill_date": "",
+      "bill_number": "",
+      "project_title": "",
+      "timings": [
+        {
+          "day": 0,
+          "start_time": "03:30:00Z",
+          "end_time": "03:30:00Z"
+        }
+      ],
+      "attendance": {
+        "attendance_percentage": 50,
+        "attended_classes": 2,
+        "details": [
+          {
+            "sl": 1,
+            "class_units": 0,
+            "date": "2017-01-05",
+            "reason": " - ",
+            "slot": "G2",
+            "status": "Absent"
+          },
+          {
+            "sl": 2,
+            "class_units": 0,
+            "date": "2017-01-09",
+            "reason": " - ",
+            "slot": "TG2",
+            "status": "Absent"
+          },
+          {
+            "sl": 3,
+            "class_units": 0,
+            "date": "2017-01-10",
+            "reason": " - ",
+            "slot": "G2",
+            "status": "Absent"
+          },
+          {
+            "sl": 4,
+            "class_units": 1,
+            "date": "2017-01-12",
+            "reason": " - ",
+            "slot": "G2",
+            "status": "Present"
+          },
+          {
+            "sl": 5,
+            "class_units": 1,
+            "date": "2017-01-19",
+            "reason": " - ",
+            "slot": "G2",
+            "status": "Present"
+          }
+        ],
+        "registration_date": "05/01/2017 21:36:45",
+        "total_classes": 4
+      },
+      "marks": {
+        "assessments": [
+          {
+            "title": "CAT-I",
+            "max_marks": 50,
+            "weightage": 15,
+            "conducted_on": "Check ExamSchedule",
+            "scored_marks": 0,
+            "scored_percentage": 0
+          },
+          {
+            "title": "CAT-II",
+            "max_marks": 50,
+            "weightage": 15,
+            "conducted_on": "Check ExamSchedule",
+            "scored_marks": 0,
+            "scored_percentage": 0
+          },
+          {
+            "title": "Quiz-I",
+            "max_marks": 5,
+            "weightage": 5,
+            "conducted_on": "Check ExamSchedule",
+            "scored_marks": 0,
+            "scored_percentage": 0
+          },
+          {
+            "title": "Quiz-II",
+            "max_marks": 5,
+            "weightage": 5,
+            "conducted_on": "Check ExamSchedule",
+            "scored_marks": 0,
+            "scored_percentage": 0
+          },
+          {
+            "title": "Quiz-III",
+            "max_marks": 5,
+            "weightage": 5,
+            "conducted_on": "Check ExamSchedule",
+            "scored_marks": 0,
+            "scored_percentage": 0
+          },
+          {
+            "title": "Assignment",
+            "max_marks": 5,
+            "weightage": 5,
+            "conducted_on": "Check ExamSchedule",
+            "scored_marks": 0,
+            "scored_percentage": 0
+          }
+        ],
+        "max_marks": 120,
+        "max_percentage": 50,
+        "scored_marks": 0,
+        "scored_percentage": 0
+      }
+    },
+    {
+      "class_number": 1372,
+      "course_code": "CSC320",
+      "course_mode": "CBL",
+      "course_option": "Regular",
+      "course_title": "Principles of Graphics and Multimedia",
+      "subject_type": "Embedded Theory",
+      "faculty": "GLADYS GNANA KIRUBA B - SCOPE",
+      "ltpc": "3 1 0 0 4",
+      "registration_status": "Registered and Approved",
+      "slot": "C2+TC2+TCC2",
+      "venue": "SJT405",
+      "bill_date": "",
+      "bill_number": "",
+      "project_title": "",
+      "timings": [
+        {
+          "day": 0,
+          "start_time": "03:30:00Z",
+          "end_time": "03:30:00Z"
+        }
+      ],
+      "attendance": {
+        "attendance_percentage": 43,
+        "attended_classes": 3,
+        "details": [
+          {
+            "sl": 1,
+            "class_units": 0,
+            "date": "2017-01-04",
+            "reason": " - ",
+            "slot": "C2",
+            "status": "Absent"
+          },
+          {
+            "sl": 2,
+            "class_units": 0,
+            "date": "2017-01-05",
+            "reason": " - ",
+            "slot": "TCC2",
+            "status": "Absent"
+          },
+          {
+            "sl": 3,
+            "class_units": 0,
+            "date": "2017-01-06",
+            "reason": " - ",
+            "slot": "C2",
+            "status": "Absent"
+          },
+          {
+            "sl": 4,
+            "class_units": 0,
+            "date": "2017-01-10",
+            "reason": " - ",
+            "slot": "TC2",
+            "status": "Absent"
+          },
+          {
+            "sl": 5,
+            "class_units": 1,
+            "date": "2017-01-11",
+            "reason": " - ",
+            "slot": "C2",
+            "status": "Present"
+          },
+          {
+            "sl": 6,
+            "class_units": 1,
+            "date": "2017-01-12",
+            "reason": " - ",
+            "slot": "TCC2",
+            "status": "Present"
+          },
+          {
+            "sl": 7,
+            "class_units": 1,
+            "date": "2017-01-13",
+            "reason": " - ",
+            "slot": "C2",
+            "status": "Present"
+          }
+        ],
+        "registration_date": "27/12/2016 10:30:43",
+        "total_classes": 7
+      },
+      "marks": {
+        "assessments": [
+          {
+            "title": "CAT-I",
+            "max_marks": 50,
+            "weightage": 15,
+            "conducted_on": "Check ExamSchedule",
+            "scored_marks": 0,
+            "scored_percentage": 0
+          },
+          {
+            "title": "CAT-II",
+            "max_marks": 50,
+            "weightage": 15,
+            "conducted_on": "Check ExamSchedule",
+            "scored_marks": 0,
+            "scored_percentage": 0
+          },
+          {
+            "title": "Quiz-I",
+            "max_marks": 5,
+            "weightage": 5,
+            "conducted_on": "Check ExamSchedule",
+            "scored_marks": 0,
+            "scored_percentage": 0
+          },
+          {
+            "title": "Quiz-II",
+            "max_marks": 5,
+            "weightage": 5,
+            "conducted_on": "Check ExamSchedule",
+            "scored_marks": 0,
+            "scored_percentage": 0
+          },
+          {
+            "title": "Quiz-III",
+            "max_marks": 5,
+            "weightage": 5,
+            "conducted_on": "Check ExamSchedule",
+            "scored_marks": 0,
+            "scored_percentage": 0
+          },
+          {
+            "title": "Assignment",
+            "max_marks": 5,
+            "weightage": 5,
+            "conducted_on": "Check ExamSchedule",
+            "scored_marks": 0,
+            "scored_percentage": 0
+          }
+        ],
+        "max_marks": 120,
+        "max_percentage": 50,
+        "scored_marks": 0,
+        "scored_percentage": 0
+      }
+    },
+    {
+      "class_number": 1373,
+      "course_code": "CSC320",
+      "course_mode": "LBC",
+      "course_option": "Regular",
+      "course_title": "Principles of Graphics and Multimedia",
+      "subject_type": "Embedded Lab",
+      "faculty": "GLADYS GNANA KIRUBA B - SCOPE",
+      "ltpc": "0 0 2 0 1",
+      "registration_status": "",
+      "slot": "L5+L6",
+      "venue": "SJT419",
+      "bill_date": "",
+      "bill_number": "",
+      "project_title": "",
+      "timings": [
+        {
+          "day": 0,
+          "start_time": "03:30:00Z",
+          "end_time": "03:30:00Z"
+        }
+      ],
+      "attendance": {
+        "attendance_percentage": 0,
+        "attended_classes": 0,
+        "details": [
+          {
+            "sl": 1,
+            "class_units": 0,
+            "date": "2017-01-09",
+            "reason": " - ",
+            "slot": "L5+L6",
+            "status": "Absent"
+          }
+        ],
+        "registration_date": "27/12/2016 10:30:43",
+        "total_classes": 2
+      },
+      "marks": {
+        "assessments": [
+          {
+            "title": "CAM",
+            "max_marks": 50,
+            "weightage": 50,
+            "conducted_on": "Check ExamSchedule",
+            "scored_marks": 0,
+            "scored_percentage": 0
+          }
+        ],
+        "max_marks": 50,
+        "max_percentage": 50,
+        "scored_marks": 0,
+        "scored_percentage": 0
+      }
+    }
+  ],
+  "academic_history": {
+    "grade summary": {
+      "A grades": "9",
+      "B grades": "9",
+      "C grades": "4",
+      "D grades": "1",
+      "E grades": "1",
+      "F grades": "0",
+      "N grades": "0",
+      "S grades": "5"
+    },
+    "history 1": {
+      "CHY104": {
+        "course_title": "Environmental Studies",
+        "course_type": "Theory",
+        "credit": 3,
+        "grade": "C"
+      },
+      "CSC102_20": {
+        "course_title": "Data Structures",
+        "course_type": "TheoryLab",
+        "credit": 5,
+        "grade": "A"
+      },
+      "CSC103_20": {
+        "course_title": "Programming in C",
+        "course_type": "TheoryLab",
+        "credit": 5,
+        "grade": "S"
+      },
+      "CSC106_20": {
+        "course_title": "Object Oriented Programming",
+        "course_type": "TheoryLab",
+        "credit": 4,
+        "grade": "S"
+      },
+      "CSC107_20": {
+        "course_title": "Digital Logic and Computer Design",
+        "course_type": "TheoryLab",
+        "credit": 4,
+        "grade": "S"
+      },
+      "CSC110": {
+        "course_title": "Computer Architecture",
+        "course_type": "Theory",
+        "credit": 4,
+        "grade": "B"
+      },
+      "CSC111": {
+        "course_title": "Fundamentals of Computer Science",
+        "course_type": "Theory",
+        "credit": 4,
+        "grade": "F"
+      },
+      "CSC201": {
+        "course_title": "Problem Solving Techniques",
+        "course_type": "Theory",
+        "credit": 4,
+        "grade": "S"
+      },
+      "CSC202": {
+        "course_title": "System Software",
+        "course_type": "Theory",
+        "credit": 4,
+        "grade": "B"
+      },
+      "CSC203_20": {
+        "course_title": "Fundamentals of Database Management Systems",
+        "course_type": "TheoryLab",
+        "credit": 5,
+        "grade": "B"
+      },
+      "CSC204_20": {
+        "course_title": "Introduction to Computer Networks",
+        "course_type": "TheoryLab",
+        "credit": 4,
+        "grade": "B"
+      },
+      "CSC207": {
+        "course_title": "Principles of Operating Systems",
+        "course_type": "Theory",
+        "credit": 4,
+        "grade": "B"
+      },
+      "CSC209_20": {
+        "course_title": "Microprocessors",
+        "course_type": "TheoryLab",
+        "credit": 4,
+        "grade": "B"
+      },
+      "CSC213": {
+        "course_title": "Java Programming",
+        "course_type": "TheoryLab",
+        "credit": 5,
+        "grade": "A"
+      },
+      "CSC307_20": {
+        "course_title": "Visual Programming",
+        "course_type": "TheoryLab",
+        "credit": 5,
+        "grade": "A"
+      },
+      "CSC308": {
+        "course_title": "E-Commerce",
+        "course_type": "Theory",
+        "credit": 3,
+        "grade": "E"
+      },
+      "CSC313": {
+        "course_title": "Object Oriented Analysis and Design",
+        "course_type": "Theory",
+        "credit": 3,
+        "grade": "D"
+      },
+      "CSC315_20": {
+        "course_title": "Principles of Software Engineering",
+        "course_type": "Theory",
+        "credit": 4,
+        "grade": "C"
+      },
+      "CSC318": {
+        "course_title": "Data Mining",
+        "course_type": "Theory",
+        "credit": 3,
+        "grade": "B"
+      },
+      "CSC321": {
+        "course_title": "Web Technology",
+        "course_type": "TheoryLab",
+        "credit": 4,
+        "grade": "S"
+      },
+      "ENG104": {
+        "course_title": "Basic English",
+        "course_type": "TheoryLab",
+        "credit": 3,
+        "grade": "A"
+      },
+      "ENG105": {
+        "course_title": "Functional English",
+        "course_type": "TheoryLab",
+        "credit": 3,
+        "grade": "A"
+      },
+      "ENG108_20": {
+        "course_title": "Communicative English",
+        "course_type": "TheoryLab",
+        "credit": 3,
+        "grade": "B"
+      },
+      "ENG109_20": {
+        "course_title": "Professional English",
+        "course_type": "TheoryLab",
+        "credit": 3,
+        "grade": "A"
+      },
+      "EXC181": {
+        "course_title": "Google Developers Group",
+        "course_type": "Lab",
+        "credit": 2,
+        "grade": "P"
+      },
+      "MAT107": {
+        "course_title": "Computational Methods",
+        "course_type": "Theory",
+        "credit": 4,
+        "grade": "A"
+      },
+      "MAT108": {
+        "course_title": "Discrete Mathematics",
+        "course_type": "Theory",
+        "credit": 4,
+        "grade": "B"
+      },
+      "MAT113": {
+        "course_title": "Business Mathematics",
+        "course_type": "Theory",
+        "credit": 4,
+        "grade": "A"
+      },
+      "MAT211_20": {
+        "course_title": "Applied Probability and Statistics",
+        "course_type": "Theory",
+        "credit": 4,
+        "grade": "A"
+      },
+      "MGT318": {
+        "course_title": "International Business",
+        "course_type": "Theory",
+        "credit": 3,
+        "grade": "C"
+      }
+    },
+    "history 2": {
+      "cgpa": 8.44,
+      "credits earned": 114,
+      "credits registered": 114,
+      "rank": ""
+    },
+    "status": "Success"
+  },
+  "faculty_advisor": {
+    "status": "Success",
+    "faculty_det": {
+      "Designation": "Assistant Professor",
+      "Email-Id": "anuradha.d@vit.ac.in",
+      "Intercom No": "2749",
+      "Mobile No/Phone No": "9994614081",
+      "Name": "ANURADHA D",
+      "Room No": "SJT-313-A04",
+      "School": "SCOPE",
+      "photo": "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"
+    }
+  },
+  "exam_schedule": {
+    "status": "Success",
+    "cat1": null,
+    "cat2": null,
+    "termend": null
+  },
+  "status": {
+    "message": "Success",
+    "code": 0
+  }
+}
