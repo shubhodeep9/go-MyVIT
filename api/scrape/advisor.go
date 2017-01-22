@@ -39,7 +39,7 @@ func FacultyAdvisor(bow *browser.Browser, reg, baseuri string) *Advisor {
 		status = "Failure"
 	} else {
 		var wg sync.WaitGroup
-		bow.Open(baseuri + "/student/faculty_advisor_view.asp")
+		//bow.Open(baseuri + "/student/faculty_advisor_view.asp")
 		//Reload
 		bow.Open(baseuri + "/student/faculty_advisor_view.asp")
 		table := bow.Find("table").Eq(1)
