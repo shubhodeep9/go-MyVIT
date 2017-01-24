@@ -24,19 +24,19 @@ type GetMarks struct {
 }
 
 type Assessment struct {
-	Title            string  `json:"title,omitempty"`
-	Max_marks        int     `json:"max_marks,omitempty"`
-	Weightage        int     `json:"weightage,omitempty"`
-	Conducted_on     string  `json:"conducted_on,omitempty"`
-	Status           string  `json:"status,omitempty"`
+	Title            string  `json:"title"`
+	Max_marks        int     `json:"max_marks"`
+	Weightage        int     `json:"weightage"`
+	Conducted_on     string  `json:"conducted_on"`
+	Status           string  `json:"status"`
 	ScoredMarks      float64 `json:"scored_marks"`
 	ScoredPercentage float64 `json:"scored_percentage"`
 }
 
 type Mrks struct {
-	Assessments       []Assessment `json:"assessments,omitempty"`
-	Max_marks         int          `json:"max_marks,omitempty"`
-	Max_percentage    int          `json:"max_percentage,omitempty"`
+	Assessments       []Assessment `json:"assessments"`
+	Max_marks         int          `json:"max_marks"`
+	Max_percentage    int          `json:"max_percentage"`
 	Scored_Marks      float64      `json:"scored_marks"`
 	Scored_Percentage float64      `json:"scored_percentage"`
 }
