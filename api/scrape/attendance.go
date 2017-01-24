@@ -53,6 +53,20 @@ Function to get Course daily attendance,
 @return List of DetsBranch struct
 */
 func getDetails(semcode, classnbr, crscd, crstp, from_date, to_date, baseuri string, bow *browser.Browser) []DetsBranch {
+	monthtoint := map[string]string{
+		"Jan": "01",
+		"Feb": "02",
+		"Mar": "03",
+		"Apr": "04",
+		"May": "05",
+		"Jun": "06",
+		"Jul": "07",
+		"Aug": "08",
+		"Sep": "09",
+		"Oct": "10",
+		"Nov": "11",
+		"Dec": "12",
+	}
 	v := url.Values{}
 	v.Set("semcode", semcode)
 	v.Add("classnbr", classnbr)
