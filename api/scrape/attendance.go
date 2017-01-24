@@ -52,27 +52,12 @@ Function to get Course daily attendance,
 @param classnbr baseuri bow (surf Browser)
 @return List of DetsBranch struct
 */
-func getDetails(classnbr, crscd, crstp, baseuri string, bow *browser.Browser) []DetsBranch {
-	monthtoint := map[string]string{
-		"Jan": "01",
-		"Feb": "02",
-		"Mar": "03",
-		"Apr": "04",
-		"May": "05",
-		"Jun": "06",
-		"Jul": "07",
-		"Aug": "08",
-		"Sep": "09",
-		"Oct": "10",
-		"Nov": "11",
-		"Dec": "12",
-	}
-	year, month, day := time.Now().Date()
+func getDetails(semcode, classnbr, crscd, crstp, from_date, to_date, baseuri string, bow *browser.Browser) []DetsBranch {
 	v := url.Values{}
-	v.Set("semcode", "WINSEM2016-17")
+	v.Set("semcode", semcode)
 	v.Add("classnbr", classnbr)
-	v.Add("from_date", "04-Jan-2017")
-	v.Add("to_date", strconv.Itoa(day)+"-"+month.String()[:3]+"-"+strconv.Itoa(year))
+	v.Add("from_date", from_date)
+	v.Add("to_date", to_date)
 	v.Add("crscd", crscd)
 	v.Add("crstp", crstp)
 	bow.PostForm(baseuri+"/student/attn_report_details.asp", v)
@@ -131,10 +116,13 @@ func ShowAttendance(bow *browser.Browser, baseuri string) *Attendance {
 				go func() {
 					defer wg.Done()
 					td := s.Find("td")
+					semcode, _ := s.Find("input[name=semcode]").Attr("value")
 					classnbr, _ := s.Find("input[name=classnbr]").Attr("value")
 					code := td.Eq(1).Text()
 					crscd, _ := s.Find("input[name=crscd]").Attr("value")
 					crstp, _ := s.Find("input[name=crstp]").Attr("value")
+					from_date, _ := s.Find("input[name=from_date]").Attr("value")
+					to_date, _ := s.Find("input[name=to_date]").Attr("value")
 					if strings.Contains(td.Eq(3).Text(), "Lab") {
 						code = code + "_L"
 					}
@@ -142,7 +130,7 @@ func ShowAttendance(bow *browser.Browser, baseuri string) *Attendance {
 					dets[code] = Subject{
 						Percentage: conver(percent),
 						Classes:    conver(td.Eq(6).Text()),
-						Details:    getDetails(classnbr, crscd, crstp, baseuri, bow),
+						Details:    getDetails(semcode, classnbr, crscd, crstp, from_date, to_date, baseuri, bow),
 						Date:       td.Eq(5).Text(),
 						TotalClass: conver(td.Eq(7).Text()),
 					}
