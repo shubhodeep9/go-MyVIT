@@ -50,7 +50,7 @@ func Academics(bow *browser.Browser, baseuri string) *AcademicStruct {
 	if false {
 		status = "Failure"
 	} else {
-		bow.Open(baseuri + "/student/student_history.asp")
+		//bow.Open(baseuri + "/student/student_history.asp")
 		bow.Open(baseuri + "/student/student_history.asp")
 		table := bow.Find("table").Eq(2)
 		tr := table.Find("tr")
@@ -78,7 +78,7 @@ func Academics(bow *browser.Browser, baseuri string) *AcademicStruct {
 				CGPA:        cg,
 				CEarned:     conver(td.Eq(1).Text()),
 				CRegistered: conver(td.Eq(0).Text()),
-				Rank:        "N/A",
+				Rank:        td.Eq(3).Text(),
 			}
 		}()
 		go func() {
