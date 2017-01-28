@@ -120,42 +120,43 @@ func ShowAttendance(bow *browser.Browser, baseuri string) *Attendance {
 		year, month, day := time.Now().Date()
 		bow.Open(baseuri + "/student/attn_report.asp?sem=" + sem + "&fmdt=04-Jan-2017&todt=" + strconv.Itoa(day) + "-" + month.String()[:3] + "-" + strconv.Itoa(year))
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
-		bow.Open(baseuri + "/student/attn_report.asp?sem=" + sem + "&fmdt=04-Jan-2017&todt=" + strconv.Itoa(day) + "-" + month.String()[:3] + "-" + strconv.Itoa(year))
-		table := bow.Find("table").Eq(4)
-		tr := table.Find("tr")
-		var wg sync.WaitGroup
-		tr.Each(func(i int, s *goquery.Selection) {
-			if i > 0 {
-				wg.Add(1)
-				go func() {
-					defer wg.Done()
-					td := s.Find("td")
-					semcode, _ := s.Find("input[name=semcode]").Attr("value")
-					classnbr, _ := s.Find("input[name=classnbr]").Attr("value")
-					code := td.Eq(1).Text()
-					crscd, _ := s.Find("input[name=crscd]").Attr("value")
-					crstp, _ := s.Find("input[name=crstp]").Attr("value")
-					from_date, _ := s.Find("input[name=from_date]").Attr("value")
-					to_date, _ := s.Find("input[name=to_date]").Attr("value")
-					if strings.Contains(td.Eq(3).Text(), "Lab") {
-						code = code + "_L"
-					}
-					percent := td.Eq(8).Text()
-					dets[code] = Subject{
-						Percentage: conver(percent),
-						Classes:    conver(td.Eq(6).Text()),
-						Details:    getDetails(semcode, classnbr, crscd, crstp, from_date, to_date, baseuri, bow),
-						Date:       td.Eq(5).Text(),
-						TotalClass: conver(td.Eq(7).Text()),
-					}
-					perc := conver(td.Eq(8).Text()[:len(td.Eq(8).Text())-1])
-					avg = avg + perc
-				}()
+		if bow.Open(baseuri+"/student/attn_report.asp?sem="+sem+"&fmdt=04-Jan-2017&todt="+strconv.Itoa(day)+"-"+month.String()[:3]+"-"+strconv.Itoa(year)) == nil {
+			table := bow.Find("table").Eq(4)
+			tr := table.Find("tr")
+			var wg sync.WaitGroup
+			tr.Each(func(i int, s *goquery.Selection) {
+				if i > 0 {
+					wg.Add(1)
+					go func() {
+						defer wg.Done()
+						td := s.Find("td")
+						semcode, _ := s.Find("input[name=semcode]").Attr("value")
+						classnbr, _ := s.Find("input[name=classnbr]").Attr("value")
+						code := td.Eq(1).Text()
+						crscd, _ := s.Find("input[name=crscd]").Attr("value")
+						crstp, _ := s.Find("input[name=crstp]").Attr("value")
+						from_date, _ := s.Find("input[name=from_date]").Attr("value")
+						to_date, _ := s.Find("input[name=to_date]").Attr("value")
+						if strings.Contains(td.Eq(3).Text(), "Lab") {
+							code = code + "_L"
+						}
+						percent := td.Eq(8).Text()
+						dets[code] = Subject{
+							Percentage: conver(percent),
+							Classes:    conver(td.Eq(6).Text()),
+							Details:    getDetails(semcode, classnbr, crscd, crstp, from_date, to_date, baseuri, bow),
+							Date:       td.Eq(5).Text(),
+							TotalClass: conver(td.Eq(7).Text()),
+						}
+						perc := conver(td.Eq(8).Text()[:len(td.Eq(8).Text())-1])
+						avg = avg + perc
+					}()
 
-			}
-		})
-		wg.Wait()
-		tr_len = tr.Length() - 1
+				}
+			})
+			wg.Wait()
+			tr_len = tr.Length() - 1
+		}
 	}
 	return &Attendance{
 		Average_Attendance: float64(avg / tr_len),

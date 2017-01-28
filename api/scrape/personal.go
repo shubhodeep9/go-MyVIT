@@ -21,13 +21,18 @@ type Personal struct {
 }
 
 func ShowPersonal(bow *browser.Browser, baseuri string) *Personal {
-	bow.Open(baseuri + "/student/home.asp")
-	table := bow.Find("table").Eq(1)
-	tr := table.Find("tr").Eq(0)
-	font := tr.Find("font").Eq(0)
-	s := strings.Split(strings.TrimSpace(font.Text())[10:], "-")
+	name := ""
+	school := ""
+	if bow.Open(baseuri+"/student/home.asp") == nil {
+		table := bow.Find("table").Eq(1)
+		tr := table.Find("tr").Eq(0)
+		font := tr.Find("font").Eq(0)
+		s := strings.Split(strings.TrimSpace(font.Text())[10:], "-")
+		name = strings.Title(strings.ToLower(strings.TrimSpace(s[0])))
+		school = strings.TrimSpace(s[2])
+	}
 	return &Personal{
-		Name:   strings.Title(strings.ToLower(strings.TrimSpace(s[0]))),
-		School: strings.TrimSpace(s[2]),
+		Name:   name,
+		School: school,
 	}
 }

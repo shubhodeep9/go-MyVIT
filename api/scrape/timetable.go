@@ -65,60 +65,61 @@ func ShowTimetable(bow *browser.Browser, baseuri string) *Timetable {
 	} else {
 		bow.Open(baseuri + "/student/course_regular.asp?sem=" + sem)
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
-		bow.Open(baseuri + "/student/course_regular.asp?sem=" + sem)
-		tables := bow.Find("table")
-		reg_table := tables.Eq(1)
+		if bow.Open(baseuri+"/student/course_regular.asp?sem="+sem) == nil {
+			tables := bow.Find("table")
+			reg_table := tables.Eq(1)
 
-		tr := reg_table.Find("tr")
-		tr_len := tr.Length()
-		var wg sync.WaitGroup
-		tr.Each(func(i int, s *goquery.Selection) {
-			if i > 0 && i < tr_len-2 {
-				wg.Add(1)
-				go func(conts map[string]Contents, s *goquery.Selection) {
-					defer wg.Done()
-					td := s.Find("td")
-					code := td.Eq(3).Text()
-					if code == "Embedded Lab" {
-						code = td.Eq(1).Text() + "_L"
-						cn, _ := strconv.Atoi(td.Eq(0).Text())
-						conts[code] = Contents{
-							Class_number:  cn,
-							Course_code:   td.Eq(1).Text(),
-							Course_mode:   td.Eq(5).Text(),
-							Course_option: td.Eq(6).Text(),
-							Course_title:  td.Eq(2).Text(),
-							Course_type:   td.Eq(3).Text(),
-							Faculty:       td.Eq(9).Text(),
-							Ltpjc:         strings.TrimSpace(td.Eq(4).Text()),
-							Slot:          td.Eq(7).Text(),
-							Venue:         td.Eq(8).Text(),
+			tr := reg_table.Find("tr")
+			tr_len := tr.Length()
+			var wg sync.WaitGroup
+			tr.Each(func(i int, s *goquery.Selection) {
+				if i > 0 && i < tr_len-2 {
+					wg.Add(1)
+					go func(conts map[string]Contents, s *goquery.Selection) {
+						defer wg.Done()
+						td := s.Find("td")
+						code := td.Eq(3).Text()
+						if code == "Embedded Lab" {
+							code = td.Eq(1).Text() + "_L"
+							cn, _ := strconv.Atoi(td.Eq(0).Text())
+							conts[code] = Contents{
+								Class_number:  cn,
+								Course_code:   td.Eq(1).Text(),
+								Course_mode:   td.Eq(5).Text(),
+								Course_option: td.Eq(6).Text(),
+								Course_title:  td.Eq(2).Text(),
+								Course_type:   td.Eq(3).Text(),
+								Faculty:       td.Eq(9).Text(),
+								Ltpjc:         strings.TrimSpace(td.Eq(4).Text()),
+								Slot:          td.Eq(7).Text(),
+								Venue:         td.Eq(8).Text(),
+							}
+						} else if code != "Embedded Project" {
+							if td.Eq(5).Text() == "Lab Only" {
+								code = code + "_L"
+							}
+							cn, _ := strconv.Atoi(td.Eq(2).Text())
+							conts[code] = Contents{
+								Class_number:        cn,
+								Course_code:         td.Eq(3).Text(),
+								Course_mode:         td.Eq(7).Text(),
+								Course_option:       td.Eq(8).Text(),
+								Course_title:        td.Eq(4).Text(),
+								Course_type:         td.Eq(5).Text(),
+								Faculty:             td.Eq(11).Text(),
+								Ltpjc:               strings.TrimSpace(td.Eq(6).Text()),
+								Registration_status: td.Eq(12).Text(),
+								Slot:                td.Eq(9).Text(),
+								Venue:               td.Eq(10).Text(),
+							}
 						}
-					} else if code != "Embedded Project" {
-						if td.Eq(5).Text() == "Lab Only" {
-							code = code + "_L"
-						}
-						cn, _ := strconv.Atoi(td.Eq(2).Text())
-						conts[code] = Contents{
-							Class_number:        cn,
-							Course_code:         td.Eq(3).Text(),
-							Course_mode:         td.Eq(7).Text(),
-							Course_option:       td.Eq(8).Text(),
-							Course_title:        td.Eq(4).Text(),
-							Course_type:         td.Eq(5).Text(),
-							Faculty:             td.Eq(11).Text(),
-							Ltpjc:               strings.TrimSpace(td.Eq(6).Text()),
-							Registration_status: td.Eq(12).Text(),
-							Slot:                td.Eq(9).Text(),
-							Venue:               td.Eq(10).Text(),
-						}
-					}
-				}(conts, s)
+					}(conts, s)
+				}
+			})
+			wg.Wait()
+			if len(conts) == 0 {
+				status = "Failure"
 			}
-		})
-		wg.Wait()
-		if len(conts) == 0 {
-			status = "Failure"
 		}
 	}
 

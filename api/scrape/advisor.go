@@ -41,41 +41,42 @@ func FacultyAdvisor(bow *browser.Browser, reg, baseuri string) *Advisor {
 		var wg sync.WaitGroup
 		bow.Open(baseuri + "/student/faculty_advisor_view.asp")
 		//Reload
-		bow.Open(baseuri + "/student/faculty_advisor_view.asp")
-		table := bow.Find("table").Eq(1)
-		rows := table.Find("tr").Length()
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			bow.Open(baseuri + "/student/emp_photo.asp")
-			out, _ := os.Create("api/" + reg + ".jpg")
-			bow.Download(out)
-			imgFile, _ := os.Open("api/" + reg + ".jpg")
-			go os.Remove("api/" + reg + ".jpg")
-			defer imgFile.Close()
+		if bow.Open(baseuri+"/student/faculty_advisor_view.asp") == nil {
+			table := bow.Find("table").Eq(1)
+			rows := table.Find("tr").Length()
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				bow.Open(baseuri + "/student/emp_photo.asp")
+				out, _ := os.Create("api/" + reg + ".jpg")
+				bow.Download(out)
+				imgFile, _ := os.Open("api/" + reg + ".jpg")
+				go os.Remove("api/" + reg + ".jpg")
+				defer imgFile.Close()
 
-			// create a new buffer base on file size
-			fInfo, _ := imgFile.Stat()
-			var size int64 = fInfo.Size()
-			buf := make([]byte, size)
+				// create a new buffer base on file size
+				fInfo, _ := imgFile.Stat()
+				var size int64 = fInfo.Size()
+				buf := make([]byte, size)
 
-			// read file content into buffer
-			fReader := bufio.NewReader(imgFile)
-			fReader.Read(buf)
-			dets["photo"] = base64.StdEncoding.EncodeToString(buf)
-		}()
-		table.Find("tr").Each(func(i int, s *goquery.Selection) {
-			if i > 0 && i < rows-1 {
-				wg.Add(1)
-				go func() {
-					defer wg.Done()
-					td := s.Find("td")
-					dets[strings.TrimSpace(td.Eq(0).Text())] = strings.TrimSpace(td.Eq(1).Text())
+				// read file content into buffer
+				fReader := bufio.NewReader(imgFile)
+				fReader.Read(buf)
+				dets["photo"] = base64.StdEncoding.EncodeToString(buf)
+			}()
+			table.Find("tr").Each(func(i int, s *goquery.Selection) {
+				if i > 0 && i < rows-1 {
+					wg.Add(1)
+					go func() {
+						defer wg.Done()
+						td := s.Find("td")
+						dets[strings.TrimSpace(td.Eq(0).Text())] = strings.TrimSpace(td.Eq(1).Text())
 
-				}()
-			}
-		})
-		wg.Wait()
+					}()
+				}
+			})
+			wg.Wait()
+		}
 	}
 	return &Advisor{
 		Status:  status,

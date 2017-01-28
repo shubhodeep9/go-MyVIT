@@ -66,57 +66,58 @@ func toFixed(num float64, precision int) float64 {
 
 func ShowMarks(bow *browser.Browser, regno, baseuri string) *GetMarks {
 	sem := os.Getenv("SEM")
-	bow.Open(baseuri + "/student/marks.asp?sem=" + sem)
-	bow.Open(baseuri + "/student/marks.asp?sem=" + sem)
 	rowdata := make(map[string]Mrks)
 	status := "Success"
-	tables := bow.Find("table")
+	bow.Open(baseuri + "/student/marks.asp?sem=" + sem)
+	if bow.Open(baseuri+"/student/marks.asp?sem="+sem) == nil {
 
-	/**
-	* Store the subjects
-	 */
-	tables.Eq(1).Find("tr[bgcolor='#EDEADE']").Each(func(i int, s *goquery.Selection) {
-		td := s.Find("td")
-		code := td.Eq(2).Text()
-		if strings.Contains(td.Eq(4).Text(), "Lab") {
-			code = code + "_L"
-		}
-		var assessment_list []Assessment
-		marksection := s.Next().Find("table").Find("tr[bgcolor='#CCCCCC']")
-		totalmaxmarks := 0
-		totalweight := 0
-		totalscored := float64(0)
-		totalscoredper := float64(0)
-		marksection.Each(func(j int, sel *goquery.Selection) {
-			seltd := sel.Find("td")
-			maxmark, _ := strconv.Atoi(seltd.Eq(2).Text())
-			weight, _ := strconv.Atoi(seltd.Eq(3).Text())
-			scored := Value(seltd.Eq(5).Text())
-			per := Value(seltd.Eq(6).Text())
-			assess := Assessment{
-				Title:            seltd.Eq(1).Text(),
-				Max_marks:        maxmark,
-				Weightage:        weight,
-				Conducted_on:     "Check ExamSchedule",
-				Status:           seltd.Eq(4).Text(),
-				ScoredMarks:      scored,
-				ScoredPercentage: per,
+		tables := bow.Find("table")
+
+		/**
+		* Store the subjects
+		 */
+		tables.Eq(1).Find("tr[bgcolor='#EDEADE']").Each(func(i int, s *goquery.Selection) {
+			td := s.Find("td")
+			code := td.Eq(2).Text()
+			if strings.Contains(td.Eq(4).Text(), "Lab") {
+				code = code + "_L"
 			}
-			totalmaxmarks = totalmaxmarks + maxmark
-			totalweight = totalweight + weight
-			totalscored = totalscored + scored
-			totalscoredper = totalscoredper + per
-			assessment_list = append(assessment_list, assess)
+			var assessment_list []Assessment
+			marksection := s.Next().Find("table").Find("tr[bgcolor='#CCCCCC']")
+			totalmaxmarks := 0
+			totalweight := 0
+			totalscored := float64(0)
+			totalscoredper := float64(0)
+			marksection.Each(func(j int, sel *goquery.Selection) {
+				seltd := sel.Find("td")
+				maxmark, _ := strconv.Atoi(seltd.Eq(2).Text())
+				weight, _ := strconv.Atoi(seltd.Eq(3).Text())
+				scored := Value(seltd.Eq(5).Text())
+				per := Value(seltd.Eq(6).Text())
+				assess := Assessment{
+					Title:            seltd.Eq(1).Text(),
+					Max_marks:        maxmark,
+					Weightage:        weight,
+					Conducted_on:     "Check ExamSchedule",
+					Status:           seltd.Eq(4).Text(),
+					ScoredMarks:      scored,
+					ScoredPercentage: per,
+				}
+				totalmaxmarks = totalmaxmarks + maxmark
+				totalweight = totalweight + weight
+				totalscored = totalscored + scored
+				totalscoredper = totalscoredper + per
+				assessment_list = append(assessment_list, assess)
+			})
+			rowdata[code] = Mrks{
+				Assessments:       assessment_list,
+				Max_marks:         totalmaxmarks,
+				Max_percentage:    totalweight,
+				Scored_Marks:      totalscored,
+				Scored_Percentage: totalscoredper,
+			}
 		})
-		rowdata[code] = Mrks{
-			Assessments:       assessment_list,
-			Max_marks:         totalmaxmarks,
-			Max_percentage:    totalweight,
-			Scored_Marks:      totalscored,
-			Scored_Percentage: totalscoredper,
-		}
-	})
-
+	}
 	// end of  if condition for seniors/juniors
 	return &GetMarks{
 		Status: status,

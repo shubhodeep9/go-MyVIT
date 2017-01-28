@@ -51,51 +51,52 @@ func Academics(bow *browser.Browser, baseuri string) *AcademicStruct {
 		status = "Failure"
 	} else {
 		bow.Open(baseuri + "/student/student_history.asp")
-		bow.Open(baseuri + "/student/student_history.asp")
-		table := bow.Find("table").Eq(2)
-		tr := table.Find("tr")
-		wg.Add(3)
-		go func() {
-			defer wg.Done()
-			tr.Each(func(i int, s *goquery.Selection) {
-				if i > 0 {
-					td := s.Find("td")
-					history1[td.Eq(1).Text()] = CourseDets{
-						CourseTitle: td.Eq(2).Text(),
-						CourtType:   td.Eq(3).Text(),
-						Credit:      conver(td.Eq(4).Text()),
-						Grade:       td.Eq(5).Text(),
+		if bow.Open(baseuri+"/student/student_history.asp") == nil {
+			table := bow.Find("table").Eq(2)
+			tr := table.Find("tr")
+			wg.Add(3)
+			go func() {
+				defer wg.Done()
+				tr.Each(func(i int, s *goquery.Selection) {
+					if i > 0 {
+						td := s.Find("td")
+						history1[td.Eq(1).Text()] = CourseDets{
+							CourseTitle: td.Eq(2).Text(),
+							CourtType:   td.Eq(3).Text(),
+							Credit:      conver(td.Eq(4).Text()),
+							Grade:       td.Eq(5).Text(),
+						}
 					}
+				})
+			}()
+			go func() {
+				defer wg.Done()
+				table = bow.Find("table").Eq(3)
+				td := table.Find("tr").Eq(1).Find("td")
+				cg, _ := strconv.ParseFloat(strings.TrimSpace(td.Eq(2).Text()), 64)
+				history2 = StudentDets{
+					CGPA:        cg,
+					CEarned:     conver(td.Eq(1).Text()),
+					CRegistered: conver(td.Eq(0).Text()),
+					Rank:        td.Eq(3).Text(),
 				}
-			})
-		}()
-		go func() {
-			defer wg.Done()
-			table = bow.Find("table").Eq(3)
-			td := table.Find("tr").Eq(1).Find("td")
-			cg, _ := strconv.ParseFloat(strings.TrimSpace(td.Eq(2).Text()), 64)
-			history2 = StudentDets{
-				CGPA:        cg,
-				CEarned:     conver(td.Eq(1).Text()),
-				CRegistered: conver(td.Eq(0).Text()),
-				Rank:        td.Eq(3).Text(),
-			}
-		}()
-		go func() {
-			defer wg.Done()
-			table = bow.Find("table").Eq(4)
-			td := table.Find("tr").Eq(1).Find("td")
-			grade = Grades{
-				A: td.Eq(1).Text(),
-				B: td.Eq(2).Text(),
-				C: td.Eq(3).Text(),
-				D: td.Eq(4).Text(),
-				E: td.Eq(5).Text(),
-				F: td.Eq(6).Text(),
-				N: td.Eq(7).Text(),
-				S: td.Eq(0).Text(),
-			}
-		}()
+			}()
+			go func() {
+				defer wg.Done()
+				table = bow.Find("table").Eq(4)
+				td := table.Find("tr").Eq(1).Find("td")
+				grade = Grades{
+					A: td.Eq(1).Text(),
+					B: td.Eq(2).Text(),
+					C: td.Eq(3).Text(),
+					D: td.Eq(4).Text(),
+					E: td.Eq(5).Text(),
+					F: td.Eq(6).Text(),
+					N: td.Eq(7).Text(),
+					S: td.Eq(0).Text(),
+				}
+			}()
+		}
 	}
 	wg.Wait()
 	return &AcademicStruct{
