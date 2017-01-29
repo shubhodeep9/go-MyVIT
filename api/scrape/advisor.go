@@ -55,14 +55,16 @@ func FacultyAdvisor(bow *browser.Browser, reg, baseuri string) *Advisor {
 				defer imgFile.Close()
 
 				// create a new buffer base on file size
-				fInfo, _ := imgFile.Stat()
-				var size int64 = fInfo.Size()
-				buf := make([]byte, size)
+				fInfo, err := imgFile.Stat()
+				if err == nil {
+					var size int64 = fInfo.Size()
+					buf := make([]byte, size)
 
-				// read file content into buffer
-				fReader := bufio.NewReader(imgFile)
-				fReader.Read(buf)
-				dets["photo"] = base64.StdEncoding.EncodeToString(buf)
+					// read file content into buffer
+					fReader := bufio.NewReader(imgFile)
+					fReader.Read(buf)
+					dets["photo"] = base64.StdEncoding.EncodeToString(buf)
+				}
 			}()
 			table.Find("tr").Each(func(i int, s *goquery.Selection) {
 				if i > 0 && i < rows-1 {
