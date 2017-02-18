@@ -6,11 +6,11 @@ The student login API for the app MyVIT in Go programming language<br />
 ##API URLs
 ```sh
 #login
-curl http://myffcs.in:8080/campus/[campus]/login --data "regNo=[reg]&psswd=[psswd]"
+curl https://myffcs.in:10443/campus/[campus]/login --data "regNo=[reg]&psswd=[psswd]"
 #refresh
-curl http://myffcs.in:8080/campus/[campus]/refresh --data "regNo=[reg]&psswd=[psswd]"
+curl https://myffcs.in:10443/campus/[campus]/refresh --data "regNo=[reg]&psswd=[psswd]"
 #course page
-curl http://myffcs.in:8080/campus/vellore/coursepage/data --data "regNo=[reg]&psswd=[psswd]&crs=[crscode]&slt=[slots]&fac=[facid]"
+curl https://myffcs.in:10443/campus/vellore/coursepage/data --data "regNo=[reg]&psswd=[psswd]&crs=[crscode]&slt=[slots]&fac=[facid]"
 ```
 ##Custom installation
 Dependencies are already satisfied in Godep folder in api.<br />
