@@ -1,23 +1,20 @@
 language: go
 
 go:
-  - tip
+  - 1.6.0
   - 1.5.3
   - 1.4.3
 
 go_import_path: go-MyVIT
 
 install:
-  - go get github.com/astaxie/beego
-  - go get github.com/patrickmn/go-cache
-  - go get github.com/smartystreets/goconvey/convey
-  - go get github.com/hotei/bmp
-  - go get github.com/alexjlockwood/gcm
-  - go get gopkg.in/mgo.v2
+  - go get github.com/tools/godep
+  - godep get
 
 script:
   - go test -v tests/*
 
 notifications:
   email:
+    - ujjwal@ayyangar.net
     - shubhodeep9@gmail.com
