@@ -17,7 +17,7 @@ type AcademicStruct struct {
 
 type CourseDets struct {
 	CourseTitle string `json:"course_title"`
-	CourtType   string `json:"course_type"`
+	CourseType  string `json:"course_type"`
 	Credit      int    `json:"credit"`
 	Grade       string `json:"grade"`
 }
@@ -62,7 +62,7 @@ func Academics(bow *browser.Browser, baseuri string) *AcademicStruct {
 						td := s.Find("td")
 						history1[td.Eq(1).Text()] = CourseDets{
 							CourseTitle: td.Eq(2).Text(),
-							CourtType:   td.Eq(3).Text(),
+							CourseType:  td.Eq(3).Text(),
 							Credit:      conver(td.Eq(4).Text()),
 							Grade:       td.Eq(5).Text(),
 						}
