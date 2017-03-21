@@ -9,6 +9,7 @@ go_import_path: go-MyVIT
 
 install:
   - go get github.com/tools/godep
+  - go get github.com/smartystreets/goconvey
   - godep get
 
 script:
