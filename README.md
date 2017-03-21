@@ -3,7 +3,7 @@ The student login API for the app MyVIT in Go programming language<br />
 [![Build Status](https://travis-ci.org/shubhodeep9/go-MyVIT.svg?branch=master)](https://travis-ci.org/shubhodeep9/go-MyVIT)
 [![Go Report Card](https://goreportcard.com/badge/github.com/shubhodeep9/go-MyVIT)](https://goreportcard.com/report/github.com/shubhodeep9/go-MyVIT)
 
-##API URLs
+## API URLs
 ```sh
 #login
 curl https://myffcs.in:10443/campus/[campus]/login --data "regNo=[reg]&psswd=[psswd]"
@@ -12,7 +12,7 @@ curl https://myffcs.in:10443/campus/[campus]/refresh --data "regNo=[reg]&psswd=[
 #course page
 curl https://myffcs.in:10443/campus/vellore/coursepage/data --data "regNo=[reg]&psswd=[psswd]&crs=[crscode]&slt=[slots]&fac=[facid]"
 ```
-##Custom installation
+## Custom installation
 Dependencies are already satisfied in Godep folder in api.<br />
 Extra dependency to be installed: <br />
 ```sh
@@ -31,7 +31,7 @@ $ bee run
 ```
 > Use cron jobs for continuous serving, a module already has been built [MyVIT-Cron](https://github.com/shubhodeep9/MyVIT-Cron)
 
-##Features
+## Features
 <ul>
 <li>CaptchaParser(Karthik Balakrishnan Algorithm implemented on Golang)</li>
 <li>100% Go Code</li>
