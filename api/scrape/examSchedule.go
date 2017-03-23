@@ -31,7 +31,6 @@ type Contents2 struct {
 
 /*
 Function ->ExmSchedule to fetch the exam schedule,
-
 @return ExamSchedule struct
 */
 
