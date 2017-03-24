@@ -8,10 +8,8 @@
 package scrape
 
 import (
-	"fmt"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"os"
 )
 
 type MessagesStructUtil struct {
@@ -33,7 +31,6 @@ Calls NewLogin to login to academics,
 */
 func FacMessage(bow *browser.Browser, reg, baseuri string, found bool) *MessagesStruct {
 	facmess := []MessagesStructUtil{}
-	sem := os.Getenv("SEM")
 	status := "Success"
 	//tr_len := 0
 	//dets := make(map[string]Subject)
