@@ -10,6 +10,7 @@ package scrape
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
+	"os"
 )
 
 type MessagesStructUtil struct {
@@ -32,13 +33,15 @@ Calls NewLogin to login to academics,
 func FacMessage(bow *browser.Browser, reg, baseuri string, found bool) *MessagesStruct {
 	facmess := []MessagesStructUtil{}
 	status := "Success"
+	sem := os.Getenv("SEM")
+	sem:="WS"
 	//tr_len := 0
 	//dets := make(map[string]Subject)
 	if !found {
 		status = "Failure"
 	} else {
 
-		bow.Open(baseuri + "/student/class_message_view.asp?sem=WS")
+		bow.Open(baseuri + "/student/class_message_view.asp?sem="+sem)
 		cnt := 1
 		util := []string{}
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
