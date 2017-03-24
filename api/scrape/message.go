@@ -8,6 +8,7 @@
 package scrape
 
 import (
+	"fmt"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"os"
@@ -40,7 +41,7 @@ func FacMessage(bow *browser.Browser, reg, baseuri string, found bool) *Messages
 		status = "Failure"
 	} else {
 
-		bow.Open(baseuri + "/student/class_message_view.asp?sem=" + sem)
+		bow.Open(baseuri + "/student/class_message_view.asp?sem=WS")
 		cnt := 1
 		util := []string{}
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
