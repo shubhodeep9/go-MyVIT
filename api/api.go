@@ -102,6 +102,22 @@ func ProfilePic(regno, password, baseuri string) string {
 	cacheSession.SetSession(bow, cac, regno)
 	return scrape.ProfilePhoto(bow, regno, baseuri)
 }
+func ShowMessages(regno, password, baseuri string) *scrape.MessagesStruct {
+	var bow *browser.Browser = surf.NewBrowser()
+	var tr *http.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
+	return scrape.FacMessage(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
+}
+func ShowPersonalDetails(regno, password, baseuri string) *scrape.PersonalDetailsStruct {
+	var bow *browser.Browser = surf.NewBrowser()
+	var tr *http.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
+	return scrape.ShowPersonalDetails(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
+}
 
 func ShowStats() map[string]int {
 	stat := make(map[string]int)

@@ -14,6 +14,7 @@ import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/status"
 	"os"
+	"runtime"
 	"sync"
 )
 
@@ -32,6 +33,7 @@ type RefreshStruct struct {
 
 func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) *RefreshStruct {
 	sem := os.Getenv("SEM")
+	runtime.GOMAXPROCS(runtime.NumCPU())
 	if found {
 		var re sync.WaitGroup
 		re.Add(7)
@@ -44,6 +46,7 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) 
 			marks    *GetMarks
 			personal *Personal
 		)
+
 		go func() {
 			defer re.Done()
 			timet = ShowTimetable(bow, baseuri)
@@ -73,6 +76,15 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) 
 			personal = ShowPersonal(bow, baseuri)
 		}()
 		re.Wait()
+		/*
+			timet = ShowTimetable(bow, baseuri)
+			acad = Academics(bow, baseuri)
+			adv = FacultyAdvisor(bow, regno, baseuri)
+			att = ShowAttendance(bow, baseuri)
+			exam = ExmSchedule(bow, baseuri)
+			marks = ShowMarks(bow, regno, baseuri)
+			personal = ShowPersonal(bow, baseuri)
+		*/
 		var courses []Contents
 		timetable := timet.Time_table
 		var course Contents

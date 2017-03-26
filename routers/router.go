@@ -9,6 +9,7 @@ package routers
 import (
 	"go-MyVIT/controllers"
 
+	"fmt"
 	"github.com/astaxie/beego"
 )
 
@@ -49,6 +50,18 @@ func init() {
 				&controllers.FacultyController{},
 			),
 		),
+		beego.NSNamespace("/messages",
+			beego.NSInclude(
+				// controllers/messages.go
+				&controllers.MessageController{},
+			),
+		),
+		beego.NSNamespace("/personalDetails",
+			beego.NSInclude(
+				// controllers/messages.go
+				&controllers.PersonalDetailsController{},
+			),
+		),
 	)
 	stats := beego.NewNamespace("/admin",
 		beego.NSNamespace("/stats",
@@ -63,6 +76,7 @@ func init() {
 			),
 		),
 	)
+	fmt.Println("routers")
 	beego.AddNamespace(ns)
 	beego.AddNamespace(stats)
 }
