@@ -76,15 +76,7 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) 
 			personal = ShowPersonal(bow, baseuri)
 		}()
 		re.Wait()
-		/*
-			timet = ShowTimetable(bow, baseuri)
-			acad = Academics(bow, baseuri)
-			adv = FacultyAdvisor(bow, regno, baseuri)
-			att = ShowAttendance(bow, baseuri)
-			exam = ExmSchedule(bow, baseuri)
-			marks = ShowMarks(bow, regno, baseuri)
-			personal = ShowPersonal(bow, baseuri)
-		*/
+
 		var courses []Contents
 		timetable := timet.Time_table
 		var course Contents

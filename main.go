@@ -23,5 +23,9 @@ func main() {
 	if err == nil {
 		beego.BConfig.Listen.HTTPPort = port
 	}
+	beego.BConfig.Listen.EnableHTTPS = true
+	beego.BConfig.Listen.HTTPSPort = 10443
+	beego.BConfig.Listen.HTTPSCertFile = "conf/fullchain.pem"
+	beego.BConfig.Listen.HTTPSKeyFile = "conf/privkey.pem"
 	beego.Run()
 }

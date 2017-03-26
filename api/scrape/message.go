@@ -10,7 +10,7 @@ package scrape
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"os"
+	status_code "go-MyVIT/api/status"
 )
 
 type MessagesStructUtil struct {
@@ -20,8 +20,8 @@ type MessagesStructUtil struct {
 	Posted string `json:"posted"`
 }
 type MessagesStruct struct {
-	FacultyMsgs []MessagesStructUtil `json:"faculty_messages"`
-	Status      string               `json:"status"`
+	FacultyMsgs []MessagesStructUtil     `json:"faculty_messages"`
+	Status      status_code.StatusStruct `json:"status"`
 }
 
 /*
@@ -32,20 +32,18 @@ Calls NewLogin to login to academics,
 */
 func FacMessage(bow *browser.Browser, reg, baseuri string, found bool) *MessagesStruct {
 	facmess := []MessagesStructUtil{}
-	status := "Success"
-	sem := os.Getenv("SEM")
-	sem:="WS"
+	status := status_code.Success()
 	//tr_len := 0
 	//dets := make(map[string]Subject)
 	if !found {
-		status = "Failure"
+		status = status_code.ServerError()
 	} else {
 
-		bow.Open(baseuri + "/student/class_message_view.asp?sem="+sem)
+		bow.Open(baseuri + "/student/class_message_view.asp")
 		cnt := 1
 		util := []string{}
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
-		if bow.Open(baseuri+"/student/class_message_view.asp?sem="+sem) == nil {
+		if bow.Open(baseuri+"/student/class_message_view.asp") == nil {
 			tables := bow.Find("table[cellpadding='3']")
 			tables.Find("tr").Each(func(i int, s *goquery.Selection) {
 				td1 := s.Find("td[width='90']")
