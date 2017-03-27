@@ -27,7 +27,6 @@ type RefreshStruct struct {
 	Courses  []Contents          `json:"courses,omitempty"`
 	Academic *AcademicStruct     `json:"academic_history,omitempty"`
 	FacAdv   *Advisor            `json:"faculty_advisor,omitempty"`
-	Exam     *ExamSchedule       `json:"exam_schedule,omitempty"`
 	Status   status.StatusStruct `json:"status"`
 }
 
@@ -36,13 +35,12 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) 
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	if found {
 		var re sync.WaitGroup
-		re.Add(7)
+		re.Add(6)
 		var (
 			timet    *Timetable
 			acad     *AcademicStruct
 			adv      *Advisor
 			att      *Attendance
-			exam     *ExamSchedule
 			marks    *GetMarks
 			personal *Personal
 		)
@@ -62,10 +60,6 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) 
 		go func() {
 			defer re.Done()
 			att = ShowAttendance(bow, baseuri)
-		}()
-		go func() {
-			defer re.Done()
-			exam = ExmSchedule(bow, baseuri)
 		}()
 		go func() {
 			defer re.Done()
@@ -116,7 +110,6 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) 
 			Courses:  courses,
 			Academic: acad,
 			FacAdv:   adv,
-			Exam:     exam,
 			Status:   stt,
 		}
 	}
