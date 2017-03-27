@@ -12,7 +12,6 @@ package api
 
 import (
 	"crypto/tls"
-	"fmt"
 	"github.com/alexjlockwood/gcm"
 	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf"
@@ -143,7 +142,6 @@ func FacultyInformation(regno, password, baseuri, query string) string {
 
 func CookieReturn(regno string) string {
 	val, found := cac.Get(regno)
-	fmt.Println(found)
 	if found {
 		cookies := val.(*cacheSession.MemCache)
 		result := ""
@@ -185,8 +183,7 @@ func GcmSender(message string) *gcm.Response {
 	msg := gcm.NewMessage(data, regIDs[div*1000:]...)
 
 	// Send the message and receive the response after at most two retries.
-	response, err := sender.Send(msg, 2)
-	fmt.Println(err)
+	response, _:= sender.Send(msg, 2)
 	return response
 }
 
