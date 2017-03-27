@@ -75,5 +75,11 @@ func init() {
 			`/`,
 			[]string{"get"},
 			nil})
+	beego.GlobalControllerRouter["go-MyVIT/controllers:ExamScheduleController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:ExamScheduleController"],
+		beego.ControllerComments{
+			"Post",
+			`/`,
+			[]string{"post"},
+			nil})
 
 }
