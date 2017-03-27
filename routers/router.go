@@ -60,6 +60,12 @@ func init() {
 				&controllers.PersonalDetailsController{},
 			),
 		),
+		beego.NSNamespace("/examSchedule",
+			beego.NSInclude(
+				// controllers/examSchedule.go
+				&controllers.ExamScheduleController{},
+			),
+		),
 	)
 	stats := beego.NewNamespace("/admin",
 		beego.NSNamespace("/stats",
