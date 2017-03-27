@@ -76,7 +76,7 @@ func ExmSchedule(bow *browser.Browser, reg, baseuri string, found bool) *MainExa
 			dets := make(map[string]Content3)
 
 			table.Find("tr").Each(func(i int, s *goquery.Selection) {
-				if i >= 1 && i < rows-1 {
+				if i >= 1 && i <= rows-1 {
 					//wg.Add(1)
 					//go func() {
 					//defer wg.Done()
