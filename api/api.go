@@ -124,7 +124,14 @@ func ShowStats() map[string]int {
 	stat["current_users"] = len(cac.Items())
 	return stat
 }
-
+func ShowExamSchedule(regno, password, baseuri string) *scrape.MainExamSchedule {
+	var bow *browser.Browser = surf.NewBrowser()
+	var tr *http.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
+	return scrape.ExmSchedule(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
+}
 func FacultyInformation(regno, password, baseuri, query string) string {
 	var bow *browser.Browser = surf.NewBrowser()
 	var tr *http.Transport = &http.Transport{
