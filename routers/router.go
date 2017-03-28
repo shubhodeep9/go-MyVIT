@@ -7,8 +7,10 @@
 package routers
 
 import (
-	"github.com/astaxie/beego"
 	"go-MyVIT/controllers"
+
+	"fmt"
+	"github.com/astaxie/beego"
 )
 
 func init() {
@@ -56,14 +58,39 @@ func init() {
 		),
 		beego.NSNamespace("/personalDetails",
 			beego.NSInclude(
-				// controllers/messages.go
+				// controllers/personalDetails.go
 				&controllers.PersonalDetailsController{},
+			),
+		),
+		beego.NSNamespace("/educationalDetails",
+			beego.NSInclude(
+				//controllers/educationalDetails.go
+				&controllers.EducationalDetailsController{},
+			),
+		),
+		beego.NSNamespace("/familyDetails",
+			beego.NSInclude(
+				//controllers/familyDetails.go
+				&controllers.FamilyDetailsController{},
+			),
+		),
+
+		beego.NSNamespace("/hostelDetails",
+			beego.NSInclude(
+				//controllers/hostelDetails.go
+				&controllers.HostelDetailsController{},
 			),
 		),
 		beego.NSNamespace("/examSchedule",
 			beego.NSInclude(
 				// controllers/examSchedule.go
 				&controllers.ExamScheduleController{},
+			),
+		),
+		beego.NSNamespace("/leaveRequest",
+			beego.NSInclude(
+				// controllers/examSchedule.go
+				&controllers.LeaveRequestController{},
 			),
 		),
 	)
@@ -80,6 +107,7 @@ func init() {
 			),
 		),
 	)
+	fmt.Println("routers")
 	beego.AddNamespace(ns)
 	beego.AddNamespace(stats)
 }

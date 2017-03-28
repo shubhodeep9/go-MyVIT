@@ -2,7 +2,6 @@
 @Author Ujjwal Ayyangar
 @Organization Google Developers Group VIT Vellore
 	I err, therefore I am
-	#GDGSwag
 */
 
 package scrape
@@ -10,61 +9,62 @@ package scrape
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
+	"go-MyVIT/api/status"
 	"os"
 )
 
 type general struct {
-	Name           string `json:'name'`
-	DOB            string `json:'dob'`
-	Gender         string `json:'gender'`
-	NativeLanguage string `json:'nativelang'`
-	Nationality    string `json:'nationality'`
-	BloodGroup     string `json:'bloodGroup'`
-	VitMail        string `json:'vitmail'`
-	Hosteler       string `json:'hosteler'`
+	Name           string `json:"name"`
+	DOB            string `json:"dob"`
+	Gender         string `json:"gender"`
+	NativeLanguage string `json:"nativelang"`
+	Nationality    string `json:"nationality"`
+	BloodGroup     string `json:"bloodGroup"`
+	VitMail        string `json:"vitmail"`
+	Hosteler       string `json:"hosteler"`
 }
 type hostelAddr struct {
-	BlockName string `json:'blockname'`
-	Room      string `json:'room'`
-	Mess      string `json:'mess'`
+	BlockName string `json:'blockname"`
+	Room      string `json:'room"`
+	Mess      string `json:'mess"`
 }
 
 type school struct {
-	RegisterNumber string `json:'regno'`
-	AtmNo          string `json:'atmno'`
-	School         string `json:'school'`
-	Prog           string `json:'programme'`
+	RegisterNumber string `json:"regno"`
+	AtmNo          string `json:"atmno"`
+	School         string `json:"school"`
+	Prog           string `json:"programme"`
 }
 
 type permanentAddr struct {
-	Street       string `json:'street'`
-	Area         string `json:'area'`
-	City         string `json:'city'`
-	Pincode      string `json:'pincode'`
-	State        string `json:'state'`
-	Country      string `json:'country'`
-	PhoneNumber  string `json:'phoneno'`
-	MobileNumber string `json:'mobileno'`
-	EmailID      string `json:'emailid'`
+	Street       string `json:"street"`
+	Area         string `json:"area"`
+	City         string `json:"city"`
+	Pincode      string `json:"pincode"`
+	State        string `json:"state"`
+	Country      string `json:"country"`
+	PhoneNumber  string `json:"phoneno"`
+	MobileNumber string `json:"mobileno"`
+	EmailID      string `json:"emailid"`
 }
 
 type PersonalDetailsStruct struct {
-	Status           string        `json:"status"`
-	General          general       `json:"general"`
-	Hostel           hostelAddr    `json:"hostel"`
-	School           school        `json:"school"`
-	PermanentAddress permanentAddr `json:"permanentAddress"`
+	Status           status.StatusStruct `json:"status"`
+	General          general             `json:"general"`
+	Hostel           hostelAddr          `json:"hostel"`
+	School           school              `json:"school"`
+	PermanentAddress permanentAddr       `json:"permanentAddress"`
 }
 
 /*
 Function to show personal details,
 Calls NewLogin to login to academics,
 @param bow (surf Browser) registration_no password
-@return Attendance struct
+@return PersonalDetails struct
 */
 func ShowPersonalDetails(bow *browser.Browser, reg, baseuri string, found bool) *PersonalDetailsStruct {
 	sem := os.Getenv("SEM")
-	status := "Success"
+	stat := status.Success()
 	var (
 		g  general
 		h  hostelAddr
@@ -73,7 +73,7 @@ func ShowPersonalDetails(bow *browser.Browser, reg, baseuri string, found bool) 
 	)
 	cnt := 1
 	if !found {
-		status = "Failure"
+		stat = status.SessionError()
 	} else {
 
 		util := []string{}
@@ -112,7 +112,7 @@ func ShowPersonalDetails(bow *browser.Browser, reg, baseuri string, found bool) 
 					util = append(util, td.Eq(1).Text())
 					if cnt == 18 {
 						so = school{RegisterNumber: util[0], AtmNo: util[1], School: util[2], Prog: util[3]}
-						//fmt.Println(util[0], util[1], util[2], util[3])
+
 						util = []string{}
 					}
 				} else if cnt > 19 && cnt <= 28 {
@@ -134,29 +134,14 @@ func ShowPersonalDetails(bow *browser.Browser, reg, baseuri string, found bool) 
 					}
 				}
 
-				//fmt.Println(td.Text(), cnt)
 				cnt += 1
 			})
 
-			//fmt.Println(bow.Body())
-
 		}
 	}
-	/*else if cnt > 14 && cnt <= 18 {
-		util = append(util, td.Eq(1).Text())
-		if cnt == 18 {
-			s = schoolInfo{
-				RegisterNumber: util[0],
-				AtmNo:          util[1],
-				School:         util[2],
-				Programme:      util[3],
-			}
-			util = []string{}
-		}
-	} */
 
 	return &PersonalDetailsStruct{
-		Status:           status,
+		Status:           stat,
 		General:          g,
 		Hostel:           h,
 		School:           so,
