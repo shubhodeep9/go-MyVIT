@@ -150,7 +150,14 @@ func ShowFamilyDetails(regno, password, baseuri string) *scrape.FamilyDetailsStr
 	bow.SetTransport(tr)
 	return scrape.ShowFamilyDetails(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
-
+func RoomAllot(regno, password, baseuri string) *scrape.RoomAllotStruct {
+	var bow *browser.Browser = surf.NewBrowser()
+	var tr *http.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
+	return scrape.RoomAllot(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
+}
 func ShowHostelDetails(regno, password, baseuri string) *scrape.HostelDetailsStruct {
 	var bow *browser.Browser = surf.NewBrowser()
 	var tr *http.Transport = &http.Transport{

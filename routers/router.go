@@ -93,6 +93,12 @@ func init() {
 				&controllers.LeaveRequestController{},
 			),
 		),
+		beego.NSNamespace("/roomAllot",
+			beego.NSInclude(
+				// controllers/examSchedule.go
+				&controllers.RoomAllotController{},
+			),
+		),
 	)
 	stats := beego.NewNamespace("/admin",
 		beego.NSNamespace("/stats",
