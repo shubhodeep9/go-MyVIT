@@ -173,13 +173,13 @@ func ShowStats() map[string]int {
 	return stat
 }
 
-func FacultyInformation(regno, password, baseuri, query string) string {
+func FacultyInformation(regno, password, baseuri string) *scrape.AllFacs {
 	var bow *browser.Browser = surf.NewBrowser()
 	var tr *http.Transport = &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	bow.SetTransport(tr)
-	return scrape.FacultySearch(bow, regno, password, baseuri, query, cacheSession.SetSession(bow, cac, regno))
+	return scrape.FacultySearch(bow, regno, password, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
 
 func CookieReturn(regno string) string {
