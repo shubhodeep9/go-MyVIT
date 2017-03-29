@@ -1,8 +1,10 @@
 package controllers
 
 import (
+	//"encoding/json"
 	"github.com/astaxie/beego"
 	"go-MyVIT/api"
+	//"time"
 )
 
 type FacultyController struct {
@@ -15,10 +17,12 @@ type FacultyController struct {
 // @Failure 403 parameters missing
 // @router / [post]
 func (o *FacultyController) Post() {
+
 	regNo := o.Input().Get("regNo")
 	psswd := o.Input().Get("psswd")
 	campus := o.Ctx.Input.Param(":campus")
-	query := o.Input().Get("fac")
+	//query := o.Input().Get("keyword")
+
 	var baseuri string
 	if campus == "vellore" {
 		baseuri = "https://vtop.vit.ac.in"
@@ -26,7 +30,7 @@ func (o *FacultyController) Post() {
 		baseuri = "https://academicscc.vit.ac.in"
 	}
 	if regNo != "" && psswd != "" {
-		o.Data["json"] = api.FacultyInformation(regNo, psswd, baseuri, query)
+		o.Data["json"] = api.FacultyInformation(regNo, psswd, baseuri)
 	}
 	o.ServeJSON()
 }
