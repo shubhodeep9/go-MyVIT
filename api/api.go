@@ -109,19 +109,13 @@ func ShowMessages(regno, password, baseuri string) *scrape.MessagesStruct {
 	bow.SetTransport(tr)
 	return scrape.FacMessage(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
-func ShowPersonalDetails(regno, password, baseuri string) *scrape.PersonalDetailsStruct {
+func LeaveRequest(regno, password, baseuri string) *scrape.LeaveRequestStruct {
 	var bow *browser.Browser = surf.NewBrowser()
 	var tr *http.Transport = &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	bow.SetTransport(tr)
-	return scrape.ShowPersonalDetails(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
-}
-
-func ShowStats() map[string]int {
-	stat := make(map[string]int)
-	stat["current_users"] = len(cac.Items())
-	return stat
+	return scrape.LeaveRequest(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
 func ShowExamSchedule(regno, password, baseuri string) *scrape.MainExamSchedule {
 	var bow *browser.Browser = surf.NewBrowser()
@@ -131,13 +125,60 @@ func ShowExamSchedule(regno, password, baseuri string) *scrape.MainExamSchedule 
 	bow.SetTransport(tr)
 	return scrape.ExmSchedule(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
-func FacultyInformation(regno, password, baseuri, query string) string {
+func ShowPersonalDetails(regno, password, baseuri string) *scrape.PersonalDetailsStruct {
 	var bow *browser.Browser = surf.NewBrowser()
 	var tr *http.Transport = &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	bow.SetTransport(tr)
-	return scrape.FacultySearch(bow, regno, password, baseuri, query, cacheSession.SetSession(bow, cac, regno))
+	return scrape.ShowPersonalDetails(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
+}
+func ShowEducationalDetails(regno, password, baseuri string) *scrape.EducationalDetailsStruct {
+	var bow *browser.Browser = surf.NewBrowser()
+	var tr *http.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
+	return scrape.ShowEducationalDetails(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
+}
+func ShowFamilyDetails(regno, password, baseuri string) *scrape.FamilyDetailsStruct {
+	var bow *browser.Browser = surf.NewBrowser()
+	var tr *http.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
+	return scrape.ShowFamilyDetails(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
+}
+func RoomAllot(regno, password, baseuri string) *scrape.RoomAllotStruct {
+	var bow *browser.Browser = surf.NewBrowser()
+	var tr *http.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
+	return scrape.RoomAllot(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
+}
+func ShowHostelDetails(regno, password, baseuri string) *scrape.HostelDetailsStruct {
+	var bow *browser.Browser = surf.NewBrowser()
+	var tr *http.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
+	return scrape.ShowHostelDetails(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
+}
+
+func ShowStats() map[string]int {
+	stat := make(map[string]int)
+	stat["current_users"] = len(cac.Items())
+	return stat
+}
+
+func FacultyInformation(regno, password, baseuri string) *scrape.AllFacs {
+	var bow *browser.Browser = surf.NewBrowser()
+	var tr *http.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
+	return scrape.FacultySearch(bow, regno, password, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
 
 func CookieReturn(regno string) string {
