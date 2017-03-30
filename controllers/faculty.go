@@ -21,7 +21,7 @@ func (o *FacultyController) Post() {
 	regNo := o.Input().Get("regNo")
 	psswd := o.Input().Get("psswd")
 	campus := o.Ctx.Input.Param(":campus")
-	//query := o.Input().Get("keyword")
+	query := o.Input().Get("keyword")
 
 	var baseuri string
 	if campus == "vellore" {
@@ -30,7 +30,7 @@ func (o *FacultyController) Post() {
 		baseuri = "https://academicscc.vit.ac.in"
 	}
 	if regNo != "" && psswd != "" {
-		o.Data["json"] = api.FacultyInformation(regNo, psswd, baseuri)
+		o.Data["json"] = api.FacultyInformation(regNo, psswd, query, baseuri)
 	}
 	o.ServeJSON()
 }

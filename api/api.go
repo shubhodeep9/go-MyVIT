@@ -172,13 +172,13 @@ func ShowStats() map[string]int {
 	return stat
 }
 
-func FacultyInformation(regno, password, baseuri string) *scrape.AllFacs {
+func FacultyInformation(regno, password, query, baseuri string) *scrape.AllFacs {
 	var bow *browser.Browser = surf.NewBrowser()
 	var tr *http.Transport = &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	bow.SetTransport(tr)
-	return scrape.FacultySearch(bow, regno, password, baseuri, cacheSession.SetSession(bow, cac, regno))
+	return scrape.FacultySearch(bow, regno, password, query, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
 
 func CookieReturn(regno string) string {
@@ -224,7 +224,7 @@ func GcmSender(message string) *gcm.Response {
 	msg := gcm.NewMessage(data, regIDs[div*1000:]...)
 
 	// Send the message and receive the response after at most two retries.
-	response, _:= sender.Send(msg, 2)
+	response, _ := sender.Send(msg, 2)
 	return response
 }
 
