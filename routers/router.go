@@ -87,6 +87,13 @@ func init() {
 				&controllers.ExamScheduleController{},
 			),
 		),
+		beego.NSNamespace("/facphotos",
+			beego.NSInclude(
+				// controllers/facphotos.go
+				&controllers.FacultyPhotosController{},
+			),
+		),
+				 
 		beego.NSNamespace("/leaveRequest",
 			beego.NSInclude(
 				// controllers/examSchedule.go
