@@ -55,6 +55,15 @@ func CourseSlotsPage(regno, password, baseuri, coursekey string) *scrape.SlotsSt
 	bow.SetTransport(tr)
 	return scrape.Slots(bow, regno, password, baseuri, coursekey, cacheSession.SetSession(bow, cac, regno))
 }
+func FacPhotos(regno, password, query, baseuri string) *scrape.FacPhoto {
+	var bow *browser.Browser = surf.NewBrowser()
+	var tr *http.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
+	return scrape.FacultyPhoto(bow, regno, password, query, baseuri, cacheSession.SetSession(bow, cac, regno))
+}
+
 
 func CourseFacPage(regno, password, baseuri, coursekey, slt string) *scrape.FacStruct {
 	var bow *browser.Browser = surf.NewBrowser()
