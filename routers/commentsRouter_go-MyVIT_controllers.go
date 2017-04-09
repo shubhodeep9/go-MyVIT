@@ -33,6 +33,12 @@ func init() {
 			`/`,
 			[]string{"post"},
 			nil})
+	beego.GlobalControllerRouter["go-MyVIT/controllers:FacultyPhotosController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:FacultyPhotosController"],
+		beego.ControllerComments{
+			"Post",
+			`/`,
+			[]string{"post"},
+			nil})
 	beego.GlobalControllerRouter["go-MyVIT/controllers:ExamScheduleController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:ExamScheduleController"],
 		beego.ControllerComments{
 			"Post",
