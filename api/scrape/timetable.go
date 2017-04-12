@@ -98,6 +98,9 @@ func ShowTimetable(bow *browser.Browser, baseuri string) *Timetable {
 							if td.Eq(5).Text() == "Lab Only" {
 								code = code + "_L"
 							}
+						} else if code == "Embedded Project" {
+								code = code + "_P"
+							}
 							cn, _ := strconv.Atoi(td.Eq(2).Text())
 							conts[code] = Contents{
 								Class_number:        cn,
