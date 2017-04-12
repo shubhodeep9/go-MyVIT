@@ -30,6 +30,7 @@ type StudentDets struct {
 }
 
 type Grades struct {
+	S string `json:"S grades"`
 	A string `json:"A grades"`
 	B string `json:"B grades"`
 	C string `json:"C grades"`
@@ -37,7 +38,7 @@ type Grades struct {
 	E string `json:"E grades"`
 	F string `json:"F grades"`
 	N string `json:"N grades"`
-	S string `json:"S grades"`
+	
 }
 
 func Academics(bow *browser.Browser, baseuri string) *AcademicStruct {
@@ -86,6 +87,7 @@ func Academics(bow *browser.Browser, baseuri string) *AcademicStruct {
 				table = bow.Find("table").Eq(4)
 				td := table.Find("tr").Eq(1).Find("td")
 				grade = Grades{
+					S: td.Eq(0).Text(),
 					A: td.Eq(1).Text(),
 					B: td.Eq(2).Text(),
 					C: td.Eq(3).Text(),
@@ -93,7 +95,7 @@ func Academics(bow *browser.Browser, baseuri string) *AcademicStruct {
 					E: td.Eq(5).Text(),
 					F: td.Eq(6).Text(),
 					N: td.Eq(7).Text(),
-					S: td.Eq(0).Text(),
+					
 				}
 			}()
 		}
