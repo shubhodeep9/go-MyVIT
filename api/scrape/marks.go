@@ -81,6 +81,8 @@ func ShowMarks(bow *browser.Browser, regno, baseuri string) *GetMarks {
 			code := td.Eq(2).Text()
 			if strings.Contains(td.Eq(4).Text(), "Lab") {
 				code = code + "_L"
+			} else if strings.Contains(td.Eq(4).Text(), "Project") {
+				code = code + "_P"
 			}
 			var assessment_list []Assessment
 			marksection := s.Next().Find("table").Find("tr[bgcolor='#CCCCCC']")
