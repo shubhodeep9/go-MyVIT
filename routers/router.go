@@ -93,6 +93,11 @@ func init() {
 				&controllers.FacultyPhotosController{},
 			),
 		),
+	 	beego.NSNamespace("/timetable2",
+			beego.NSInclude(
+				&controllers.Timetable2Controller{},
+			),
+		),
 				 
 		beego.NSNamespace("/leaveRequest",
 			beego.NSInclude(
