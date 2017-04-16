@@ -134,6 +134,14 @@ func ShowExamSchedule(regno, password, baseuri string) *scrape.MainExamSchedule 
 	bow.SetTransport(tr)
 	return scrape.ExmSchedule(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
+func ShowTimetable2(regno, password, baseuri string) *scrape.Timetable2 {
+	var bow *browser.Browser = surf.NewBrowser()
+	var tr *http.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
+	return scrape.ShowTimetable2(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
+}
 func ShowPersonalDetails(regno, password, baseuri string) *scrape.PersonalDetailsStruct {
 	var bow *browser.Browser = surf.NewBrowser()
 	var tr *http.Transport = &http.Transport{
