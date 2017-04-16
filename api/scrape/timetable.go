@@ -115,7 +115,7 @@ func ShowTimetable(bow *browser.Browser, baseuri string) *Timetable {
 								Slot:                td.Eq(9).Text(),
 								Venue:               td.Eq(10).Text(),
 							}
-						}
+						
 					}(conts, s)
 				}
 			})
