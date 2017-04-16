@@ -94,11 +94,10 @@ func ShowTimetable(bow *browser.Browser, baseuri string) *Timetable {
 								Slot:          td.Eq(7).Text(),
 								Venue:         td.Eq(8).Text(),
 							}
-						} else if code != "Embedded Project" {
+						} else {
 							if td.Eq(5).Text() == "Lab Only" {
 								code = code + "_L"
-							}
-						} else if code == "Embedded Project" {
+							} else if code == "Embedded Project" {
 								code = code + "_P"
 							}
 							cn, _ := strconv.Atoi(td.Eq(2).Text())
