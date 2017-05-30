@@ -39,12 +39,6 @@ func init() {
 				&controllers.SpotlightController{},
 			),
 		),
-		beego.NSNamespace("/menu",
-			beego.NSInclude(
-				// controllers/spotlight.go
-				&controllers.MenuController{},
-			),
-		),
 		beego.NSNamespace("/pic",
 			beego.NSInclude(
 				// controllers/pic.go
