@@ -68,6 +68,14 @@ func init() {
 				&controllers.PersonalDetailsController{},
 			),
 		),
+				 
+		beego.NSNamespace("/calCourses",
+			beego.NSInclude(
+				//controllers/familyDetails.go
+				&controllers.CalCoursesController{},
+			),
+		),
+				 
 		beego.NSNamespace("/educationalDetails",
 			beego.NSInclude(
 				//controllers/educationalDetails.go
