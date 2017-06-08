@@ -64,6 +64,16 @@ func FacPhotos(regno, password, query, baseuri string) *scrape.FacPhoto {
 	return scrape.FacultyPhoto(bow, regno, password, query, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
 
+func CalCourses(regno, password, baseuri string) *scrape.CalCourses {
+	var bow *browser.Browser = surf.NewBrowser()
+	var tr *http.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
+	return scrape.CalCourseFunc(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
+}
+
+
 func ShowMenu(regno, password, baseuri string) *scrape.MenuStruct {
 	var bow *browser.Browser = surf.NewBrowser()
 	var tr *http.Transport = &http.Transport{
