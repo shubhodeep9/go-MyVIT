@@ -117,14 +117,16 @@ func ShowTimetable(bow *browser.Browser, baseuri string) *Timetable {
 						
 					}
 				}(conts, s)
-			})
+			}
 			wg.Wait()
 			if len(conts) == 0 {
 				status = "Failure"
 			}
-		}
+		})
 	}
 
+	
+	}
 	return &Timetable{
 		Status:     status,
 		Time_table: conts,
