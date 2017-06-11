@@ -2,7 +2,7 @@ package scrape
 
 import (
 	//"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
-	"fmt"
+	//"fmt"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/status"
 	//"strconv"
@@ -39,9 +39,11 @@ func Parser(text, prefix string) []SubMenu {
 			if !strings.Contains(inSplit[0], "p0") {
 				insideSelf = true
 			}
-
+			//fmt.Println(inSplit[1],insideSelf)
 			if inSplit[3] == `"main"` {
 				if insideSelf == false {
+					//fmt.Println("Sub menu",inSplit[1])
+
 					temp := SubMenu{
 						Name: strings.Trim(inSplit[1][1:], "\""),
 						Link: prefix + strings.Trim(inSplit[2][1:], `\"`),
@@ -55,16 +57,30 @@ func Parser(text, prefix string) []SubMenu {
 					}
 					//fmt.Println(temp)
 					tempy.Content = append(tempy.Content, temp)
-					fmt.Println(tempy)
+					//fmt.Println(tempy)
 
 				}
+			} else if strings.Contains(inSplit[0], "p2") { // This snippet is for handling the special case of physical education
+				temp := Entity{
+					Name: strings.Trim(inSplit[1][1:], `\"`),
+					Link: strings.Trim(inSplit[2][1:], `\"`),
+				}
+				tempy.Content = append(tempy.Content, temp)
+
 			} else {
 				toggle = (toggle + 1) % 2
+				//fmt.Println(inSplit[1],toggle)
 				if toggle == 0 {
+					//fmt.Println(inSplit[1],tempy)
+					if len(tempy.Content) != 0 {
+						tempy.Link = ""
+					}
 					subMenus = append(subMenus, tempy)
 					tempy = SubMenu{}
+					toggle = (toggle + 1) % 2
 				}
 				tempy.Name = strings.Trim(inSplit[1][1:], `\"`)
+				//tempy.Link = ""
 				tempy.Link = prefix + strings.Trim(inSplit[2][1:], `\"`)
 
 			}
