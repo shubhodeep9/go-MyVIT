@@ -115,8 +115,8 @@ func ShowTimetable(bow *browser.Browser, baseuri string) *Timetable {
 								Venue:               td.Eq(10).Text(),
 							}
 						
-					}(conts, s)
-				}
+					}
+				}(conts, s)
 			})
 			wg.Wait()
 			if len(conts) == 0 {
