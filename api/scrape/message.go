@@ -11,6 +11,7 @@ import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	status_code "go-MyVIT/api/status"
+	//"fmt"
 )
 
 type MessagesStructUtil struct {
@@ -40,10 +41,12 @@ func FacMessage(bow *browser.Browser, reg, baseuri string, found bool) *Messages
 	} else {
 
 		bow.Open(baseuri + "/student/class_message_view.asp")
+		
 		cnt := 1
 		util := []string{}
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
 		if bow.Open(baseuri+"/student/class_message_view.asp") == nil {
+			//fmt.Println(bow.Body())
 			tables := bow.Find("table[cellpadding='3']")
 			tables.Find("tr").Each(func(i int, s *goquery.Selection) {
 				td1 := s.Find("td[width='90']")

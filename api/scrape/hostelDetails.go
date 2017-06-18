@@ -31,15 +31,7 @@ type RoommatesStruct struct {
 	School     string `json:"school"`
 }
 
-/*
-Block ID	MHD
-Block Name	D BLOCK [NELSON MANDELA]
-Room No.	129
-Room Type	1 Bed - AC
-Mess Type	North Indian - Non Veg
-Caterer Name	[RSM2]M/S. RSM CATERERS-G Block
-Hostel Room Mates
-*/
+
 
 type HostelDetailsStruct struct {
 	Status  status.StatusStruct `json:"status"`

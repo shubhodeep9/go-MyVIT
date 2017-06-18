@@ -11,12 +11,12 @@
 package scrape
 
 import (
-	"fmt"
+	//"fmt"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/status"
 	"strings"
-	//"os"
+	"os"
 )
 
 type Timetable2 struct {
@@ -106,16 +106,16 @@ func ShowTimetable2(bow *browser.Browser, reg, baseuri string, found bool) *Time
 	res := []Table{}
 	//res2 := []DayLab{}
 
-	//sem := os.Getenv("SEM")
+	sem := os.Getenv("SEM")
 	//cnt := 1
 	//sem = ""
 	stat := status.Success()
 	if !found {
 		stat = status.SessionError()
 	} else {
-		bow.Open(baseuri + "/student/course_regular.asp?sem=WS")
+		bow.Open(baseuri + "/student/course_regular.asp?sem="+sem)
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
-		if bow.Open(baseuri+"/student/course_regular.asp?sem=WS") == nil {
+		if bow.Open(baseuri+"/student/course_regular.asp?sem="+sem) == nil {
 			table := bow.Find("table[width='95%']")
 			table.Find("tr").Each(func(i int, s *goquery.Selection) {
 				if i > 1 {
@@ -128,7 +128,7 @@ func ShowTimetable2(bow *browser.Browser, reg, baseuri string, found bool) *Time
 					//temp2.Day = td.Eq(0).Text()
 					for x := 1; x <= 14; x++ {
 						a := toKey(x)
-						if strings.Contains(td.Eq(x).Text(), "ETH") && len(td.Eq(x).Text())!=0 {
+						if strings.Contains(td.Eq(x).Text(), "ETH") ||  strings.Contains(td.Eq(x).Text(),"SS") && len(td.Eq(x).Text())!=0 {
 
 							switch a {
 							case "One":
@@ -194,8 +194,8 @@ func ShowTimetable2(bow *browser.Browser, reg, baseuri string, found bool) *Time
 						}
 
 					}
-					fmt.Println(temp1)
-					fmt.Println(temp2)
+					//fmt.Println(temp1)
+					//fmt.Println(temp2)
 					temp.Theory = temp1
 					temp.Lab = temp2
 					res = append(res, temp)

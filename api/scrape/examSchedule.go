@@ -11,7 +11,7 @@ import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/status"
-	//"os"
+	"os"
 	//"sync"
 )
 
@@ -59,7 +59,7 @@ func ExmSchedule(bow *browser.Browser, reg, baseuri string, found bool) *MainExa
 	cat1 := []Content{}
 	cat2 := []Content{}
 	fat := []Content{}
-	//sem := os.Getenv("SEM")
+	sem := os.Getenv("SEM")
 	//sem = "WS"
 	stat := status.Success()
 
@@ -68,9 +68,9 @@ func ExmSchedule(bow *browser.Browser, reg, baseuri string, found bool) *MainExa
 	} else {
 		var Exam string
 
-		bow.Open(baseuri + "/student/exam_schedule.asp?sem=WS")
+		bow.Open(baseuri + "/student/exam_schedule.asp?sem="+sem)
 		//Reload
-		if bow.Open(baseuri+"/student/exam_schedule.asp?sem=WS") == nil {
+		if bow.Open(baseuri+"/student/exam_schedule.asp?sem="+sem) == nil {
 
 			table := bow.Find("table[width='897']")
 			rows := table.Find("tr").Length()
