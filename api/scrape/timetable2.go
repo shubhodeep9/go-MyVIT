@@ -15,18 +15,18 @@ import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
 	"go-MyVIT/api/status"
-	"strings"
 	"os"
+	"strings"
 )
 
 type Timetable2 struct {
 	status status.StatusStruct `json:"status"`
-	Tbl []Table `json:"timetable"`
+	Tbl    []Table             `json:"timetable"`
 }
-type Table struct{
-	Day string `json:"day"`
+type Table struct {
+	Day    string    `json:"day"`
 	Theory DayTheory `json:"theory"`
-	Lab DayLab `json:"lab"`
+	Lab    DayLab    `json:"lab"`
 }
 
 type DayTheory struct {
@@ -48,7 +48,7 @@ type DayLab struct {
 	Two      string `json:"8:50to9:40"`
 	Three    string `json:"10:00to10:50"`
 	Four     string `json:"10:50to11:40"`
-	Five     string `json:"12:00to12:50"`
+	Five     string `json:"12:00to12:40"`
 	Six      string `json:"12:40to13:30"`
 	Seven    string `json:"14:00to14:50"`
 	Eight    string `json:"14:50to15:40"`
@@ -113,22 +113,22 @@ func ShowTimetable2(bow *browser.Browser, reg, baseuri string, found bool) *Time
 	if !found {
 		stat = status.SessionError()
 	} else {
-		bow.Open(baseuri + "/student/course_regular.asp?sem="+sem)
+		bow.Open(baseuri + "/student/course_regular.asp?sem=" + sem)
 		//Twice loading due to Redirect policy defined by academics.vit.ac.in
 		if bow.Open(baseuri+"/student/course_regular.asp?sem="+sem) == nil {
 			table := bow.Find("table[width='95%']")
 			table.Find("tr").Each(func(i int, s *goquery.Selection) {
 				if i > 1 {
 					td := s.Find("td")
-					var temp Table			
+					var temp Table
 					var temp1 DayTheory
 					var temp2 DayLab
-					temp.Day=td.Eq(0).Text()
+					temp.Day = td.Eq(0).Text()
 					//temp1.Day = td.Eq(0).Text()
 					//temp2.Day = td.Eq(0).Text()
 					for x := 1; x <= 14; x++ {
 						a := toKey(x)
-						if strings.Contains(td.Eq(x).Text(), "ETH") ||  strings.Contains(td.Eq(x).Text(),"SS") && len(td.Eq(x).Text())!=0 {
+						if strings.Contains(td.Eq(x).Text(), "ETH") || strings.Contains(td.Eq(x).Text(), "SS") && len(td.Eq(x).Text()) != 0 {
 
 							switch a {
 							case "One":
@@ -158,7 +158,7 @@ func ShowTimetable2(bow *browser.Browser, reg, baseuri string, found bool) *Time
 
 							}
 
-						} else if strings.Contains(td.Eq(x).Text(), "ELA") && len(td.Eq(x).Text())!=0 {
+						} else if strings.Contains(td.Eq(x).Text(), "ELA") && len(td.Eq(x).Text()) != 0 {
 							switch a {
 							case "One":
 								temp2.One = td.Eq(x).Text()
@@ -210,7 +210,7 @@ func ShowTimetable2(bow *browser.Browser, reg, baseuri string, found bool) *Time
 
 	return &Timetable2{
 		status: stat,
-		Tbl:res,
+		Tbl:    res,
 	}
 
 }

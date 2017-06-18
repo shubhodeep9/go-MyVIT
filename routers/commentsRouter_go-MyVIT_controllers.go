@@ -28,7 +28,7 @@ func init() {
 			`/`,
 			[]string{"get"},
 			nil,
-			nil})
+			/*nil*/})
 	beego.GlobalControllerRouter["go-MyVIT/controllers:MenuController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:MenuController"],
 		beego.ControllerComments{
 			"Post",
@@ -107,6 +107,7 @@ func init() {
 			[]string{"get"},
 			nil,
 			/*nil*/})
+
 	beego.GlobalControllerRouter["go-MyVIT/controllers:MessageController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:MessageController"],
 		beego.ControllerComments{
 			"Post",
@@ -130,6 +131,7 @@ func init() {
 			[]string{"post"},
 			nil,
 			/*nil*/})
+
 	beego.GlobalControllerRouter["go-MyVIT/controllers:FamilyDetailsController"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:FamilyDetailsController"],
 		beego.ControllerComments{
 			"Post",
@@ -137,6 +139,7 @@ func init() {
 			[]string{"post"},
 			nil,
 			/*nil*/})
+
 	beego.GlobalControllerRouter["go-MyVIT/controllers:Timetable2Controller"] = append(beego.GlobalControllerRouter["go-MyVIT/controllers:Timetable2Controller"],
 		beego.ControllerComments{
 			"Post",

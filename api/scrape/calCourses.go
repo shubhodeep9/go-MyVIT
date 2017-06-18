@@ -100,7 +100,7 @@ func CalCourseFunc(bow *browser.Browser, reg, baseuri string, found bool) *CalCo
 					data.Set("crscd", crscd)
 					data.Set("crstp", crstp)
 					bow.PostForm(baseuri+"/student/"+action, data)
-					if crsType != "Embedded Project" {
+					if crsType == "Embedded Theory" {
 						assignmentTable := bow.Find("table[width='1000']")
 						assignments := []Assigns{}
 						rows := assignmentTable.Find("tr")
@@ -108,11 +108,11 @@ func CalCourseFunc(bow *browser.Browser, reg, baseuri string, found bool) *CalCo
 							if i2 > 1 && i2 < rows.Length()-1 {
 								td2 := s2.Find("td")
 								t := Assigns{
-									Number:       td2.Eq(0).Text(),
-									Title:        td2.Eq(1).Text(),
-									DueDate:      td2.Eq(2).Text(),
-									MaxMark:      td2.Eq(3).Text(),
-									Question:     td2.Eq(4).Text(),
+									Number:  td2.Eq(0).Text(),
+									Title:   td2.Eq(1).Text(),
+									DueDate: td2.Eq(2).Text(),
+									MaxMark: td2.Eq(3).Text(),
+									//Question:     td2.Eq(4).Text(),
 									Answer:       td2.Eq(5).Text(),
 									StatusAssign: td2.Eq(6).Text(),
 									Score:        td2.Eq(7).Text(),
@@ -135,6 +135,41 @@ func CalCourseFunc(bow *browser.Browser, reg, baseuri string, found bool) *CalCo
 							Assignments: assignments,
 						}
 						courses = append(courses, temp)
+					} else if crsType == "Embedded Lab" {
+
+						assignmentTable := bow.Find("table[width='1000']")
+						assignments := []Assigns{}
+						rows := assignmentTable.Find("tr")
+						rows.Each(func(i2 int, s2 *goquery.Selection) {
+							if i2 > 1 && i2 < rows.Length()-1 {
+								td2 := s2.Find("td")
+								t := Assigns{
+									Number:       td2.Eq(0).Text(),
+									Title:        td2.Eq(1).Text(),
+									MaxMark:      td2.Eq(2).Text(),
+									Answer:       td2.Eq(4).Text(),
+									StatusAssign: td2.Eq(5).Text(),
+									Score:        td2.Eq(6).Text(),
+									Detail:       td2.Eq(7).Text(),
+								}
+								assignments = append(assignments, t)
+
+							}
+
+						})
+
+						temp := Course{
+							CourseType:  crsType,
+							CourseType2: crstp,
+							ClassNbr:    classnbr,
+							CourseCode:  crscd,
+							CourseTitle: td.Eq(3).Text(),
+							Faculty:     td.Eq(5).Text(),
+							Sem:         sem,
+							Assignments: assignments,
+						}
+						courses = append(courses, temp)
+
 					} else {
 
 						marksTable := bow.Find("table[width='800']")
