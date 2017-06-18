@@ -15,12 +15,12 @@ type MenuController struct {
 	beego.Controller
 }
 
-// @Title Get
+// @Title Post
 // @Description find object by objectid
 // @Success 200
 // @Failure 403 parameters missing
-// @router / [get]
-func (o *MenuController) Get() {
+// @router / [post]
+func (o *MenuController) Post() {
 	//fmt.Println("controller")
 	regNo := o.Input().Get("regNo")
 	psswd := o.Input().Get("psswd")
