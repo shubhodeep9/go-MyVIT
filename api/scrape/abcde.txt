@@ -1,0 +1,20 @@
+type Contents struct{
+    Class_number int `json:"class_number"`
+    Course_code string `json:"course_code"`
+    Course_mode string `json:"course_mode"`
+    Course_option string `json:"course_option"`
+    Course_title string `json:"course_title"`
+    Course_type string `json:"subject_type"`
+    Faculty string `json:"faculty"`
+    Lptjc string `json:"ltpc"`
+    Registration_status string  `json:"registration_status"`
+    Slot string `json:"slot"`
+    Venue string `json:"venue"`
+    //BillDate string `json:"bill_date"`
+    //BillNumber string `json:"bill_number"`
+    //ProjectTitle string `json:"project_title"`
+    //Timings []TimeStruct `json:"timings"`
+    //Attendance Subject `json:"attendace"`
+    //Marks Mrks `json:"marks"`
+}
+

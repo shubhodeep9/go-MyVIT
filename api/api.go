@@ -27,6 +27,7 @@ import (
 )
 
 var cac *cache.Cache = cache.New(2*time.Minute, 30*time.Second)
+var client http.Client
 
 //Executable script to Login
 func LogIn(regno, password, baseuri string) *login.Response {
@@ -35,8 +36,16 @@ func LogIn(regno, password, baseuri string) *login.Response {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	bow.SetTransport(tr)
+	client = login.LoginVtopBeta(client, regno, password)
+
 	return login.NewLogin(bow, regno, password, baseuri, cac)
 }
+
+/*
+
+func LoginInVtopBeta(regno, password string) *http.Client {
+	return login.LoginVtopBeta(regno, password)
+}*/
 
 func CourseCoursesPage(regno, password, baseuri string) *scrape.CourseStruct {
 	var bow *browser.Browser = surf.NewBrowser()
@@ -72,7 +81,6 @@ func CalCourses(regno, password, baseuri string) *scrape.CalCourses {
 	bow.SetTransport(tr)
 	return scrape.CalCourseFunc(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
-
 
 func ShowMenu(regno, password, baseuri string) *scrape.MenuStruct {
 	var bow *browser.Browser = surf.NewBrowser()
@@ -158,6 +166,14 @@ func ShowTimetable2(regno, password, baseuri string) *scrape.Timetable2 {
 	}
 	bow.SetTransport(tr)
 	return scrape.ShowTimetable2(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
+}
+func ShowTimetable(regno, password, baseuri string) *scrape.Timetable3 {
+	var bow *browser.Browser = surf.NewBrowser()
+	var tr *http.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
+	return scrape.ShowTimetable(client, regno, password, baseuri)
 }
 func ShowPersonalDetails(regno, password, baseuri string) *scrape.PersonalDetailsStruct {
 	var bow *browser.Browser = surf.NewBrowser()

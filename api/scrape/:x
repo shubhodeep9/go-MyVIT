@@ -1,0 +1,92 @@
+package main
+
+import (
+	"fmt"
+	"github.com/PuerkitoBio/goquery"
+	"net/http"
+	"net/http/cookiejar"
+	//"github.com/headzoo/surf/browser"
+	"crypto/tls"
+	//"github.com/headzoo/surf"
+	"io/ioutil"
+	"net/url"
+	"strings"
+	//"os"
+	"os/exec"
+)
+
+func main() {
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	jar, _ := cookiejar.New(nil)
+	//var cookies []*http.Cookie
+    /*
+	cookie := &http.Cookie{
+		Name:  "my-cookie",
+		Value: "E7FE4F932FD60D8EE53B25E4DAAF6DD2",
+	}
+    */
+	//cookies = append(cookies, cookie)
+	//u, _ := url.Parse("https://vtopbeta.vit.ac.in/vtop/")
+	//jar.SetCookies(u, cookies)
+	client := &http.Client{
+		Jar:       jar,
+		Transport: tr,
+	}
+	postData := url.Values{}
+
+	//req, _ := http.NewRequest("POST", "https://vtopbeta.vit.ac.in/vtop/", strings.NewReader(postData.Encode()))
+    req,_ := http.NewRequest("GET","https://vtopbeta.vit.ac.in/vtop/",strings.NewReader(postData.Encode()))
+    req.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Max OS X 10_10_5) AppleWebKit (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36")
+	resp, err := client.Do(req)
+    fmt.Println("JAr",jar,"\n")
+    // fmt.Println("POSTDATA",postData)
+	if err != nil {
+		panic(err)
+	}
+	body, _ := ioutil.ReadAll(resp.Body)
+	resp.Body.Close()
+	html := string(body)
+    //fmt.Println("html",html)
+	doc, _ := goquery.NewDocumentFromReader(strings.NewReader((html)))
+	var base64 string
+	doc.Find("img[alt='vtopCaptcha']").Each(func(i int, inp *goquery.Selection) {
+
+		b64, _ := inp.Attr("src")
+		b64 = strings.Split(b64, ",")[1]
+		base64 = b64
+	});
+
+    //doc.Find("input").Each(Func(i int, inp
+	//a:=doc.Find("input #uname")
+	//fmt.Println(a)
+    
+	_, err2 := exec.Command("python", "parseIt.py", base64).Output()
+	var captcha string
+	if err2 == nil {
+		captchaFile, err3 := ioutil.ReadFile("output.txt")
+		if err3 == nil {
+			captcha = string(captchaFile)
+			//fmt.Println("Captcha is", captcha)
+		}
+
+	}
+    postData.Add("uname","15BCB0064")
+    postData.Add("passwd","Arsenal@1997")
+    postData.Add("captchaCheck",captcha)
+    
+    req2,_ := http.NewRequest("POST","https://vtopbeta.vit.ac.in/vtop/",strings.NewReader(postData.Encode()))
+    req2.Header.Add("Content-Type","application/x-www-form-urlencoded")
+
+    resp,err = client.Do(req2)
+    fmt.Println(resp.Body,err)
+
+    body,_ = ioutil.ReadAll(resp.Body)
+    resp.Body.Close()
+    html = string(body)
+    fmt.Println(html)
+    
+
+
+}

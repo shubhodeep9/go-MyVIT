@@ -56,7 +56,7 @@ Calls NewLogin to login to academics,
 @param bow (surf Browser) registration_no password
 @return Timtable struct
 */
-func ShowTimetable(bow *browser.Browser, baseuri string) *Timetable {
+func ShowTimetable4(bow *browser.Browser, baseuri string) *Timetable {
 	sem := os.Getenv("SEM")
 	conts := make(map[string]Contents)
 	status := "Success"
@@ -114,18 +114,17 @@ func ShowTimetable(bow *browser.Browser, baseuri string) *Timetable {
 								Slot:                td.Eq(9).Text(),
 								Venue:               td.Eq(10).Text(),
 							}
-						
-					}
-				}(conts, s)
-			}
-			wg.Wait()
-			if len(conts) == 0 {
-				status = "Failure"
-			}
-		})
-	}
 
-	
+						}
+					}(conts, s)
+				}
+				wg.Wait()
+				if len(conts) == 0 {
+					status = "Failure"
+				}
+			})
+		}
+
 	}
 	return &Timetable{
 		Status:     status,

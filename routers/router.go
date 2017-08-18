@@ -68,14 +68,14 @@ func init() {
 				&controllers.PersonalDetailsController{},
 			),
 		),
-				 
+
 		beego.NSNamespace("/calCourses",
 			beego.NSInclude(
 				//controllers/familyDetails.go
 				&controllers.CalCoursesController{},
 			),
 		),
-				 
+
 		beego.NSNamespace("/educationalDetails",
 			beego.NSInclude(
 				//controllers/educationalDetails.go
@@ -107,12 +107,17 @@ func init() {
 				&controllers.FacultyPhotosController{},
 			),
 		),
-	 	beego.NSNamespace("/timetable2",
+		beego.NSNamespace("/timetable2",
 			beego.NSInclude(
 				&controllers.Timetable2Controller{},
 			),
 		),
-				 
+		beego.NSNamespace("/timetable",
+			beego.NSInclude(
+				&controllers.TimetableController{},
+			),
+		),
+
 		beego.NSNamespace("/leaveRequest",
 			beego.NSInclude(
 				// controllers/examSchedule.go
