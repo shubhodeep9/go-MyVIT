@@ -38,9 +38,9 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) 
 		re.Add(6)
 		var (
 			//timet    *Timetable3
-			acad     *AcademicStruct
-			adv      *Advisor
-			att      *Attendance
+			acad *AcademicStruct
+			adv  *Advisor
+			//att      *Attendance
 			marks    *GetMarks
 			personal *Personal
 		)
@@ -58,10 +58,12 @@ func Refresh(bow *browser.Browser, regno, password, baseuri string, found bool) 
 			defer re.Done()
 			adv = FacultyAdvisor(bow, regno, baseuri)
 		}()
-		go func() {
-			defer re.Done()
-			att = ShowAttendance(bow, baseuri)
-		}()
+		/*
+			go func() {
+				defer re.Done()
+				att = ShowAttendance(client, regNo, psswd, baseuri)
+			}()
+		*/
 		go func() {
 			defer re.Done()
 			marks = ShowMarks(bow, regno, baseuri)

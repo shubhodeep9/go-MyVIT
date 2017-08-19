@@ -12,6 +12,7 @@ package api
 
 import (
 	"crypto/tls"
+	"fmt"
 	"github.com/alexjlockwood/gcm"
 	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf"
@@ -167,6 +168,8 @@ func ShowTimetable2(regno, password, baseuri string) *scrape.Timetable2 {
 	bow.SetTransport(tr)
 	return scrape.ShowTimetable2(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
+
+/* These are for vtopbeta2 */
 func ShowTimetable(regno, password, baseuri string) *scrape.Timetable3 {
 	var bow *browser.Browser = surf.NewBrowser()
 	var tr *http.Transport = &http.Transport{
@@ -175,6 +178,18 @@ func ShowTimetable(regno, password, baseuri string) *scrape.Timetable3 {
 	bow.SetTransport(tr)
 	return scrape.ShowTimetable(client, regno, password, baseuri)
 }
+
+func ShowAttendance(regno, password, baseuri string) *scrape.Attendance2 {
+	var bow *browser.Browser = surf.NewBrowser()
+	var tr *http.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
+	fmt.Println("Yolo")
+	return scrape.ScrapeAttendance(client, regno, password, baseuri)
+}
+
+/* Till here */
 func ShowPersonalDetails(regno, password, baseuri string) *scrape.PersonalDetailsStruct {
 	var bow *browser.Browser = surf.NewBrowser()
 	var tr *http.Transport = &http.Transport{

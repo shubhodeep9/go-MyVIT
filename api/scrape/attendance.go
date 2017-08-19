@@ -108,7 +108,7 @@ Calls NewLogin to login to academics,
 @param bow (surf Browser) registration_no password
 @return Attendance struct
 */
-func ShowAttendance(bow *browser.Browser, baseuri string) *Attendance {
+func ShowAttendanceInactive(bow *browser.Browser, baseuri string) *Attendance {
 	sem := os.Getenv("SEM")
 	avg := 0
 	status := "Success"
