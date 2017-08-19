@@ -30,9 +30,9 @@ type MainExamSchedule struct {
 
 type FinalExamSchedule struct {
 	Status status.StatusStruct `json:"status"`
-	Exams  []exms              `json:"exams"`
+	Exams  []exms3             `json:"exams"`
 }
-type exms struct {
+type exms3 struct {
 	Name     string    `json:"name"`
 	Schedule []Content `json:"schedule"`
 }
@@ -68,7 +68,7 @@ func ExmSchedule(bow *browser.Browser, reg, baseuri string, found bool) *MainExa
 	} else {
 		var Exam string
 
-		bow.Open(baseuri + "/student/exam_schedule.asp?sem="+sem)
+		bow.Open(baseuri + "/student/exam_schedule.asp?sem=" + sem)
 		//Reload
 		if bow.Open(baseuri+"/student/exam_schedule.asp?sem="+sem) == nil {
 
@@ -105,19 +105,19 @@ func ExmSchedule(bow *browser.Browser, reg, baseuri string, found bool) *MainExa
 		}
 
 	}
-	CAT1 := exms{
+	CAT1 := exms3{
 		Name:     "CAT - I",
 		Schedule: cat1,
 	}
-	CAT2 := exms{
+	CAT2 := exms3{
 		Name:     "CAT - II",
 		Schedule: cat2,
 	}
-	FAT := exms{
+	FAT := exms3{
 		Name:     "FAT",
 		Schedule: fat,
 	}
-	finalSchedule := []exms{CAT1, CAT2, FAT}
+	finalSchedule := []exms3{CAT1, CAT2, FAT}
 
 	ret := FinalExamSchedule{
 		Status: stat,

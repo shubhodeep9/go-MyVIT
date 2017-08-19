@@ -188,6 +188,15 @@ func ShowAttendance(regno, password, baseuri string) *scrape.Attendance2 {
 	fmt.Println("Yolo")
 	return scrape.ScrapeAttendance(client, regno, password, baseuri)
 }
+func ShowExamScheduleVtopBeta(regno, password, baseuri string) *scrape.MainExamSchedule2 {
+	var bow *browser.Browser = surf.NewBrowser()
+	var tr *http.Transport = &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	bow.SetTransport(tr)
+	fmt.Println("Yolo")
+	return scrape.ShowExamScheduleVtopBeta(client, regno, password, baseuri)
+}
 
 /* Till here */
 func ShowPersonalDetails(regno, password, baseuri string) *scrape.PersonalDetailsStruct {

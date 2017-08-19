@@ -98,7 +98,7 @@ func init() {
 		beego.NSNamespace("/examSchedule",
 			beego.NSInclude(
 				// controllers/examSchedule.go
-				&controllers.ExamScheduleController{},
+				&controllers.ExamSchedVtopBetaController{},
 			),
 		),
 		beego.NSNamespace("/facphotos",
