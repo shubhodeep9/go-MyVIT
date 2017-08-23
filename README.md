@@ -18,12 +18,6 @@ Extra dependency to be installed: <br />
 ```sh
 $ go get
 ```
-Set Environment variables: <br />
-```sh
-$ export SEM=[FS or WS]
-$ export VITMONGOURL=[mlab uri]
-$ export VITKEY=[KEY for gcm registration]
-```
 Execution<br />
 ```sh
 $ bee run
