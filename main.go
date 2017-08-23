@@ -12,6 +12,7 @@ package main
 
 import (
 	"github.com/astaxie/beego"
+	"github.com/joho/godotenv"
 	_ "go-MyVIT/docs"
 	_ "go-MyVIT/routers"
 	"os"
@@ -19,6 +20,10 @@ import (
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		panic("Error loading .env file")
+	}
 	port, err := strconv.Atoi(os.Getenv("PORT"))
 	if err == nil {
 		beego.BConfig.Listen.HTTPPort = port
