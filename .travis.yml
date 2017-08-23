@@ -6,6 +6,7 @@ go:
 go_import_path: go-MyVIT
 
 install:
+  - go get github.com/smartystreets/goconvey/convey
   - go get
 
 script:
