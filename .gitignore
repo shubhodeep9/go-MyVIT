@@ -28,3 +28,7 @@ _testmain.go
 
 # External packages folder
 vendor/
+
+*.pem
+
+go-MyVIT
