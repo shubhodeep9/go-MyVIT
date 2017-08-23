@@ -16,7 +16,8 @@ curl https://myffcs.in:10443/campus/vellore/coursepage/data --data "regNo=[reg]&
 Dependencies are already satisfied in Godep folder in api.<br />
 Extra dependency to be installed: <br />
 ```sh
-$ go get
+$ go get github.com/tools/godep
+$ godep get
 ```
 Set Environment variables: <br />
 ```sh
