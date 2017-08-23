@@ -1,0 +1,4 @@
+export VITKEY=
+export VITMONGOURL=
+export SEM=WS
+export DEVENV=local
