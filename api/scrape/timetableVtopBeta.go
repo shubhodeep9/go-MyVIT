@@ -95,7 +95,9 @@ func ShowTimetable(client http.Client, regNo, psswd, baseuri string) *Timetable3
 			} else if ctype == "SS" {
 				code = code + "_SS"
 				//fmt.Println("SS baby")
-			}
+			}else{
+                cod = code + "_LO"
+            }
 
 			conts[code] = Contents3{
 				Class_number:  trim(td.Eq(1).Text()),
