@@ -63,7 +63,7 @@ func ScrapeAttendance(client http.Client, regNo, psswd, baseuri string) *Attenda
 		}
 		if i > 0 {
 			code := trim(td.Eq(2).Text())
-			ctype := trim(td.Eq(4).Text())
+			ctype := trim(td.Eq(3).Text())
 			if ctype == "ETH" {
 				code = code + "_ETH"
 			} else if ctype == "EPJ" {
@@ -76,6 +76,7 @@ func ScrapeAttendance(client http.Client, regNo, psswd, baseuri string) *Attenda
 				code = code + "_SS"
 				//fmt.Println("SS baby")
 			}
+            //fmt.Println(code)
 
 			attendance[code] = SubjectAttendance{
 				CourseCode:  trim(td.Eq(1).Text()),
