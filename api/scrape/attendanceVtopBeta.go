@@ -32,7 +32,7 @@ type SubjectAttendance struct {
 }
 
 func ScrapeAttendance(client http.Client, regNo, psswd, baseuri string) *Attendance2 {
-	fmt.Println("HERE")
+	//fmt.Println("HERE")
 
 	PostData3 := strings.NewReader("semesterSubId=VL2017181")
 	req3, _ := http.NewRequest("POST", "https://vtopbeta.vit.ac.in/vtop/processViewStudentAttendance", PostData3)

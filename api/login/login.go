@@ -147,7 +147,7 @@ func LoginVtopBeta(client http.Client, regNo, psswd string) http.Client {
 		captchaFile, err3 := ioutil.ReadFile(cmd.Dir + "output.txt")
 		if err3 == nil {
 			captcha = string(captchaFile)
-			//fmt.Println("Captcha is", captcha)
+			fmt.Println("Captcha is", captcha)
 		} else {
 			fmt.Println(err3)
 		}
@@ -156,11 +156,16 @@ func LoginVtopBeta(client http.Client, regNo, psswd string) http.Client {
 	postData.Add("uname", ""+regNo)
 	postData.Add("passwd", ""+psswd)
 	postData.Add("captchaCheck", captcha)
-
-	PostData2 := strings.NewReader("uname=15BCB0064&passwd=Arsenal@1997&captchaCheck=" + captcha)
+	//fmt.Println("Post data = ",postData)
+	PostData2 := strings.NewReader("uname="+regNo+"&passwd="+psswd+"&captchaCheck=" + captcha)
 	req2, _ := http.NewRequest("POST", "https://vtopbeta.vit.ac.in/vtop/processLogin", PostData2)
 	req2.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	resp, err = client.Do(req2)
+	body,_=ioutil.ReadAll(resp.Body)
+	resp.Body.Close()
+	html = string(body)
+	//fmt.Println("The login's response")
+	//fmt.Println("HTML on login :- ",html)
 	return client
 
 }

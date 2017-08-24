@@ -44,7 +44,7 @@ type ExamContent struct {
 }
 
 func ShowExamScheduleVtopBeta(client http.Client, regNo, psswd, baseuri string) *MainExamSchedule2 {
-	fmt.Println("HERE")
+	//fmt.Println("HERE")
 
 	PostData3 := strings.NewReader("semesterSubId=VL2017181")
 	req3, _ := http.NewRequest("POST", "https://vtopbeta.vit.ac.in/vtop/examinations/doSearchExamScheduleForStudent", PostData3)
@@ -68,10 +68,10 @@ func ShowExamScheduleVtopBeta(client http.Client, regNo, psswd, baseuri string) 
 	var Exam string
 	cat1 := []ExamContent{}
 	cat2 := []ExamContent{}
-	fat := []ExamContent{}
+	fat := []E/xamContent{}
 	trow.Each(func(i int, td *goquery.Selection) {
 		td = td.Find("td")
-		fmt.Println("ESSS")
+		//fmt.Println("ESSS")
 		if td.Length() == 1 {
 			Exam = trim(td.Text())
 			//fmt.Println("EXAM IS", Exam)

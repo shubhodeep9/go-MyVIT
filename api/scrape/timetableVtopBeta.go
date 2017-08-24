@@ -2,7 +2,7 @@ package scrape
 
 import (
 	//"crypto/tls"
-	//"fmt"
+	"fmt"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"io/ioutil"
 	//"log"
@@ -57,6 +57,7 @@ func ShowTimetable(client http.Client, regNo, psswd, baseuri string) *Timetable3
 	req3, _ := http.NewRequest("POST", "https://vtopbeta.vit.ac.in/vtop/processViewTimeTable", PostData3)
 	req3.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	req3.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Max OS X 10_10_5) AppleWebKit (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36")
+	//fmt.Println("Post Data for the time table = ",PostData3)
 
 	resp, err := client.Do(req3)
 	var status string
