@@ -7,10 +7,8 @@
 package routers
 
 import (
-	"go-MyVIT/controllers"
-
-	"fmt"
 	"github.com/astaxie/beego"
+	"go-MyVIT/controllers"
 )
 
 func init() {
@@ -150,7 +148,6 @@ func init() {
 			),
 		),
 	)
-	fmt.Println("routers")
 	beego.AddNamespace(ns)
 	beego.AddNamespace(stats)
 }
