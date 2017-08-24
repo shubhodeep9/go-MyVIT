@@ -12,7 +12,6 @@ package api
 
 import (
 	"crypto/tls"
-	"fmt"
 	"github.com/alexjlockwood/gcm"
 	"github.com/patrickmn/go-cache"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf"
@@ -185,7 +184,6 @@ func ShowAttendance(regno, password, baseuri string) *scrape.Attendance2 {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	bow.SetTransport(tr)
-	fmt.Println("Yolo")
 	return scrape.ScrapeAttendance(client, regno, password, baseuri)
 }
 func ShowExamScheduleVtopBeta(regno, password, baseuri string) *scrape.MainExamSchedule2 {
@@ -194,7 +192,6 @@ func ShowExamScheduleVtopBeta(regno, password, baseuri string) *scrape.MainExamS
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	bow.SetTransport(tr)
-	fmt.Println("Yolo")
 	return scrape.ShowExamScheduleVtopBeta(client, regno, password, baseuri)
 }
 
