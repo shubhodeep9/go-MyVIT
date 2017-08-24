@@ -31,7 +31,7 @@ var cac *cache.Cache = cache.New(2*time.Minute, 30*time.Second)
 //Executable script to Login
 func LogIn(regno, password, baseuri string) *login.Response {
 	var bow *browser.Browser = surf.NewBrowser()
-    var client http.Client
+	var client http.Client
 	var tr *http.Transport = &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
@@ -170,44 +170,27 @@ func ShowTimetable2(regno, password, baseuri string) *scrape.Timetable2 {
 
 /* These are for vtopbeta2 */
 func ShowTimetable(regno, password, baseuri string) *scrape.Timetable3 {
-	var bow *browser.Browser = surf.NewBrowser()
-	var tr *http.Transport = &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	}
-	bow.SetTransport(tr)
-    client,_ :=  cacheSession.GetClient(cac,regno)
+	client, _ := cacheSession.GetClient(cac, regno)
 	return scrape.ShowTimetable(*client, regno, password, baseuri)
 }
 
 func ShowAttendance(regno, password, baseuri string) *scrape.Attendance2 {
-	var bow *browser.Browser = surf.NewBrowser()
-	var tr *http.Transport = &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	}
-	bow.SetTransport(tr)
-    client,_:=  cacheSession.GetClient(cac,regno)
+	client, _ := cacheSession.GetClient(cac, regno)
 	return scrape.ScrapeAttendance(*client, regno, password, baseuri)
 }
 
 func ShowExamScheduleVtopBeta(regno, password, baseuri string) *scrape.MainExamSchedule2 {
-	var bow *browser.Browser = surf.NewBrowser()
-	var tr *http.Transport = &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	}
-	bow.SetTransport(tr)
-    client,_:=  cacheSession.GetClient(cac,regno)
+	client, _ := cacheSession.GetClient(cac, regno)
 	return scrape.ShowExamScheduleVtopBeta(*client, regno, password, baseuri)
 }
 
-/* Till here */
 func ShowPersonalDetails(regno, password, baseuri string) *scrape.PersonalDetailsStruct {
-	var bow *browser.Browser = surf.NewBrowser()
-	var tr *http.Transport = &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	}
-	bow.SetTransport(tr)
-	return scrape.ShowPersonalDetails(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
+	client, _ := cacheSession.GetClient(cac, regno)
+	return scrape.ShowPersonalDetails(*client, regno, password, baseuri)
 }
+
+/* Till here */
+
 func ShowEducationalDetails(regno, password, baseuri string) *scrape.EducationalDetailsStruct {
 	var bow *browser.Browser = surf.NewBrowser()
 	var tr *http.Transport = &http.Transport{

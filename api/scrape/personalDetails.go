@@ -8,31 +8,33 @@ package scrape
 
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
-	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"go-MyVIT/api/status"
-	"os"
+	"io/ioutil"
+	"net/http"
+	"strings"
 )
 
 type general struct {
+	AppNo          string `json:"ApplNum"`
 	Name           string `json:"name"`
 	DOB            string `json:"dob"`
 	Gender         string `json:"gender"`
-	NativeLanguage string `json:"nativelang"`
+	NativeLanguage string `json:"native_lang"`
+	NativeState    string `json:"native_state"`
 	Nationality    string `json:"nationality"`
 	BloodGroup     string `json:"bloodGroup"`
 	VitMail        string `json:"vitmail"`
 	Hosteler       string `json:"hosteler"`
-}
-type hostelAddr struct {
-	BlockName string `json:'blockname"`
-	Room      string `json:'room"`
-	Mess      string `json:'mess"`
+	PhysicChal     string `json:"phy_challenged"`
+	Community      string `json:"community"`
+	Religion       string `json:"religion"`
+	Caste          string `json:"caste"`
+	AadharNumber   string `json:"aadhar_num"`
 }
 
 type school struct {
 	RegisterNumber string `json:"regno"`
-	AtmNo          string `json:"atmno"`
 	School         string `json:"school"`
+	Branch         string `json:"branch"`
 	Prog           string `json:"programme"`
 }
 
@@ -45,15 +47,15 @@ type permanentAddr struct {
 	Country      string `json:"country"`
 	PhoneNumber  string `json:"phoneno"`
 	MobileNumber string `json:"mobileno"`
-	EmailID      string `json:"emailid"`
+	EmailID      string `json:"email_id"`
+	FriendMob    string `json:"friend_mob"`
 }
 
 type PersonalDetailsStruct struct {
-	Status           status.StatusStruct `json:"status"`
-	General          general             `json:"general"`
-	Hostel           hostelAddr          `json:"hostel"`
-	School           school              `json:"school"`
-	PermanentAddress permanentAddr       `json:"permanentAddress"`
+	Status           string        `json:"status"`
+	General          general       `json:"general"`
+	School           school        `json:"school"`
+	PermanentAddress permanentAddr `json:"permanentAddress"`
 }
 
 /*
@@ -62,88 +64,86 @@ Calls NewLogin to login to academics,
 @param bow (surf Browser) registration_no password
 @return PersonalDetails struct
 */
-func ShowPersonalDetails(bow *browser.Browser, reg, baseuri string, found bool) *PersonalDetailsStruct {
-	sem := os.Getenv("SEM")
-	stat := status.Success()
+func ShowPersonalDetails(client http.Client, regNo, psswd, baseuri string) *PersonalDetailsStruct {
+	PersonalDetData := strings.NewReader("")
+	reqPer, _ := http.NewRequest("POST", "https://vtopbeta.vit.ac.in/vtop/studentsRecord/SearchRegnoStudent", PersonalDetData)
+	reqPer.Header.Add("Content-Type", "text/html;charset=UTF-8")
+	reqPer.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Max OS X 10_10_5) AppleWebKit (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36")
+
+	resp, err := client.Do(reqPer)
+	var status string
+	if err != nil {
+		status = "Failure"
+	} else {
+		status = "Success"
+	}
+
+	body, _ := ioutil.ReadAll(resp.Body)
+	resp.Body.Close()
+	html := string(body)
+	count := 0
 	var (
 		g  general
-		h  hostelAddr
 		so school
 		p  permanentAddr
 	)
-	cnt := 1
-	if !found {
-		stat = status.SessionError()
-	} else {
-
-		util := []string{}
-		bow.Open(baseuri + "/student/profile_personal_view.asp?sem=" + sem)
-		//Twice loading due to Redirect policy defined by academics.vit.ac.in
-		if bow.Open(baseuri+"/student/profile_personal_view.asp?sem="+sem) == nil {
-			table := bow.Find("table[width='720']")
-			table.Find("tr").Each(func(i int, s *goquery.Selection) {
-				td := s.Find("td")
-				if cnt > 1 && cnt <= 9 {
-					util = append(util, td.Eq(1).Text())
-					if cnt == 9 {
-						g = general{
-							Name:           util[0],
-							DOB:            util[1],
-							Gender:         util[2],
-							NativeLanguage: util[3],
-							Nationality:    util[4],
-							BloodGroup:     util[5],
-							VitMail:        util[6],
-							Hosteler:       util[7],
-						}
-						util = []string{}
+	doc, _ := goquery.NewDocumentFromReader(strings.NewReader((html)))
+	table := doc.Find("#1a .table")
+	trow := table.Find("tr")
+	temp := []string{}
+	trow.Each(func(i int, td *goquery.Selection) {
+		td = td.Find("td")
+		if td.Length() == 1 {
+			count += 1
+			if count > 1 {
+				if count == 2 {
+					g = general{
+						AppNo:          temp[0],
+						Name:           temp[1],
+						DOB:            temp[2],
+						Gender:         temp[3],
+						NativeLanguage: temp[4],
+						NativeState:    temp[5],
+						BloodGroup:     temp[6],
+						PhysicChal:     temp[7],
+						Community:      temp[8],
+						Religion:       temp[9],
+						Caste:          temp[10],
+						Nationality:    temp[11],
+						Hosteler:       temp[12],
+						AadharNumber:   temp[13],
 					}
-				} else if cnt > 10 && cnt <= 13 {
-					util = append(util, td.Eq(1).Text())
-					if cnt == 13 {
-						h = hostelAddr{
-							BlockName: util[0],
-							Room:      util[1],
-							Mess:      util[2],
-						}
-						util = []string{}
-					}
-				} else if cnt > 14 && cnt <= 18 {
-					util = append(util, td.Eq(1).Text())
-					if cnt == 18 {
-						so = school{RegisterNumber: util[0], AtmNo: util[1], School: util[2], Prog: util[3]}
-
-						util = []string{}
-					}
-				} else if cnt > 19 && cnt <= 28 {
-					util = append(util, td.Eq(1).Text())
-					if cnt == 28 {
-						p = permanentAddr{
-							Street:       util[0],
-							Area:         util[1],
-							City:         util[2],
-							Pincode:      util[3],
-							State:        util[4],
-							Country:      util[5],
-							PhoneNumber:  util[6],
-							MobileNumber: util[7],
-							EmailID:      util[8],
-						}
-						util = []string{}
-
+				} else if count == 3 {
+					so = school{
+						RegisterNumber: temp[0],
+						Prog:           temp[1],
+						Branch:         temp[2],
+						School:         temp[3],
 					}
 				}
 
-				cnt += 1
-			})
-
+				temp = []string{}
+			}
+		} else {
+			temp = append(temp, trim(td.Eq(1).Text()))
 		}
+	})
+	p = permanentAddr{
+		Street:       temp[0],
+		Area:         temp[1],
+		City:         temp[2],
+		State:        temp[3],
+		Country:      temp[4],
+		Pincode:      temp[5],
+		PhoneNumber:  temp[6],
+		MobileNumber: temp[7],
+		EmailID:      temp[8],
+		FriendMob:    temp[9],
 	}
 
 	return &PersonalDetailsStruct{
-		Status:           stat,
+		Status:           status,
 		General:          g,
-		Hostel:           h,
 		School:           so,
 		PermanentAddress: p,
 	}
