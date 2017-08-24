@@ -27,18 +27,18 @@ import (
 )
 
 var cac *cache.Cache = cache.New(2*time.Minute, 30*time.Second)
-var client http.Client
 
 //Executable script to Login
 func LogIn(regno, password, baseuri string) *login.Response {
 	var bow *browser.Browser = surf.NewBrowser()
+    var client http.Client
 	var tr *http.Transport = &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	bow.SetTransport(tr)
 	client = login.LoginVtopBeta(client, regno, password)
 
-	return login.NewLogin(bow, regno, password, baseuri, cac)
+	return login.NewLogin(bow, regno, password, baseuri, cac, &client)
 }
 
 /*
@@ -175,7 +175,8 @@ func ShowTimetable(regno, password, baseuri string) *scrape.Timetable3 {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	bow.SetTransport(tr)
-	return scrape.ShowTimetable(client, regno, password, baseuri)
+    client,_ :=  cacheSession.GetClient(cac,regno)
+	return scrape.ShowTimetable(*client, regno, password, baseuri)
 }
 
 func ShowAttendance(regno, password, baseuri string) *scrape.Attendance2 {
@@ -184,15 +185,18 @@ func ShowAttendance(regno, password, baseuri string) *scrape.Attendance2 {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	bow.SetTransport(tr)
-	return scrape.ScrapeAttendance(client, regno, password, baseuri)
+    client,_:=  cacheSession.GetClient(cac,regno)
+	return scrape.ScrapeAttendance(*client, regno, password, baseuri)
 }
+
 func ShowExamScheduleVtopBeta(regno, password, baseuri string) *scrape.MainExamSchedule2 {
 	var bow *browser.Browser = surf.NewBrowser()
 	var tr *http.Transport = &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 	bow.SetTransport(tr)
-	return scrape.ShowExamScheduleVtopBeta(client, regno, password, baseuri)
+    client,_:=  cacheSession.GetClient(cac,regno)
+	return scrape.ShowExamScheduleVtopBeta(*client, regno, password, baseuri)
 }
 
 /* Till here */
@@ -257,8 +261,8 @@ func CookieReturn(regno string) string {
 	if found {
 		cookies := val.(*cacheSession.MemCache)
 		result := ""
-		for i := range cookies.MemCookie {
-			result = result + cookies.MemCookie[i].Name + "=" + cookies.MemCookie[i].Value + ";"
+		for i := range cookies.MemCookieOld {
+			result = result + cookies.MemCookieOld[i].Name + "=" + cookies.MemCookieOld[i].Value + ";"
 		}
 		return result[:len(result)-1]
 	} else {

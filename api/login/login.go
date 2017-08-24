@@ -42,9 +42,10 @@ Creates a new StudLogin object and Starts logging in
 @return Response struct
 @param Registration_Number Password
 */
-func NewLogin(bow *browser.Browser, reg, pass, baseuri string, cac *cache.Cache) *Response {
+func NewLogin(bow *browser.Browser, reg, pass, baseuri string, cac *cache.Cache, client *http.Client) *Response {
+
 	stats := make(chan int)
-	go DoLogin(bow, reg, pass, stats, baseuri, cac)
+	go DoLogin(bow, reg, pass, stats, baseuri, cac, client)
 	success := <-stats
 	var stt status.StatusStruct
 
@@ -68,7 +69,7 @@ Using that session user is logged in.
 @param bow(surf Browser) registration_no password status(channel for goroutine)
 @return void
 */
-func DoLogin(bow *browser.Browser, reg, pass string, stats chan int, baseuri string, cac *cache.Cache) {
+func DoLogin(bow *browser.Browser, reg, pass string, stats chan int, baseuri string, cac *cache.Cache,  client *http.Client) {
 
 	if bow.Open("https://vtop.vit.ac.in/student/captcha.asp") != nil {
 		stats <- 2
@@ -90,7 +91,7 @@ func DoLogin(bow *browser.Browser, reg, pass string, stats chan int, baseuri str
 			home := baseuri + "/student/home.asp"
 			u := bow.Url().String()
 			if u == stud_home || u == home {
-				cac.Set(reg, &cacheSession.MemCache{Regno: reg, MemCookie: bow.SiteCookies()}, cache.DefaultExpiration)
+				cac.Set(reg, &cacheSession.MemCache{Regno: reg, MemCookieOld: bow.SiteCookies(), BetaClient: client}, cache.DefaultExpiration)
 				stats <- 1
 			} else {
 				stats <- 0
@@ -105,6 +106,7 @@ Uses a different captcha parser
 */
 
 func LoginVtopBeta(client http.Client, regNo, psswd string) http.Client {
+
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
@@ -157,15 +159,15 @@ func LoginVtopBeta(client http.Client, regNo, psswd string) http.Client {
 	postData.Add("passwd", ""+psswd)
 	postData.Add("captchaCheck", captcha)
 	//fmt.Println("Post data = ",postData)
-	PostData2 := strings.NewReader("uname="+regNo+"&passwd="+psswd+"&captchaCheck=" + captcha)
+	PostData2 := strings.NewReader("uname=" + regNo + "&passwd=" + psswd + "&captchaCheck=" + captcha)
 	req2, _ := http.NewRequest("POST", "https://vtopbeta.vit.ac.in/vtop/processLogin", PostData2)
 	req2.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	resp, err = client.Do(req2)
-	body,_=ioutil.ReadAll(resp.Body)
+	body, _ = ioutil.ReadAll(resp.Body)
 	resp.Body.Close()
 	html = string(body)
 	//fmt.Println("The login's response")
 	//fmt.Println("HTML on login :- ",html)
 	return client
-
+	//return client.Jar
 }

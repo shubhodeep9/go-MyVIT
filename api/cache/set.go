@@ -7,15 +7,27 @@ import (
 )
 
 type MemCache struct {
-	Regno     string
-	MemCookie []*http.Cookie
+	Regno        string
+	MemCookieOld []*http.Cookie
+	BetaClient *http.Client
 }
 
 func SetSession(bow *browser.Browser, cac *cache.Cache, regno string) bool {
 	cacheval, found := cac.Get(regno)
 	if found {
 		cachevalue := cacheval.(*MemCache)
-		bow.SetSiteCookies(cachevalue.MemCookie)
+		bow.SetSiteCookies(cachevalue.MemCookieOld)
 	}
 	return found
 }
+
+func GetClient(cac *cache.Cache, regno string) (*http.Client,bool) {
+    cacheval, found := cac.Get(regno)
+    if found {
+        cachevalue := cacheval.(*MemCache)
+        return cachevalue.BetaClient,true
+    }
+    return &http.Client{},false
+}
+
+        
