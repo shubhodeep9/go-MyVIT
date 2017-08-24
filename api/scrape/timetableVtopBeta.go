@@ -96,7 +96,7 @@ func ShowTimetable(client http.Client, regNo, psswd, baseuri string) *Timetable3
 				code = code + "_SS"
 				//fmt.Println("SS baby")
 			}else{
-                cod = code + "_LO"
+                code = code + "_LO"
             }
 
 			conts[code] = Contents3{
