@@ -2,7 +2,7 @@ package scrape
 
 import (
 	//"crypto/tls"
-	"fmt"
+	//"fmt"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"io/ioutil"
 	//"log"

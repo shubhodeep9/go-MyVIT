@@ -2,7 +2,7 @@ package scrape
 
 import (
 	//"crypto/tls"
-	"fmt"
+	//"fmt"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"go-MyVIT/api/status"
 	"io/ioutil"
@@ -68,7 +68,7 @@ func ShowExamScheduleVtopBeta(client http.Client, regNo, psswd, baseuri string) 
 	var Exam string
 	cat1 := []ExamContent{}
 	cat2 := []ExamContent{}
-	fat := []E/xamContent{}
+	fat := []ExamContent{}
 	trow.Each(func(i int, td *goquery.Selection) {
 		td = td.Find("td")
 		//fmt.Println("ESSS")
