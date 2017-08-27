@@ -5,7 +5,6 @@ timetable2 controller
 package controllers
 
 import (
-	//"fmt"
 	"github.com/astaxie/beego"
 	"go-MyVIT/api"
 )
@@ -21,7 +20,6 @@ type Timetable2Controller struct {
 // @Failure 403 parameters missing
 // @router / [post]
 func (o *Timetable2Controller) Post() {
-	//fmt.Println("controller")
 	regNo := o.Input().Get("regNo")
 	psswd := o.Input().Get("psswd")
 	campus := o.Ctx.Input.Param(":campus")

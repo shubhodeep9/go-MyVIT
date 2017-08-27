@@ -1,17 +1,9 @@
 package scrape
 
 import (
-	//"crypto/tls"
-	//"fmt"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"io/ioutil"
-	//"log"
 	"net/http"
-	//"net/http/cookiejar"
-	//"net/url"
-	//"os"
-	//"os/exec"
-	//"path/filepath"
 	"strings"
 )
 
@@ -95,9 +87,9 @@ func ShowTimetable(client http.Client, regNo, psswd, baseuri string) *Timetable3
 			} else if ctype == "SS" {
 				code = code + "_SS"
 				//fmt.Println("SS baby")
-			}else{
-                code = code + "_LO"
-            }
+			} else {
+				code = code + "_LO"
+			}
 
 			conts[code] = Contents3{
 				Class_number:  trim(td.Eq(1).Text()),

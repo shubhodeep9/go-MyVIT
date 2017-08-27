@@ -159,19 +159,16 @@ func ShowExamSchedule(regno, password, baseuri string) *scrape.MainExamSchedule 
 	bow.SetTransport(tr)
 	return scrape.ExmSchedule(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
 }
-func ShowTimetable2(regno, password, baseuri string) *scrape.Timetable2 {
-	var bow *browser.Browser = surf.NewBrowser()
-	var tr *http.Transport = &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	}
-	bow.SetTransport(tr)
-	return scrape.ShowTimetable2(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
-}
 
 /* These are for vtopbeta2 */
 func ShowTimetable(regno, password, baseuri string) *scrape.Timetable3 {
 	client, _ := cacheSession.GetClient(cac, regno)
 	return scrape.ShowTimetable(*client, regno, password, baseuri)
+}
+
+func ShowTimetable2(regno, password, baseuri string) *scrape.Timetable2 {
+	client, _ := cacheSession.GetClient(cac, regno)
+	return scrape.ShowTimetable2(*client, regno, password, baseuri)
 }
 
 func ShowAttendance(regno, password, baseuri string) *scrape.Attendance2 {
