@@ -11,6 +11,7 @@
 package scrape
 
 import (
+	"fmt"
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
 	"io/ioutil"
 	"net/http"
@@ -134,15 +135,18 @@ func ShowTimetable2(client http.Client, regNo, psswd, baseuri string) *Timetable
 			temp.Day = td.Eq(0).Text()
 			lC := 0 // used for not taking lunch
 			for x := 2; x <= 16; x++ {
-				if x > 8 {
+				m := 0
+				if x+2 > 8 {
 					lC = 1
 				} else {
 					lC = 0
+					m = 1
 				}
-				a := toKey(x - lC - 2)
+				a := toKey(x - 2 - lC + m)
 				if len(td.Eq(x).Text()) > 4 && x != 8 {
 					switch a {
 					case "One":
+						fmt.Println(m, x, x-2-lC+m, "SD")
 						temp1.One = td.Eq(x).Text()
 					case "Two":
 						temp1.Two = td.Eq(x).Text()
