@@ -191,16 +191,13 @@ func ShowEducationalDetails(regno, password, baseuri string) *scrape.Educational
 	return scrape.ShowEducationalDetails(*client, regno, password, baseuri)
 }
 
+func ShowFamilyDetails(regno, password, baseuri string) *scrape.FamilyDetailsStruct {
+	client, _ := cacheSession.GetClient(cac, regno)
+	return scrape.ShowFamilyDetails(*client, regno, password, baseuri)
+}
+
 /* Till here */
 
-func ShowFamilyDetails(regno, password, baseuri string) *scrape.FamilyDetailsStruct {
-	var bow *browser.Browser = surf.NewBrowser()
-	var tr *http.Transport = &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	}
-	bow.SetTransport(tr)
-	return scrape.ShowFamilyDetails(bow, regno, baseuri, cacheSession.SetSession(bow, cac, regno))
-}
 func RoomAllot(regno, password, baseuri string) *scrape.RoomAllotStruct {
 	var bow *browser.Browser = surf.NewBrowser()
 	var tr *http.Transport = &http.Transport{

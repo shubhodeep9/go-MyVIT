@@ -10,9 +10,9 @@ package scrape
 
 import (
 	"go-MyVIT/api/Godeps/_workspace/src/github.com/PuerkitoBio/goquery"
-	"go-MyVIT/api/Godeps/_workspace/src/github.com/headzoo/surf/browser"
-	"go-MyVIT/api/status"
-	"os"
+	"io/ioutil"
+	"net/http"
+	"strings"
 )
 
 type FamilyStruct struct {
@@ -29,12 +29,23 @@ type FamilyStruct struct {
 	StateName       string `json:"stateName"`
 	Pincode         string `json:"pincode"`
 	PhoneNo         string `json:"phoneNo"`
+	Designation     string `json:"designation"`
+	GuardianInfo    string `json:"guardian_info"`
+}
+type GeneralFamStruct struct {
+	Nob      string `json:"NumOfBros"`
+	Nos      string `json:"NumOfSis"`
+	SibVit   string `json:"BorS_InVit"`
+	StudDet  string `json:"studying_details"`
+	SibVited string `json:"BorS_wasInVit"`
+	StudDet2 string `json:"studying_details2"`
 }
 
 type FamilyDetailsStruct struct {
-	Status status.StatusStruct `json:"status"`
-	Dad    FamilyStruct        `json:"father"`
-	Mom    FamilyStruct        `json:"mother"`
+	Status  string           `json:"status"`
+	Dad     FamilyStruct     `json:"father"`
+	Mom     FamilyStruct     `json:"mother"`
+	General GeneralFamStruct `json:"general"`
 }
 
 /*
@@ -43,78 +54,101 @@ Calls NewLogin to login to academics,
 @param bow (surf Browser) registration_no password
 @return FamilyDetailsStruct struct
 */
-func ShowFamilyDetails(bow *browser.Browser, reg, baseuri string, found bool) *FamilyDetailsStruct {
+func ShowFamilyDetails(client http.Client, regNo, psswd, baseuri string) *FamilyDetailsStruct {
+
+	dummyData := strings.NewReader("")
+	reqFam, _ := http.NewRequest("POST", "https://vtopbeta.vit.ac.in/vtop/studentsRecord/SearchRegnoStudent", dummyData)
+	reqFam.Header.Add("Content-Type", "text/html;charset=UTF-8")
+	reqFam.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Max OS X 10_10_5) AppleWebKit (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36")
+
+	resp, err := client.Do(reqFam)
+	var status string
+	if err != nil {
+		status = "Failure"
+	} else {
+		status = "Success"
+	}
+
+	body, _ := ioutil.ReadAll(resp.Body)
+	resp.Body.Close()
+	html := string(body)
 	var (
 		dad FamilyStruct
 		mom FamilyStruct
+		gen GeneralFamStruct
 	)
-	sem := os.Getenv("SEM")
-	sem = ""
-	cnt := 1
-	sem = ""
-	stat := status.Success()
-	if !found {
-		stat = status.SessionError()
-	} else {
-		util := []string{}
-		bow.Open(baseuri + "/student/profile_family_view.asp?sem=" + sem)
-		//Twice loading due to Redirect policy defined by academics.vit.ac.in
-		if bow.Open(baseuri+"/student/profile_family_view.asp?sem="+sem) == nil {
-			table := bow.Find("table[width='600']")
-			table.Find("tr").Each(func(i int, s *goquery.Selection) {
-				td := s.Find("td")
-				if cnt > 1 && cnt <= 14 {
-					util = append(util, td.Eq(1).Text())
-					if cnt == 14 {
-						dad = FamilyStruct{
-							Name:            util[0],
-							Qualification:   util[1],
-							Occupation:      util[2],
-							Organization:    util[3],
-							EmpId:           util[4],
-							MobileNo:        util[5],
-							EmailID:         util[6],
-							AnnualIncome:    util[7],
-							OfficialAddress: util[8],
-							CityName:        util[9],
-							StateName:       util[10],
-							Pincode:         util[11],
-							PhoneNo:         util[12],
-						}
-						util = []string{}
-					} else if cnt > 15 && cnt <= 28 {
-						util = append(util, td.Eq(1).Text())
-						if cnt == 28 {
-							mom = FamilyStruct{
-								Name:            util[0],
-								Qualification:   util[1],
-								Occupation:      util[2],
-								Organization:    util[3],
-								EmpId:           util[4],
-								MobileNo:        util[5],
-								EmailID:         util[6],
-								AnnualIncome:    util[7],
-								OfficialAddress: util[8],
-								CityName:        util[9],
-								StateName:       util[10],
-								Pincode:         util[11],
-								PhoneNo:         util[12],
-							}
+	doc, _ := goquery.NewDocumentFromReader(strings.NewReader((html)))
+	table := doc.Find("#3a .table")
+	trow := table.Find("tr")
+	util := []string{}
+	trow.Each(func(i int, td *goquery.Selection) {
+		td = td.Find("td")
+		if i > 0 && i <= 6 {
+			util = append(util, td.Eq(1).Text())
+			if i == 6 {
+				gen = GeneralFamStruct{
+					Nob:      trim(util[0]),
+					Nos:      trim(util[1]),
+					SibVit:   trim(util[2]),
+					StudDet:  trim(util[3]),
+					SibVited: trim(util[4]),
+					StudDet2: trim(util[5]),
+				}
+				util = []string{}
 
-						}
-					}
+			}
+		} else if i > 7 && i <= 21 {
+			util = append(util, td.Eq(1).Text())
+			if i == 21 {
+				dad = FamilyStruct{
+					Name:            util[0],
+					Qualification:   util[1],
+					Occupation:      util[2],
+					Organization:    util[3],
+					EmpId:           util[4],
+					MobileNo:        util[5],
+					EmailID:         util[6],
+					AnnualIncome:    util[7],
+					OfficialAddress: util[8],
+					CityName:        util[9],
+					StateName:       util[10],
+					Pincode:         util[11],
+					PhoneNo:         util[12],
+					Designation:     util[13],
+				}
+				util = []string{}
+			}
+		} else if i > 22 && i <= 37 {
+			util = append(util, td.Eq(1).Text())
+			if i == 37 {
+				mom = FamilyStruct{
+					Name:            util[0],
+					Qualification:   util[1],
+					Occupation:      util[2],
+					Organization:    util[3],
+					EmpId:           util[4],
+					MobileNo:        util[5],
+					EmailID:         util[6],
+					AnnualIncome:    util[7],
+					OfficialAddress: util[8],
+					CityName:        util[9],
+					StateName:       util[10],
+					Pincode:         util[11],
+					PhoneNo:         util[12],
+					Designation:     util[13],
+					GuardianInfo:    util[14],
 				}
 
-				cnt += 1
-			})
-
+			}
 		}
-	}
+
+	})
 
 	return &FamilyDetailsStruct{
-		Status: stat,
-		Dad:    dad,
-		Mom:    mom,
+		Status:  status,
+		Dad:     dad,
+		Mom:     mom,
+		General: gen,
 	}
 
 }
