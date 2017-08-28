@@ -116,7 +116,7 @@ func ScrapeAttendance(client http.Client, regNo, psswd, baseuri string) *Attenda
 		}
 		if i > 0 {
 			tempDet := Details(td, client)
-			code := trim(td.Eq(2).Text())
+			code := trim(td.Eq(1).Text())
 			ctype := trim(td.Eq(3).Text())
 			if ctype == "ETH" {
 				code = code + "_ETH"

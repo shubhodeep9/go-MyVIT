@@ -58,7 +58,7 @@ func ShowAttendanceDetails(client http.Client, regNo, psswd, baseuri string) *At
 		var details []SubjectAttendanceDetails2
 		td := tr.Find("td")
 		if td.Length() > 1 {
-			code := trim(td.Eq(2).Text())
+			code := trim(td.Eq(1).Text())
 			ctype := trim(td.Eq(3).Text())
 			if ctype == "ETH" {
 				code = code + "_ETH"
