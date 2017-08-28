@@ -134,6 +134,13 @@ func init() {
 				&controllers.AttendanceController{},
 			),
 		),
+
+		beego.NSNamespace("/attendanceDet",
+			beego.NSInclude(
+				// controllers/examSchedule.go
+				&controllers.AttendanceDetailsController{},
+			),
+		),
 	)
 	stats := beego.NewNamespace("/admin",
 		beego.NSNamespace("/stats",

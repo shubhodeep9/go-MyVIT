@@ -176,6 +176,11 @@ func ShowAttendance(regno, password, baseuri string) *scrape.Attendance2 {
 	return scrape.ScrapeAttendance(*client, regno, password, baseuri)
 }
 
+func ShowAttendanceDetails(regno, password, baseuri string) *scrape.AttendanceDetails {
+	client, _ := cacheSession.GetClient(cac, regno)
+	return scrape.ShowAttendanceDetails(*client, regno, password, baseuri)
+}
+
 func ShowExamScheduleVtopBeta(regno, password, baseuri string) *scrape.MainExamSchedule2 {
 	client, _ := cacheSession.GetClient(cac, regno)
 	return scrape.ShowExamScheduleVtopBeta(*client, regno, password, baseuri)
