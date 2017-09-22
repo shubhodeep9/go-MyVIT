@@ -32,8 +32,8 @@ $ bee run
 </ul>
 
 ## Contributors
-<a href="https://github.com/UjjwalAyyangar">Ujjwal Ayyangar</a>
-<a href="https://github.com/shubhodeep9">Shubhodeep Mukherjee</a><br />
+<a href="https://github.com/shubhodeep9">Shubhodeep Mukherjee</a> and <a href="https://github.com/UjjwalAyyangar">Ujjwal Ayyangar</a><br/>
+
 
 ## Credits
 Twenty One Pilots, without their songs this project would have been a disaster.
