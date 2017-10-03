@@ -43,7 +43,7 @@ type SubjectAttendance struct {
 func Details(td *goquery.Selection, client http.Client) []SubjectAttendanceDetails {
 	var details []SubjectAttendanceDetails
 	slot := strings.Split(trim(td.Eq(4).Text()), "+")
-	a, _ := td.Eq(9).Html()
+	a, _ := td.Eq(10).Html()
 	t_classID := strings.Split(a, "&#39") // Temporary classID store
 	if len(t_classID) > 1 {
 		classID := string(t_classID[1][1:])

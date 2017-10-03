@@ -28,6 +28,7 @@ func main() {
 	if err == nil {
 		beego.BConfig.Listen.HTTPPort = port
 	}
+    
 	if os.Getenv("DEVENV") == "remote" {
 		beego.BConfig.Listen.EnableHTTPS = true
 		beego.BConfig.Listen.HTTPSPort = 10443
