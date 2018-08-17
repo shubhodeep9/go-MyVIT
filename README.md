@@ -13,10 +13,12 @@ curl https://myffcs.in:10443/campus/[campus]/refresh --data "regNo=[reg]&psswd=[
 curl https://myffcs.in:10443/campus/vellore/coursepage/data --data "regNo=[reg]&psswd=[psswd]&crs=[crscode]&slt=[slots]&fac=[facid]"
 ```
 ## Custom installation
-Dependencies are already satisfied in Godep folder in api.<br />
-Extra dependency to be installed: <br />
+To install dependencies
 ```sh
-$ go get
+# install godep
+$ curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+# use godep to install dependencies
+$ dep ensure
 ```
 Execution<br />
 ```sh
